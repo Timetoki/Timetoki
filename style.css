@@ -1,0 +1,264 @@
+/* =========================================================
+   +86 情绪接听 · 共用样式表
+   灰粉低饱和 · 等宽 · 千禧梦核 · 缓慢腐坏
+   ========================================================= */
+
+:root{
+  --bg:        #d5c3c7;   /* 蒙尘的粉灰底 */
+  --bg-panel:  #cbb6bb;   /* 略深的面板 */
+  --bg-sink:   #c0a9af;   /* 凹陷区 */
+  --ink:       #2f2a2d;   /* 主文字，不用纯黑 */
+  --ink-soft:  #5a4f54;   /* 次级文字 */
+  --ghost:     #c6b4b9;   /* 几乎看不见的埋藏文字 */
+  --line:      #a58d94;   /* 分隔线 */
+  --link:      #7a555d;   /* 干枯的紫褐 */
+  --link-dead: #8a6f74;   /* 死链 */
+  --warn:      #8f5a5a;   /* 损坏/告警的暗红灰 */
+  --ok:        #5f6f63;   /* [COMPLETE] 的灰绿 */
+  --tape:      #b79aa0;   /* 波形/胶带色 */
+  --mono: "Courier New", "Courier", "Nimbus Mono PS", "DejaVu Sans Mono", monospace;
+}
+
+*{ box-sizing:border-box; }
+
+html{ scroll-behavior:auto; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--mono);
+  font-size:15px;
+  line-height:1.85;
+  letter-spacing:.2px;
+  -webkit-font-smoothing:none;
+  text-rendering:optimizeLegibility;
+}
+
+/* 颗粒噪点覆盖层 —— 固定在视口，轻微，不闪 */
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:9998;
+  pointer-events:none;
+  opacity:.055;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* 边缘暗角 */
+body::after{
+  content:"";
+  position:fixed; inset:0; z-index:9997;
+  pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(60,45,50,.28) 100%);
+}
+
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:34px 22px 120px;
+  position:relative; z-index:1;
+}
+
+/* ---------- 站头 / 导航 ---------- */
+.masthead{
+  border-bottom:1px double var(--line);
+  padding-bottom:14px;
+  margin-bottom:8px;
+}
+.masthead .num{
+  font-size:13px; color:var(--ink-soft); letter-spacing:1px;
+}
+.masthead h1.site{
+  font-size:19px; font-weight:normal; margin:6px 0 2px;
+  letter-spacing:1px;
+}
+.masthead .site small{ color:var(--ink-soft); font-size:12px; }
+
+nav.menu{
+  font-size:13px; color:var(--ink-soft);
+  margin:14px 0 30px; line-height:2.2;
+}
+nav.menu a{ white-space:nowrap; }
+nav.menu .sep{ color:var(--line); margin:0 6px; }
+
+/* ---------- 链接 ---------- */
+a{
+  color:var(--link);
+  text-decoration:none;
+  border-bottom:1px dotted var(--link);
+  display:inline-block;
+  transition:transform .04s linear;
+}
+a:hover{ transform:translate(0.5px,-0.5px) skewX(-1.5deg); color:#63444b; }
+a:active{ transform:translate(1px,1px); }
+a:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+a.dead{ color:var(--link-dead); border-bottom-style:dashed; }
+a.dead::after{ content:" ↯"; font-size:.8em; color:var(--warn); }
+
+/* ---------- 埋藏文字 ---------- */
+.ghost{
+  color:var(--ghost);
+  animation:breathe 11s ease-in-out infinite;
+}
+.ghost a{ color:var(--ghost); border-bottom-color:var(--ghost); }
+@keyframes breathe{
+  0%,100%{ opacity:.75; } 45%{ opacity:.28; } 55%{ opacity:.5; }
+}
+
+/* ---------- 标题层级 ---------- */
+h2.sec{
+  font-size:16px; font-weight:normal; letter-spacing:.6px;
+  margin:40px 0 4px; padding-bottom:6px;
+  border-bottom:1px solid var(--line);
+}
+h3.sub{ font-size:14px; font-weight:normal; color:var(--ink-soft); margin:26px 0 6px; }
+p{ margin:0 0 16px; }
+.lead{ color:var(--ink); }
+.muted{ color:var(--ink-soft); }
+hr.rule{ border:0; border-top:1px solid var(--line); margin:30px 0; }
+hr.dotted{ border:0; border-top:1px dashed var(--line); margin:24px 0; }
+
+/* ---------- 状态条 / 走马灯（缓慢，不闪） ---------- */
+.ticker{
+  overflow:hidden; white-space:nowrap;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  background:var(--bg-panel);
+  font-size:12px; color:var(--ink-soft);
+  padding:5px 0; margin:22px 0;
+}
+.ticker span{
+  display:inline-block; padding-left:100%;
+  animation:slide 46s linear infinite;
+}
+.ticker b{ font-weight:normal; color:var(--warn); margin:0 26px; }
+@keyframes slide{ to{ transform:translateX(-100%); } }
+
+/* ---------- 面板 / 引文 ---------- */
+.panel{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  padding:16px 18px; margin:20px 0;
+}
+blockquote.creed{
+  margin:26px 0; padding:2px 0 2px 16px;
+  border-left:3px solid var(--line);
+  color:var(--ink);
+}
+blockquote.creed p{ margin:0 0 8px; }
+
+/* ---------- 归档表 ---------- */
+table.archive{
+  width:100%; border-collapse:collapse; font-size:13px; margin:18px 0;
+}
+table.archive th{
+  text-align:left; font-weight:normal; color:var(--ink-soft);
+  border-bottom:1px solid var(--line); padding:6px 8px;
+}
+table.archive td{
+  padding:7px 8px; border-bottom:1px dotted var(--line);
+  vertical-align:top;
+}
+table.archive tr:hover td{ background:var(--bg-panel); }
+
+.tag{
+  font-size:11px; padding:1px 6px; border:1px solid currentColor;
+  letter-spacing:.5px; white-space:nowrap;
+}
+.tag.ok{ color:var(--ok); }
+.tag.partial{ color:var(--warn); }
+.tag.corrupt{ color:var(--warn); background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(143,90,90,.12) 3px,rgba(143,90,90,.12) 6px); }
+.tag.silent{ color:var(--ink-soft); }
+
+/* ---------- 通话残片 ---------- */
+.transcript{ font-size:14px; margin:18px 0; }
+.transcript .caller{ color:var(--ink); margin:2px 0; }
+.transcript .op{ color:var(--ink-soft); margin:2px 0 14px; }
+.transcript .op.late{ color:var(--ghost); font-style:normal; }
+.transcript .stamp{ color:var(--link); font-size:12px; }
+.redacted{ background:var(--ink); color:var(--ink); padding:0 2px; user-select:none; }
+.redacted:hover{ color:var(--bg); }
+.blank{ display:inline-block; min-width:5em; border-bottom:1px dotted var(--line); }
+.glitch{ color:var(--warn); letter-spacing:1px; }
+.wave{
+  height:22px; margin:6px 0 16px;
+  background:
+    repeating-linear-gradient(90deg,var(--tape) 0 1px,transparent 1px 4px);
+  -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+          mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  opacity:.6;
+}
+.wave.flat{ background:linear-gradient(var(--tape),var(--tape)); background-size:100% 1px; background-repeat:no-repeat; background-position:center; }
+
+/* ---------- 图片占位 ---------- */
+figure{ margin:22px 0; }
+.photo{
+  aspect-ratio:4/3;
+  background:
+    radial-gradient(80% 60% at 40% 35%, #b9a7ac, #8f7c82 70%, #6f5f65 100%);
+  filter:grayscale(.7) contrast(.8) blur(1.1px);
+  border:1px solid var(--line);
+  position:relative;
+}
+.photo::after{
+  content:"";
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity:.18; mix-blend-mode:overlay;
+}
+.photo.missing{
+  filter:none; background:var(--bg-sink);
+  display:flex; align-items:center; justify-content:center;
+}
+.photo.missing::before{
+  content:"image missing";
+  color:var(--ink-soft); font-size:12px; letter-spacing:1px;
+}
+.photo.missing::after{ display:none; }
+figcaption{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
+
+/* ---------- 页脚 ---------- */
+footer.foot{
+  margin-top:70px; padding-top:16px;
+  border-top:1px solid var(--line);
+  font-size:12px; color:var(--ink-soft); line-height:1.9;
+}
+footer.foot .faint{ color:var(--ghost); }
+
+/* ---------- 贩售机词条 ---------- */
+ul.slots{ list-style:none; padding:0; margin:16px 0; }
+ul.slots li{
+  border-bottom:1px dotted var(--line);
+  padding:8px 4px; font-size:13px;
+  display:flex; justify-content:space-between; gap:12px;
+}
+ul.slots li .price{ color:var(--ink-soft); white-space:nowrap; }
+ul.slots li.out{ color:var(--ghost); }
+ul.slots li.out .price::after{ content:" 售罄"; color:var(--warn); }
+
+/* ---------- 展品（作品）---------- */
+.exhibit{
+  border:1px solid var(--line); background:var(--bg-panel);
+  padding:16px 18px; margin:18px 0;
+}
+.exhibit .no{ font-size:12px; color:var(--link); letter-spacing:1px; }
+.exhibit h3{ margin:4px 0 8px; font-size:15px; font-weight:normal; }
+.exhibit .card{ font-size:12px; color:var(--ink-soft); margin-top:10px; }
+.exhibit .fill{ color:var(--warn); }
+
+/* ---------- 关于页：向下漂移 ---------- */
+.drift p{ transition:transform .2s linear; }
+
+/* ---------- 响应式 ---------- */
+@media (max-width:560px){
+  body{ font-size:14px; }
+  .wrap{ padding:24px 15px 90px; }
+  nav.menu{ font-size:12px; }
+}
+
+/* ---------- 减少动态 ---------- */
+@media (prefers-reduced-motion:reduce){
+  .ghost{ animation:none; opacity:.5; }
+  .ticker span{ animation:none; padding-left:0; }
+  a:hover{ transform:none; }
+  .drift p{ transform:none !important; }
+}
