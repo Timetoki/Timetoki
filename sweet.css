@@ -71,13 +71,14 @@ body::after{
   transform:rotate(-4deg); display:inline-block;
 }
 .hero h1{
-  font-family:var(--hand); font-weight:400; line-height:1.05;
-  font-size:clamp(40px,11vw,78px); margin:2px 0 4px; color:var(--ink);
+  font-family:var(--hand); font-weight:400; line-height:1.12;
+  font-size:clamp(34px,7.4vw,58px); margin:2px 0 4px; color:var(--ink);
   /* 彩色描边贴纸感 */
   text-shadow:
      3px 3px 0 var(--pink),
      6px 6px 0 var(--blue);
 }
+.hero h1 .hh{ color:var(--pink-hot); text-shadow:2px 2px 0 var(--blue); }
 .hero .sub{
   font-family:var(--hand); font-size:clamp(18px,4vw,26px);
   color:var(--pink-hot); transform:rotate(1.5deg); display:inline-block;
@@ -157,6 +158,32 @@ a.dead:hover{ color:var(--corrupt); }
   color:var(--ink-soft); font-size:13px; line-height:1.6;
 }
 
+/* ---------------- 顶部六格图片墙 ---------------- */
+.gallery{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+  margin:14px 0 6px;
+}
+.gcell{
+  position:relative; aspect-ratio:1/1; background:#fff;
+  border:3px solid var(--ink); border-radius:12px 8px 12px 8px;
+  box-shadow:3px 4px 0 rgba(44,37,48,.16); overflow:hidden;
+  transform:rotate(-1.4deg);
+}
+.gcell:nth-child(2n){ transform:rotate(1.6deg); box-shadow:3px 4px 0 var(--blue); }
+.gcell:nth-child(3n){ transform:rotate(-.6deg); box-shadow:3px 4px 0 var(--yellow); }
+.gcell img{ display:block; width:100%; height:100%; object-fit:cover; }
+/* 图未放时的占位（显示将来的文件路径） */
+.gcell .ph{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; gap:6px;
+  background:repeating-linear-gradient(45deg,var(--cream-2) 0 12px,#ffdcec 12px 24px);
+  color:var(--ink-soft); font-family:var(--mono); font-size:11px; line-height:1.5;
+}
+.gcell .ph b{ font-family:var(--hand); font-size:19px; color:var(--pink-hot); font-weight:400; }
+@media (max-width:560px){
+  .gallery{ grid-template-columns:repeat(2,1fr); gap:9px; }
+}
+
 /* ---------------- 短语贴纸（超现实词条做成糖果 chip） ---------------- */
 .chips{ display:flex; flex-wrap:wrap; gap:10px 12px; margin:22px 0; }
 .chip{
@@ -216,6 +243,70 @@ footer.foot{
   font-family:var(--mono); font-size:12px; color:var(--ink-soft); line-height:1.9;
 }
 footer.foot .faint{ color:var(--rot); }
+
+/* ---------------- 归档 / 记录（甜壳里的冷机器：糖果容器 + 等宽内容） ---------------- */
+.panel{
+  background:#fffdf6; border:2.5px dashed var(--pink); border-radius:12px;
+  padding:14px 16px; margin:20px 0; box-shadow:3px 4px 0 rgba(255,179,209,.4);
+}
+.panel.mono{ font-family:var(--mono); font-size:13px; color:var(--rot-deep); }
+
+table.archive{ width:100%; border-collapse:collapse; font-family:var(--mono);
+  font-size:13px; margin:18px 0; }
+table.archive th{ text-align:left; font-family:var(--hand); font-weight:400;
+  font-size:17px; color:var(--pink-hot); border-bottom:2px dotted var(--pink);
+  padding:6px 8px; }
+table.archive td{ padding:8px 8px; border-bottom:1.5px dotted var(--pink);
+  vertical-align:top; color:var(--ink); }
+table.archive tr:hover td{ background:#fff2f8; }
+
+.tag{ font-family:var(--mono); font-size:11px; padding:1px 7px;
+  border:2px solid currentColor; border-radius:8px; white-space:nowrap; }
+.tag.ok{ color:#4fae7a; }
+.tag.partial{ color:var(--corrupt); }
+.tag.corrupt{ color:var(--corrupt);
+  background:repeating-linear-gradient(45deg,transparent 0 3px,rgba(143,90,106,.12) 3px 6px); }
+.tag.silent{ color:var(--rot); }
+
+.transcript{ font-size:15px; margin:18px 0; }
+.transcript .caller{ color:var(--ink); margin:2px 0; }
+.transcript .op{ color:var(--ink-soft); margin:2px 0 14px; }
+.transcript .op.late{ color:var(--rot); }
+.transcript .stamp{ font-family:var(--mono); color:var(--pink-hot); font-size:12px; }
+.blank{ display:inline-block; min-width:5em; border-bottom:2px dotted var(--rot); }
+.glitch{ font-family:var(--mono); color:var(--corrupt); letter-spacing:1px; }
+.wave{ height:22px; margin:6px 0 16px;
+  background:repeating-linear-gradient(90deg,var(--rot) 0 1px,transparent 1px 4px);
+  -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+          mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  opacity:.6; }
+.wave.flat{ background:linear-gradient(var(--rot),var(--rot));
+  background-size:100% 1px; background-repeat:no-repeat; background-position:center; }
+
+.exhibit{ background:#fff; border:3px solid var(--ink); border-radius:14px 10px 14px 10px;
+  padding:16px 18px; margin:20px 0; box-shadow:3px 5px 0 var(--blue); transform:rotate(-.6deg); }
+.exhibit:nth-of-type(2n){ box-shadow:3px 5px 0 var(--pink); transform:rotate(.7deg); }
+.exhibit .no{ font-family:var(--mono); font-size:12px; color:var(--pink-hot); letter-spacing:1px; }
+.exhibit h3{ font-family:var(--hand); margin:4px 0 8px; font-size:24px; font-weight:400; }
+.exhibit .card{ font-family:var(--mono); font-size:12px; color:var(--rot-deep); margin-top:10px;
+  border-top:1.5px dotted var(--pink); padding-top:8px; }
+.fill{ color:var(--corrupt); }
+
+ul.slots{ list-style:none; padding:0; margin:16px 0; }
+ul.slots li{ border-bottom:1.5px dotted var(--pink); padding:9px 4px;
+  display:flex; justify-content:space-between; gap:12px; }
+ul.slots li .price{ font-family:var(--mono); color:var(--ink-soft); font-size:12px; white-space:nowrap; }
+ul.slots li.out{ color:var(--rot); }
+ul.slots li.out .price::after{ content:" 售罄"; color:var(--corrupt); }
+
+figure.doc{ margin:22px 0; }
+.photo-missing{ aspect-ratio:4/3; border:3px dashed var(--rot); border-radius:12px;
+  background:repeating-linear-gradient(45deg,#f4e9f2 0 14px,#e9d9e6 14px 28px);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; color:var(--rot-deep); }
+figure.doc figcaption{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin-top:6px; }
+
+.creed{ font-family:var(--hand); font-size:20px; line-height:1.7; }
 
 hr.wig{
   border:0; height:16px; margin:30px 0;
