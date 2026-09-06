@@ -186,13 +186,26 @@ a.dead:hover{ color:var(--corrupt); }
   border-radius:16px 8px 16px 8px; padding:4px 14px;
   box-shadow:2px 3px 0 rgba(44,37,48,.16);
   transform:rotate(-2deg);
+  cursor:pointer; position:relative;
+  transition:transform .28s cubic-bezier(.2,1.5,.4,1), opacity .8s ease,
+             background .8s ease, color .8s ease;
 }
+.chip::after{ content:""; position:absolute; top:5px; left:11px;
+  width:13px; height:8px; background:rgba(255,255,255,.7);
+  border-radius:50%; transform:rotate(-20deg); pointer-events:none; }
 .chip:nth-child(2n){ background:var(--blue); transform:rotate(2deg); }
 .chip:nth-child(3n){ background:var(--yellow); transform:rotate(-1deg); }
 .chip:nth-child(4n){ background:var(--mint); transform:rotate(3deg); }
+.chip:hover{ transform:scale(1.18) rotate(-1deg); }
+.chip:focus-visible{ outline:3px dashed var(--pink-hot); outline-offset:3px; }
+.chip.pop{ opacity:0; transform:scale(.55) rotate(-6deg); }
 /* 有几颗糖是坏的 */
 .chip.bad{ background:var(--rot); color:#fff; border-color:var(--rot-deep);
   text-decoration:line-through; text-decoration-color:var(--corrupt); }
+@media (prefers-reduced-motion:reduce){
+  .chip{ transition:opacity .3s ease, background .3s ease, color .3s ease; }
+  .chip:hover{ transform:none; }
+}
 
 /* ---------------- 立场/守则 便签 ---------------- */
 .note{

@@ -50,15 +50,8 @@
 
   <hr class="wig">
 
-  <!-- 水泡文案：悬停放大，点击缓慢消失并从词库换一句、换颜色 -->
-  <div class="bubbles" id="bubbles">
-    <button type="button" class="bubble"></button>
-    <button type="button" class="bubble"></button>
-    <button type="button" class="bubble"></button>
-  </div>
-
-  <!-- 超现实词条 = 糖果贴纸（有几颗是坏掉的）-->
-  <div class="chips">
+  <!-- 糖果贴纸：外观是贴纸，行为是水泡（悬停放大 / 点击换句换色）-->
+  <div class="chips" id="chips">
     <span class="chip">今天的悲伤适合冷藏</span>
     <span class="chip">我们已经替您数过羊了</span>
     <span class="chip bad">多余的星期二</span>
@@ -105,41 +98,32 @@
 </div>
 <script>
 (function(){
-  var INIT=[
-    "自杀援助热线在线中……请拨打???。",
-    "您呼叫的用户已离开服务区…",
-    "我在听。"
-  ];
   var POOL=[
     "今天的悲伤适合冷藏。","我们已经替您数过羊了。","请耐心等待，痛苦即将可食用。",
     "我们的冰箱里住着一个春天。","请勿触摸正在融化的下午。","您的沉默正在长出牙齿。",
     "该情绪无法退货，请妥善保存。","昨夜的雨没有通过审核。","她把昨天折成一只很小的鸟。",
     "请把心事切成适合吞咽的大小。","您提交的孤独格式正确。","今天适合把自己折起来。",
     "您的眼泪已经完成消毒。","我们把昨天晒干了，味道不太好。","来掰一块儿厄运饼干吧？",
-    "您呼叫的用户已离开服务区…","请把你的痛苦说给我们吃。","您的痛苦已经烹饪完毕。",
-    "本页面没有任何需要您相信的内容。","我在听。","悲伤会在冰箱门关闭后继续生长。"
+    "自杀援助热线在线中……请拨打???。","您呼叫的用户已离开服务区…","我在听。",
+    "请把你的痛苦说给我们吃。","您的痛苦已经烹饪完毕。","悲伤会在冰箱门关闭后继续生长。",
+    "我们暂时不提供多余的星期二。","您的梦正在厨房里慢慢腐烂。","本页面没有任何需要您相信的内容。"
   ];
   var COLORS=[
-    {b:"rgba(255,179,209,.55)",c:"#2c2530"},
-    {b:"rgba(191,227,255,.60)",c:"#2c2530"},
-    {b:"rgba(255,230,107,.60)",c:"#2c2530"},
-    {b:"rgba(183,240,216,.60)",c:"#2c2530"},
-    {b:"rgba(217,194,236,.65)",c:"#2c2530"},
-    {b:"rgba(154,134,166,.72)",c:"#fff6fb"}
+    {b:"#ffb3d1",c:"#2c2530"},{b:"#bfe3ff",c:"#2c2530"},{b:"#ffe66b",c:"#2c2530"},
+    {b:"#b7f0d8",c:"#2c2530"},{b:"#d9c2ec",c:"#2c2530"},{b:"#9a86a6",c:"#fff6fb"}
   ];
-  function paint(el,col){ el.style.background=col.b; el.style.color=col.c; }
-  var bubbles=document.querySelectorAll('#bubbles .bubble');
-  bubbles.forEach(function(b,i){
-    b.textContent=INIT[i]||INIT[0];
-    paint(b,COLORS[i%COLORS.length]);
-    b.addEventListener('click',function(){
-      b.classList.add('pop');
+  var chips=document.querySelectorAll('#chips .chip');
+  chips.forEach(function(el){
+    el.addEventListener('click',function(){
+      el.classList.add('pop');
       setTimeout(function(){
-        var cur=b.textContent,t;
+        var cur=el.textContent,t;
         do{ t=POOL[Math.floor(Math.random()*POOL.length)]; }while(t===cur&&POOL.length>1);
-        b.textContent=t;
-        paint(b,COLORS[Math.floor(Math.random()*COLORS.length)]);
-        b.classList.remove('pop');
+        el.textContent=t;
+        el.classList.remove('bad');
+        var col=COLORS[Math.floor(Math.random()*COLORS.length)];
+        el.style.background=col.b; el.style.color=col.c;
+        el.classList.remove('pop');
       },800);
     });
   });
