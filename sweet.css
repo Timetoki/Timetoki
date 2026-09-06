@@ -561,3 +561,170 @@ hr.wig{
   50%    { opacity:1;   transform:scale(1.1); }
 }
 @media (prefers-reduced-motion:reduce){ .glint{ animation:none; opacity:.7; } }
+
+/* ==========================================================
+   Time 聊天室 —— 老式 QQ 风对话框（千禧）
+   ========================================================== */
+.chatbtn{
+  position:fixed; left:14px; bottom:18px; z-index:70; cursor:pointer;
+  width:56px; height:56px; border-radius:16px 12px 16px 10px;
+  border:3px solid var(--ink); background:var(--pink);
+  box-shadow:3px 4px 0 rgba(44,37,48,.22);
+  display:flex; align-items:center; justify-content:center; font-size:26px;
+  transition:transform .15s ease;
+}
+.chatbtn:hover{ transform:translateY(-3px) rotate(-4deg); background:var(--blue); }
+.chatbtn .badge{
+  position:absolute; top:-8px; right:-8px; min-width:20px; height:20px; padding:0 5px;
+  background:#ff3b6b; color:#fff; border:2px solid #fff; border-radius:999px;
+  font-size:12px; line-height:16px; font-family:var(--mono); text-align:center;
+  box-shadow:1px 1px 0 rgba(0,0,0,.2); display:none;
+}
+.chatbtn .badge.on{ display:block; }
+
+.chatwin{
+  position:fixed; left:14px; bottom:84px; z-index:71; width:308px;
+  background:#fff; border:3px solid var(--ink); border-radius:12px;
+  box-shadow:5px 7px 0 rgba(44,37,48,.28); overflow:hidden;
+  font-family:var(--body); display:none;
+}
+.chatwin.open{ display:block; }
+.chatwin.max{ left:50% !important; top:50% !important; bottom:auto;
+  transform:translate(-50%,-50%); width:min(560px,92vw); }
+
+.cw-title{
+  display:flex; align-items:center; gap:8px; padding:6px 8px; cursor:move;
+  background:linear-gradient(90deg,#ffb3d1,#bfe3ff);
+  border-bottom:2px solid var(--ink); color:var(--ink); user-select:none;
+}
+.cw-title .tav{ width:22px; height:22px; border-radius:6px; border:2px solid var(--ink);
+  image-rendering:pixelated; background:#fff; object-fit:contain; }
+.cw-title .tname{ font-weight:700; font-size:14px; }
+.cw-title .tstat{ font-size:11px; color:#3a7a3a; }
+.cw-title .tbtns{ margin-left:auto; display:flex; gap:4px; }
+.cw-title .tbtns button{ width:20px; height:18px; border:2px solid var(--ink);
+  background:#fff; border-radius:4px; cursor:pointer; font-size:11px; line-height:1;
+  padding:0; color:var(--ink); }
+.cw-title .tbtns button:hover{ background:var(--yellow); }
+
+.cw-head{ display:flex; align-items:center; gap:10px; padding:9px 12px;
+  border-bottom:1px dashed var(--pink); background:#fff8fc; }
+.cw-head img{ width:40px; height:40px; border-radius:10px; border:2.5px solid var(--ink);
+  image-rendering:pixelated; object-fit:contain; background:#fff; }
+.cw-head .h-name{ font-weight:700; }
+.cw-head .h-sig{ font-size:11px; color:var(--ink-soft); }
+
+.cw-msgs{ height:250px; overflow-y:auto; padding:12px;
+  background:#fffdfa
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='3' cy='3' r='1' fill='%23ffe1ee'/%3E%3C/svg%3E"); }
+.chatwin.max .cw-msgs{ height:min(52vh,440px); }
+.cm{ display:flex; gap:7px; margin:8px 0; align-items:flex-end; }
+.cm .av{ width:28px; height:28px; border-radius:8px; border:2px solid var(--ink);
+  image-rendering:pixelated; object-fit:contain; background:#fff; flex:0 0 auto; }
+.cm .bub{ max-width:72%; padding:8px 11px; border:2px solid var(--ink); font-size:14px;
+  line-height:1.5; box-shadow:2px 2px 0 rgba(44,37,48,.12); word-break:break-word; }
+.cm.her .bub{ background:#fff; border-radius:4px 14px 14px 14px; }
+.cm.me{ flex-direction:row-reverse; }
+.cm.me .bub{ background:var(--pink); border-radius:14px 4px 14px 14px; }
+.cm .bub.typing{ color:var(--ink-soft); }
+.cm .bub.typing span{ animation:cdot 1s infinite; }
+.cm .bub.typing span:nth-child(2){ animation-delay:.2s; }
+.cm .bub.typing span:nth-child(3){ animation-delay:.4s; }
+@keyframes cdot{ 0%,100%{opacity:.2} 50%{opacity:1} }
+
+.cw-in{ display:flex; gap:6px; padding:8px; border-top:2px solid var(--ink); background:#fff; }
+.cw-in input{ flex:1; font-family:var(--body); font-size:14px; padding:6px 10px;
+  border:2px solid var(--ink); border-radius:8px; }
+.cw-in button{ font-family:var(--body); font-weight:700; padding:0 14px; cursor:pointer;
+  border:2px solid var(--ink); border-radius:8px; background:var(--pink-hot); color:#fff;
+  box-shadow:2px 2px 0 rgba(44,37,48,.16); }
+.cw-in button:hover{ background:var(--blue); color:var(--ink); }
+
+.chatwin.min .cw-head, .chatwin.min .cw-msgs, .chatwin.min .cw-in{ display:none; }
+
+@media (max-width:560px){
+  .chatwin{ width:calc(100vw - 24px); left:12px; }
+  .chatwin.max{ width:calc(100vw - 16px); }
+}
+
+/* ==========================================================
+   千禧 QQ 聊天室：左下悬浮入口(带红点角标) + 老式对话框
+   由 chat.js 注入到每个页面
+   ========================================================== */
+.chat-launch{
+  position:fixed; left:14px; bottom:16px; z-index:80; cursor:pointer;
+  width:56px; height:56px; border-radius:16px 12px 16px 10px;
+  border:3px solid var(--ink); background:var(--blue);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:3px 4px 0 rgba(44,37,48,.22);
+  transition:transform .15s ease;
+}
+.chat-launch:hover{ transform:translateY(-3px) rotate(-3deg); }
+.chat-launch svg{ width:30px; height:30px; }
+.chat-badge{
+  position:absolute; top:-8px; right:-8px; min-width:20px; height:20px;
+  padding:0 5px; border-radius:999px; background:#ff3b6b; color:#fff;
+  border:2px solid #fff; font-size:12px; line-height:16px; text-align:center;
+  font-weight:700; display:none;
+}
+.chat-badge.show{ display:block; animation:badgepop .3s ease; }
+@keyframes badgepop{ 0%{transform:scale(.4)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
+
+.qq{
+  position:fixed; left:80px; bottom:16px; z-index:81; width:320px;
+  background:var(--cream); border:3px solid var(--ink); border-radius:14px;
+  box-shadow:5px 6px 0 rgba(44,37,48,.28); display:none; overflow:hidden;
+  font-family:var(--body);
+}
+.qq.open{ display:block; }
+.qq.max{ left:50%; top:50%; bottom:auto; transform:translate(-50%,-50%);
+  width:min(560px,92vw); height:min(80vh,640px); display:flex; flex-direction:column; }
+.qq.min .qq-body, .qq.min .qq-input{ display:none; }
+
+.qq-bar{
+  display:flex; align-items:center; gap:8px; padding:8px 10px; cursor:move;
+  background:linear-gradient(180deg,#bfe3ff,#9fd0ff);
+  border-bottom:3px solid var(--ink); user-select:none;
+}
+.qq-ava{ width:30px; height:30px; border-radius:8px; border:2px solid var(--ink);
+  background:#fff; image-rendering:pixelated; object-fit:cover; flex:none; }
+.qq-name{ font-weight:700; font-size:14px; color:var(--ink); }
+.qq-stat{ font-size:11px; color:#3a5f7d; margin-left:2px; }
+.qq-btns{ margin-left:auto; display:flex; gap:5px; }
+.qq-btns button{ width:20px; height:20px; border:2px solid var(--ink); border-radius:5px;
+  background:#fff; cursor:pointer; font-size:11px; line-height:1; padding:0;
+  display:flex; align-items:center; justify-content:center; }
+.qq-btns button:hover{ background:var(--yellow); }
+.qq-btns .cls:hover{ background:#ff8aa8; }
+
+.qq-body{ height:300px; overflow-y:auto; padding:12px 12px 6px;
+  background:
+    linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),
+    radial-gradient(var(--pink) 1.5px, transparent 1.6px);
+  background-size:auto, 18px 18px; }
+.qq.max .qq-body{ flex:1; height:auto; }
+.msg{ display:flex; gap:8px; margin:8px 0; align-items:flex-end; }
+.msg .b{ max-width:76%; padding:8px 11px; border:2px solid var(--ink);
+  border-radius:12px; font-size:13px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.msg.her .b{ background:#fff; border-radius:4px 12px 12px 12px; }
+.msg.me{ flex-direction:row-reverse; }
+.msg.me .b{ background:var(--mint); border-radius:12px 4px 12px 12px; }
+.msg .pfp{ width:26px; height:26px; border-radius:7px; border:2px solid var(--ink);
+  background:#fff; image-rendering:pixelated; object-fit:cover; flex:none; }
+.msg.sys{ justify-content:center; }
+.msg.sys .b{ background:transparent; border:none; color:var(--ink-soft); font-size:11px; }
+.typing .b{ color:var(--ink-soft); font-style:italic; }
+
+.qq-input{ display:flex; gap:6px; padding:8px; border-top:3px solid var(--ink);
+  background:var(--cream-2); }
+.qq-input input{ flex:1; font-family:var(--body); font-size:13px; padding:7px 10px;
+  border:2px solid var(--ink); border-radius:8px; background:#fff; }
+.qq-input button{ font-family:var(--body); font-weight:700; font-size:13px; cursor:pointer;
+  padding:0 14px; border:2px solid var(--ink); border-radius:8px;
+  background:var(--pink); box-shadow:2px 2px 0 rgba(44,37,48,.18); }
+.qq-input button:hover{ background:var(--pink-hot); color:#fff; }
+
+@media (max-width:560px){
+  .qq{ left:8px; right:8px; width:auto; }
+  .qq.max{ width:96vw; }
+}
