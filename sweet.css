@@ -1,14 +1,7 @@
 /* =========================================================
    情绪接听 · 甜美外壳 / 阴冷腐坏内核  皮肤
-   手绘涂鸦 · 糖果撞色 · 贴纸拼贴 · 越读越不对劲
-   涂鸦、边框、圆点底为纯 CSS/SVG；真实拼贴图由本人绘制后放入 art/
+   黑体 · 糖果撞色 · 贴纸拼贴 · 越读越不对劲
    ========================================================= */
-
-@font-face{
-  font-family:"MaShan";
-  src:url("fonts/MaShanZheng-Regular.woff2") format("woff2");
-  font-weight:400; font-style:normal; font-display:swap;
-}
 
 :root{
   --cream:   #fff6fb;   /* 高明度粉白底，不脏 */
@@ -25,9 +18,10 @@
   --rot:     #9a86a6;
   --rot-deep:#6d5c7d;
   --corrupt: #8f5a6a;
-  --hand:"MaShan","PingFang SC","Microsoft YaHei",cursive;
-  --body:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
-  --mono:"Courier New",monospace;
+  --sans:"SimHei","Microsoft YaHei","Heiti SC","PingFang SC","Hiragino Sans GB",system-ui,sans-serif;
+  --hand:var(--sans);
+  --body:var(--sans);
+  --mono:var(--sans);
 }
 
 *{ box-sizing:border-box; }
@@ -321,4 +315,33 @@ hr.wig{
 @media (prefers-reduced-motion:reduce){
   .doodle.tw{ animation:none; }
   a:hover, nav.menu a:hover{ transform:none; }
+}
+
+/* ---------------- 黑体加粗：原手写位置改为粗黑体 ---------------- */
+.hero h1, h2.sec, h3.sub2, nav.menu a, .chip, .exhibit h3,
+.sticker figcaption, table.archive th, .gcell .ph b, .creed{ font-weight:700; }
+.hero .welcome, .hero .sub{ font-weight:700; }
+
+/* ---------------- 水泡文案（悬停放大 / 点击换句换色） ---------------- */
+.bubbles{ display:flex; flex-direction:column; gap:14px; align-items:flex-start;
+  margin:24px 0 28px; }
+.bubble{
+  font-family:var(--body); font-weight:700; font-size:19px; line-height:1.5;
+  color:var(--ink); background:rgba(255,179,209,.55);
+  border:2.5px solid var(--ink); border-radius:26px 26px 26px 9px;
+  padding:12px 22px; cursor:pointer; text-align:left; max-width:100%;
+  box-shadow:3px 4px 0 rgba(44,37,48,.14), inset 7px 7px 16px rgba(255,255,255,.55);
+  transition:transform .28s cubic-bezier(.2,1.5,.4,1), opacity .8s ease,
+             background .8s ease, color .8s ease;
+  position:relative;
+}
+.bubble::after{ content:""; position:absolute; top:10px; left:18px;
+  width:17px; height:10px; background:rgba(255,255,255,.75);
+  border-radius:50%; transform:rotate(-20deg); pointer-events:none; }
+.bubble:hover{ transform:scale(1.14) rotate(-1deg); }
+.bubble:focus-visible{ outline:3px dashed var(--pink-hot); outline-offset:3px; }
+.bubble.pop{ opacity:0; transform:scale(.6); }
+@media (prefers-reduced-motion:reduce){
+  .bubble{ transition:opacity .3s ease, background .3s ease, color .3s ease; }
+  .bubble:hover{ transform:none; }
 }
