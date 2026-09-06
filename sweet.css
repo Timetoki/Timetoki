@@ -531,3 +531,33 @@ hr.wig{
 @media (prefers-reduced-motion:reduce){
   .doodle-layer *{ animation:none !important; }
 }
+
+/* ==========================================================
+   白色柔光斑 glint —— 一坨糊糊的亮白光点，会一闪一闪
+   ========================================================== */
+.glint{
+  position:absolute; pointer-events:none; z-index:0; border-radius:50%;
+  background:radial-gradient(circle,
+     rgba(255,255,255,1) 0%,
+     rgba(255,255,255,.9) 22%,
+     rgba(255,236,246,.55) 45%,
+     rgba(255,214,235,.22) 68%,
+     rgba(255,214,235,0) 100%);
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.95))
+         drop-shadow(0 0 14px rgba(255,170,210,.7));
+  animation:g-blink 2.6s ease-in-out infinite;
+}
+/* 中间加一个更亮的小十字，像镜头光点 */
+.glint::after{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(0deg,  transparent 46%, rgba(255,255,255,.95) 50%, transparent 54%),
+    linear-gradient(90deg, transparent 46%, rgba(255,255,255,.95) 50%, transparent 54%);
+  -webkit-mask:radial-gradient(circle, #000 0 60%, transparent 62%);
+          mask:radial-gradient(circle, #000 0 60%, transparent 62%);
+}
+@keyframes g-blink{
+  0%,100%{ opacity:.15; transform:scale(.55); }
+  50%    { opacity:1;   transform:scale(1.1); }
+}
+@media (prefers-reduced-motion:reduce){ .glint{ animation:none; opacity:.7; } }
