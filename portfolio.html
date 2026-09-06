@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>♡ 作品集 ♡</title>
+<link rel="stylesheet" href="sweet.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="doodle-layer" aria-hidden="true">
+    <span class="doodle star-yellow tw" style="top:60px;left:4px;width:34px;height:34px;"></span>
+    <span class="doodle heart-pink tw" style="top:20px;right:12px;width:40px;height:38px;"></span>
+    <span class="doodle sparkle" style="top:150px;right:30px;width:22px;height:22px;"></span>
+    <span class="doodle squiggle" style="top:220px;left:-8px;width:100px;height:22px;transform:rotate(-8deg);"></span>
+    <span class="doodle heart-rot" style="top:560px;right:10px;width:34px;height:32px;transform:rotate(8deg);"></span>
+    <span class="doodle star-pink tw" style="top:760px;left:6px;width:28px;height:28px;"></span>
+  </div>
+  <header class="hero">
+    <h1><span class="hh">♡</span> 作品集 <span class="hh">♡</span></h1>
+    <div class="sub">portfolio · 文字 / 网站 / 摄影 / 画</div>
+  </header>
+  <nav class="menu">
+    <a href="index.html"><img class="mi" src="icons/1.png" alt="">首页</a><span class="sep">✦</span>
+    <a href="logs.html"><img class="mi" src="icons/file.png" alt="">来电归档</a><span class="sep">✦</span>
+    <a href="operator_notes.html"><img class="mi" src="icons/Blog.png" alt="">接线员手记</a><span class="sep">✦</span>
+    <a href="specimen_room.html"><img class="mi" src="icons/Resume.png" alt="">标本室</a><span class="sep">✦</span>
+    <a href="museum.html"><img class="mi" src="icons/Portfolio.png" alt="">博物馆</a><span class="sep">✦</span>
+    <a href="about.html"><img class="mi" src="icons/About.png" alt="">关于</a>
+  </nav>
+  <hr class="wig">
+  <p class="muted">这里放我自己做的东西。文字和网站小游戏在上面，摄影在中间，画在最下面。空位先留着，之后往里填。</p>
+
+  <h2 class="sec">文章</h2>
+  <div class="note">
+    <p><a href="#" class="fill">[文章标题一 · 待填链接]</a><br><span class="muted fill">[一句话简介]</span></p>
+    <p><a href="#" class="fill">[文章标题二 · 待填链接]</a><br><span class="muted fill">[一句话简介]</span></p>
+    <p class="fill">[复制上面一行继续加。]</p>
+  </div>
+
+  <h2 class="sec">网站 · 小游戏</h2>
+  <div class="chips">
+    <span class="chip fill">[项目一 · 待填]</span>
+    <span class="chip fill">[项目二 · 待填]</span>
+    <span class="chip fill">[小游戏 · 待填]</span>
+  </div>
+  <p class="mono fill">[把上面每个 chip 换成 &lt;a href="项目链接"&gt;项目名&lt;/a&gt; 即可点击跳转。]</p>
+
+  <h2 class="sec">摄影</h2>
+  <div class="gallery" style="max-width:600px">
+    <div class="gcell"><img src="picture/photo1.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/photo1.jpg</div></div>
+    <div class="gcell"><img src="picture/photo2.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/photo2.jpg</div></div>
+    <div class="gcell"><img src="picture/photo3.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/photo3.jpg</div></div>
+  </div>
+
+  <h2 class="sec">画</h2>
+  <p class="muted">留给画的位置在最下面。往 picture/ 里放 art1.png…，或把下面的 slot 换成 &lt;img&gt;。</p>
+  <figure class="sticker">
+    <div class="slot">［画作一 → picture/art1.png］</div>
+    <figcaption>作品 · 其一 ♡</figcaption>
+  </figure>
+  <figure class="sticker r">
+    <div class="slot">［画作二 → picture/art2.png］</div>
+    <figcaption>作品 · 其二 ♡</figcaption>
+  </figure>
+
+  <footer class="foot">
+    portfolio · 空位是留给以后的<br>
+    <span class="faint">请把心事切成适合吞咽的大小。</span>
+  </footer>
+</div>
+<script src="player.js" defer></script>
+</body>
+</html>
