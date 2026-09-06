@@ -22,7 +22,14 @@
     <span class="doodle sparkle" style="top:900px;left:24px;width:22px;height:22px;"></span>
   </div>
 
-  <!-- 顶部六格图片墙：把图片放进仓库根的 picture/ 文件夹，命名 picture1.jpg…picture6.jpg -->
+  <header class="hero">
+    <div class="welcome">welcome to…</div>
+    <h1><span class="hh">♡</span> +86自杀援助热线时 <span class="hh">♡</span></h1>
+    <div class="sub">把痛苦说给我们吃 ♡</div>
+    <div class="num">☎ +86-000-000-0000 · 理论上 24h 营业</div>
+  </header>
+
+  <!-- 六格图片墙：把图片放进仓库根的 picture/ 文件夹，命名 picture1.jpg…picture6.jpg -->
   <div class="gallery">
     <div class="gcell"><div class="ph"><b>♡</b>picture/picture1.jpg</div></div>
     <div class="gcell"><div class="ph"><b>♡</b>picture/picture2.jpg</div></div>
@@ -31,13 +38,6 @@
     <div class="gcell"><div class="ph"><b>♡</b>picture/picture5.jpg</div></div>
     <div class="gcell"><div class="ph"><b>♡</b>picture/picture6.jpg</div></div>
   </div>
-
-  <header class="hero">
-    <div class="welcome">welcome to…</div>
-    <h1><span class="hh">♡</span> +86自杀援助热线时 <span class="hh">♡</span></h1>
-    <div class="sub">把痛苦说给我们吃 ♡</div>
-    <div class="num">☎ +86-000-000-0000 · 理论上 24h 营业</div>
-  </header>
 
   <nav class="menu">
     <a href="index.html">首页</a><span class="sep">✦</span>
@@ -99,26 +99,35 @@
 <script>
 (function(){
   var POOL=[
-    "今天的悲伤适合冷藏。","我们已经替您数过羊了。","请耐心等待，痛苦即将可食用。",
-    "我们的冰箱里住着一个春天。","请勿触摸正在融化的下午。","您的沉默正在长出牙齿。",
-    "该情绪无法退货，请妥善保存。","昨夜的雨没有通过审核。","她把昨天折成一只很小的鸟。",
-    "请把心事切成适合吞咽的大小。","您提交的孤独格式正确。","今天适合把自己折起来。",
-    "您的眼泪已经完成消毒。","我们把昨天晒干了，味道不太好。","来掰一块儿厄运饼干吧？",
-    "自杀援助热线在线中……请拨打???。","您呼叫的用户已离开服务区…","我在听。",
-    "请把你的痛苦说给我们吃。","您的痛苦已经烹饪完毕。","悲伤会在冰箱门关闭后继续生长。",
-    "我们暂时不提供多余的星期二。","您的梦正在厨房里慢慢腐烂。","本页面没有任何需要您相信的内容。"
+    "今天的悲伤适合冷藏","我们已经替您数过羊了","请耐心等待，痛苦即将可食用",
+    "我们的冰箱里住着一个春天","请勿触摸正在融化的下午","您的沉默正在长出牙齿",
+    "该情绪无法退货，请妥善保存","昨夜的雨没有通过审核","她把昨天折成一只很小的鸟",
+    "请把心事切成适合吞咽的大小","您提交的孤独格式正确","今天适合把自己折起来",
+    "您的眼泪已经完成消毒","我们把昨天晒干了，味道不太好","来掰一块儿厄运饼干吧？",
+    "自杀援助热线在线中……请拨打???","您呼叫的用户已离开服务区…","我在听",
+    "请把你的痛苦说给我们吃","您的痛苦已经烹饪完毕","悲伤会在冰箱门关闭后继续生长",
+    "多余的星期二","您的梦正在厨房里慢慢腐烂","本页面没有任何需要您相信的内容",
+    "请勿食用未经登记的绝望","我们暂时不提供多余的星期二","通过审核的雨水",
+    "今天的悲伤没有达到最低回收重量","请不要重复提交同一份绝望"
   ];
   var COLORS=[
     {b:"#ffb3d1",c:"#2c2530"},{b:"#bfe3ff",c:"#2c2530"},{b:"#ffe66b",c:"#2c2530"},
     {b:"#b7f0d8",c:"#2c2530"},{b:"#d9c2ec",c:"#2c2530"},{b:"#9a86a6",c:"#fff6fb"}
   ];
-  var chips=document.querySelectorAll('#chips .chip');
+  var chips=Array.prototype.slice.call(document.querySelectorAll('#chips .chip'));
+  function shown(except){
+    var s={};
+    chips.forEach(function(c){ if(c!==except) s[c.textContent]=1; });
+    return s;
+  }
   chips.forEach(function(el){
     el.addEventListener('click',function(){
       el.classList.add('pop');
       setTimeout(function(){
-        var cur=el.textContent,t;
-        do{ t=POOL[Math.floor(Math.random()*POOL.length)]; }while(t===cur&&POOL.length>1);
+        var busy=shown(el), cur=el.textContent;
+        var pool=POOL.filter(function(t){ return t!==cur && !busy[t]; });
+        if(!pool.length) pool=POOL.filter(function(t){ return t!==cur; });
+        var t=pool[Math.floor(Math.random()*pool.length)];
         el.textContent=t;
         el.classList.remove('bad');
         var col=COLORS[Math.floor(Math.random()*COLORS.length)];
