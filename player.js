@@ -38,20 +38,18 @@
   var box = document.createElement('div');
   box.className = 'player';
   box.innerHTML =
-    '<div class="cap">♪ 唱片机 ♪</div>' +
     '<div class="vinyl" id="pv"><div class="lbl"></div><div class="shine"></div></div>' +
     '<div class="scr" id="pscr">— 未放入唱片 —</div>' +
     '<div class="prow"><span id="ptcur">0:00</span>' +
       '<input id="pseek" class="pbar" type="range" min="0" max="1000" value="0" step="1" aria-label="进度">' +
       '<span id="ptdur">0:00</span></div>' +
     '<div class="pctrls">' +
-      '<button id="pprev" title="上一首">◁◁</button>' +
+      '<button id="pprev" title="上一首">◀</button>' +
       '<button id="pplay" title="播放/暂停">▶</button>' +
-      '<button id="pnext" title="下一首">▷▷</button>' +
+      '<button id="pnext" title="下一首">▶</button>' +
     '</div>' +
     '<div class="vrow"><span class="vico">🔊</span>' +
-      '<input id="pvol" class="pbar" type="range" min="0" max="100" value="80" step="1" aria-label="音量"></div>' +
-    '<div class="tip">把 mp3 放进 music/ 文件夹</div>';
+      '<input id="pvol" class="pbar" type="range" min="0" max="100" value="80" step="1" aria-label="音量"></div>';
   document.body.appendChild(box);
 
   var audio = new Audio();
