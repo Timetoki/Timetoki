@@ -36,101 +36,107 @@
 
   <div class="desk">
 
-    <!-- ① 个人卡片 -->
-    <section class="xpwin pink card-hero p-card">
-      <div class="xp-t"><img class="ico" src="icons/About.png" alt="">个人资料.exe</div>
-      <div class="xp-b">
-        <header class="hero" style="text-align:left">
-          <div class="welcome" style="font-size:16px">welcome to…</div>
-          <h1><span class="hh">♡</span> +86自杀援助热线时 <span class="hh">♡</span></h1>
-          <div class="sub">把痛苦说给我们吃 ♡</div>
-          <div class="num">☎ +86-000-000-0000 · 理论上 24h 营业</div>
-        </header>
-        <div class="avatar-box">
-          <img src="avatars/1.png" alt="">
-          <div class="muted" style="font-size:13px">
-            Math student building creative tech<br>
-            这里记录日常与创作，喜欢音乐、手工，<br>正在学习数学和编程。感谢你的来访 ♡
+    <!-- 左列：个人资料 / 社交 / 播放器 -->
+    <div class="col">
+
+      <section class="xpwin pink card-hero p-card">
+        <div class="xp-t"><img class="ico" src="icons/About.png" alt="">个人资料.exe</div>
+        <div class="xp-b">
+          <header class="hero" style="text-align:left">
+            <div class="welcome" style="font-size:14px">welcome to…</div>
+            <h1><span class="hh">♡</span> +86自杀援助热线时 <span class="hh">♡</span></h1>
+            <div class="sub">把痛苦说给我们吃 ♡</div>
+            <div class="num">☎ +86-000-000-0000 · 理论上 24h 营业</div>
+          </header>
+          <div class="avatar-box">
+            <img src="avatars/1.png" alt="">
+            <div class="muted" style="font-size:13px">
+              Math student building creative tech<br>
+              记录日常与创作，喜欢音乐、手工，正在学习数学和编程。感谢你的来访 ♡
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ② 社交链接（先放小图标，链接回头再定） -->
-    <section class="xpwin p-social">
-      <div class="xp-t"><img class="ico" src="icons/twitter.png" alt="">社交.lnk</div>
-      <div class="xp-b">
-        <div class="social">
-          <a href="https://github.com/Timetoki" target="_blank" rel="noopener"><img src="icons/github.png" alt="">GitHub</a>
-          <a href="#"><img src="icons/twitter.png" alt="">推特</a>
-          <a href="#"><img src="icons/Contact.png" alt="">联系</a>
-          <a href="#"><img src="icons/Media.png" alt="">动态</a>
-          <a href="#"><img src="icons/MSN.png" alt="">MSN</a>
-          <a href="#"><img src="icons/Winamp.png" alt="">音乐</a>
+      <section class="xpwin p-social">
+        <div class="xp-t"><img class="ico" src="icons/twitter.png" alt="">社交.lnk</div>
+        <div class="xp-b">
+          <div class="social">
+            <a href="https://github.com/Timetoki" target="_blank" rel="noopener"><img src="icons/github.png" alt="">GitHub</a>
+            <a href="#"><img src="icons/twitter.png" alt="">推特</a>
+            <a href="#"><img src="icons/Contact.png" alt="">联系</a>
+            <a href="#"><img src="icons/Media.png" alt="">动态</a>
+            <a href="#"><img src="icons/MSN.png" alt="">MSN</a>
+            <a href="#"><img src="icons/Winamp.png" alt="">音乐</a>
+          </div>
         </div>
-        <p class="muted" style="font-size:12px;margin:12px 0 0">链接待补，小图标先摆着。</p>
-      </div>
-    </section>
+      </section>
 
-    <!-- ③ 图片墙 -->
-    <section class="xpwin p-gallery">
-      <div class="xp-t"><img class="ico" src="icons/Portfolio.png" alt="">相册.exe</div>
-      <div class="xp-b">
-        <div class="gallery">
-          <div class="gcell"><img src="picture/picture1.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/picture1.png</div></div>
-          <div class="gcell"><img src="picture/picture2.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/picture2.png</div></div>
-          <div class="gcell"><img src="picture/picture3.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/picture3.png</div></div>
-          <div class="gcell"><img src="picture/picture4.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/picture4.png</div></div>
-          <div class="gcell"><img src="picture/picture5.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/picture5.png</div></div>
-          <div class="gcell"><img src="picture/picture6.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>picture/picture6.png</div></div>
+      <section class="xpwin pink p-player">
+        <div class="xp-t"><img class="ico" src="icons/Winamp.png" alt="">唱片机.exe</div>
+        <div class="xp-b" style="display:flex;justify-content:center">
+          <div id="player-slot"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ④ 公告栏 -->
-    <section class="xpwin p-board">
-      <div class="xp-t"><img class="ico" src="icons/Blog.png" alt="">公告栏.txt</div>
-      <div class="xp-b">
-        <h3 class="sub2">服务说明</h3>
-        <p>请把你的痛苦说给我们吃。</p>
-        <p class="rot">您的梦正在厨房里慢慢腐烂……请耐心等待，您的痛苦即将可食用。</p>
-        <h3 class="sub2">工作时间</h3>
-        <p>理论上二十四小时。</p>
-        <p class="rot">部分班次已于 2002 年停止应答，我们不知道它们为什么还在名单上。</p>
-        <h3 class="sub2">我们的立场</h3>
-        <p>我们不提供救赎，我们也不提供死亡。</p>
-        <p>痛苦不需要被修正，它只需要被命名。</p>
-        <hr class="wig">
-        <p>这世界拥挤不堪……<a href="logs.html">来电归档</a>翻过桥上温暖的标语就渡到对岸了。。</p>
-        <p class="muted">青山依旧 岁月如常。</p>
-        <p class="rot">来掰一块儿厄运饼干吧？ 来掰一块儿厄运饼干吧？</p>
-      </div>
-    </section>
+    </div>
 
-    <!-- ⑤ 磁带播放器（嵌进面板，播放器逻辑不变） -->
-    <section class="xpwin pink p-player">
-      <div class="xp-t"><img class="ico" src="icons/Winamp.png" alt="">唱片机.exe</div>
-      <div class="xp-b" style="display:flex;justify-content:center">
-        <div id="player-slot"></div>
-      </div>
-    </section>
+    <!-- 右列：相册 + （公告栏 / 留言墙） -->
+    <div class="col">
 
-    <!-- ⑥ 留言墙（气泡点击换句换色，颜色更浅） -->
-    <section class="xpwin p-wall">
-      <div class="xp-t"><img class="ico" src="icons/Contact.png" alt="">留言墙.exe</div>
-      <div class="xp-b">
-        <p class="muted" style="font-size:12px;margin:0 0 10px">点一下气泡，它会换一句、换个颜色 ♡</p>
-        <div class="chips soft" id="chips">
-          <span class="chip">今天的悲伤适合冷藏</span>
-          <span class="chip">我们已经替您数过羊了</span>
-          <span class="chip bad">多余的星期二</span>
-          <span class="chip">来掰一块儿厄运饼干吧？</span>
-          <span class="chip">我们的冰箱里住着一个春天</span>
-          <span class="chip bad">通过审核的雨水</span>
-          <span class="chip">请耐心等待，痛苦即将可食用</span>
+      <section class="xpwin p-gallery">
+        <div class="xp-t"><img class="ico" src="icons/Portfolio.png" alt="">相册.exe</div>
+        <div class="xp-b">
+          <div class="gallery">
+            <div class="gcell"><img src="picture/picture1.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>&#9825;</b>picture/picture1.png</div></div>
+            <div class="gcell"><img src="picture/picture2.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>&#9825;</b>picture/picture2.png</div></div>
+            <div class="gcell"><img src="picture/picture3.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>&#9825;</b>picture/picture3.png</div></div>
+            <div class="gcell"><img src="picture/picture4.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>&#9825;</b>picture/picture4.png</div></div>
+            <div class="gcell"><img src="picture/picture5.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>&#9825;</b>picture/picture5.png</div></div>
+            <div class="gcell"><img src="picture/picture6.png" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>&#9825;</b>picture/picture6.png</div></div>
+          </div>
         </div>
+      </section>
+
+      <div class="row2">
+
+        <section class="xpwin p-board">
+          <div class="xp-t"><img class="ico" src="icons/Blog.png" alt="">公告栏.txt</div>
+          <div class="xp-b">
+            <h3 class="sub2">服务说明</h3>
+            <p>请把你的痛苦说给我们吃。</p>
+            <p class="rot">您的梦正在厨房里慢慢腐烂……请耐心等待，您的痛苦即将可食用。</p>
+            <h3 class="sub2">工作时间</h3>
+            <p>理论上二十四小时。</p>
+            <p class="rot">部分班次已于 2002 年停止应答，我们不知道它们为什么还在名单上。</p>
+            <h3 class="sub2">我们的立场</h3>
+            <p>我们不提供救赎，我们也不提供死亡。</p>
+            <p>痛苦不需要被修正，它只需要被命名。</p>
+            <hr class="wig">
+            <p>这世界拥挤不堪……<a href="logs.html">来电归档</a>翻过桥上温暖的标语就渡到对岸了。。</p>
+            <p class="muted">青山依旧 岁月如常。</p>
+            <p class="rot">来掰一块儿厄运饼干吧？ 来掰一块儿厄运饼干吧？</p>
+          </div>
+        </section>
+
+        <section class="xpwin p-wall">
+          <div class="xp-t"><img class="ico" src="icons/Contact.png" alt="">留言墙.exe</div>
+          <div class="xp-b">
+            <p class="muted" style="font-size:12px;margin:0 0 10px">点一下气泡，它会换一句、换个颜色 ♡</p>
+            <div class="chips soft" id="chips">
+              <span class="chip">今天的悲伤适合冷藏</span>
+              <span class="chip">我们已经替您数过羊了</span>
+              <span class="chip bad">多余的星期二</span>
+              <span class="chip">来掰一块儿厄运饼干吧？</span>
+              <span class="chip">我们的冰箱里住着一个春天</span>
+              <span class="chip bad">通过审核的雨水</span>
+              <span class="chip">请耐心等待，痛苦即将可食用</span>
+            </div>
+          </div>
+        </section>
+
       </div>
-    </section>
+    </div>
 
   </div>
 
