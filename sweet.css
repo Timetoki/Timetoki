@@ -775,10 +775,15 @@ body.desktop .desk{
 }
 body.desktop .desk .col{ display:flex; flex-direction:column; gap:16px; }
 body.desktop .desk .row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+body.desktop .desk .row3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; align-items:start; }
 @media (max-width:900px){
   body.desktop .desk{ grid-template-columns:1fr; }
-  body.desktop .desk .row2{ grid-template-columns:1fr; }
+  body.desktop .desk .row2, body.desktop .desk .row3{ grid-template-columns:1fr; }
 }
+
+/* 相册压成扁条：六图挤一行 */
+body.desktop .p-gallery .gallery{ grid-template-columns:repeat(6,1fr); gap:7px; }
+body.desktop .p-gallery .gcell{ aspect-ratio:1/1; }
 
 /* 整体缩小、内容更密 */
 body.desktop .xpwin > .xp-b{ padding:11px; }
