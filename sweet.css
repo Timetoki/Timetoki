@@ -1001,10 +1001,28 @@ body.desktop .row3 > .xpwin{ height:auto !important; display:flex; flex-directio
 .sqbox .ph2{ position:absolute; inset:0; display:none; align-items:center; justify-content:center;
   background:repeating-linear-gradient(45deg,#ffeaf4 0 12px,#ffdcec 12px 24px);
   font-family:var(--mono); font-size:10px; color:var(--ink-soft); text-align:center; padding:5px; }
-.bar-board .xp-b{ max-height:128px; overflow:auto; }
+/* ★ 微调三处 */
+/* 1. 相册更扁，下排整体上移 */
+body.desktop .p-gallery .gcell{ aspect-ratio:20/6 !important; }
+
+/* 2. 公告栏/气泡栏恢复完整四边黑框（之前被去掉了左右边） */
+.barrow > .xpwin{ border:2.5px solid var(--ink) !important; border-radius:10px !important;
+  box-shadow:3px 4px 0 rgba(44,37,48,.16); }
+
+/* 3. 圆头像放大、盖在最上层，不再让正文让位；标题两心出框不换行 */
+.bigav{ width:118px !important; height:118px !important; top:-34px !important; right:14px !important;
+  border:5px solid var(--ink) !important; z-index:9 !important; }
+body.desktop .p-card .xp-b{ padding-top:12px !important; }
+.card-hero .hero h1{ white-space:nowrap; }
+.card-hero .hero h1 .hh{ display:inline-block; }
+@media (max-width:520px){ .card-hero .hero h1{ white-space:normal; } }
+
+/* 恢复被 max-width 媒体查询吃掉的方框自适应 */
 @media (max-width:900px){
   body.desktop .row-top{ grid-template-columns:1fr !important; }
   body.desktop .row3{ grid-template-columns:1fr !important; }
   .barrow{ flex-wrap:wrap; }
   .sqbox{ width:100% !important; flex-basis:auto !important; height:120px; }
 }
+/* 标题略缩，确保一行放下不换行 */
+body.desktop .card-hero .hero h1{ font-size:clamp(20px,2vw,28px); }
