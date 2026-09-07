@@ -77,7 +77,7 @@
     <!-- 右列 -->
     <div class="col">
 
-      <!-- 相册(3×2) + 右侧竖图 -->
+      <!-- 相册(3×2) + 右侧裸图 side -->
       <div class="row-top">
         <section class="xpwin p-gallery">
           <div class="xp-t"><img class="ico" src="icons/Portfolio.png" alt="">相册.exe</div>
@@ -93,15 +93,10 @@
           </div>
         </section>
 
-        <section class="xpwin p-side">
-          <div class="xp-t"><img class="ico" src="icons/Media.png" alt="">图片</div>
-          <div class="xp-b">
-            <div class="imgbox"><img src="picture/side.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph2">picture/side.png</div></div>
-          </div>
-        </section>
+        <div class="sidepic"><img src="picture/side.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph2">picture/side.png</div></div>
       </div>
 
-      <!-- 下排三个：唱片机 / 公告栏(右方图) / 留言墙(左方图) -->
+      <!-- 下排：最左唱片机 + 右侧大块（两端插图 夹 公告栏/气泡栏 两横栏） -->
       <div class="row3">
 
         <section class="xpwin pink p-player">
@@ -109,37 +104,23 @@
           <div class="xp-b"><div id="player-slot"></div></div>
         </section>
 
-        <section class="xpwin p-board">
-          <div class="xp-t"><img class="ico" src="icons/Blog.png" alt="">公告栏.txt</div>
-          <div class="xp-b">
-            <div class="board-flex">
-              <div class="board-text">
-                <h3 class="sub2">服务说明</h3>
-                <p>请把你的痛苦说给我们吃。</p>
-                <p class="rot">您的梦正在厨房里慢慢腐烂……请耐心等待，您的痛苦即将可食用。</p>
-                <h3 class="sub2">工作时间</h3>
-                <p>理论上二十四小时。</p>
-                <p class="rot">部分班次已于 2002 年停止应答，我们不知道它们为什么还在名单上。</p>
-                <h3 class="sub2">我们的立场</h3>
-                <p>我们不提供救赎，我们也不提供死亡。</p>
-                <p>痛苦不需要被修正，它只需要被命名。</p>
-                <hr class="wig">
-                <p>这世界拥挤不堪……<a href="logs.html">来电归档</a>翻过桥上温暖的标语就渡到对岸了。。</p>
-                <p class="muted">青山依旧 岁月如常。</p>
-                <p class="rot">来掰一块儿厄运饼干吧？ 来掰一块儿厄运饼干吧？</p>
-              </div>
-              <div class="imgbox sqimg"><img src="picture/sq1.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph2">picture/sq1.png</div></div>
-            </div>
-          </div>
-        </section>
+        <div class="bigblock">
+          <div class="endpic"><img src="picture/sq1.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph2">picture/sq1.png</div></div>
 
-        <section class="xpwin p-wall">
-          <div class="xp-t"><img class="ico" src="icons/Contact.png" alt="">留言墙.exe</div>
-          <div class="xp-b">
-            <div class="wall-flex">
-              <div class="imgbox sqimg"><img src="picture/sq2.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph2">picture/sq2.png</div></div>
-              <div class="wall-chips">
-                <p class="muted" style="font-size:12px;margin:0 0 8px">点一下气泡，换一句、换个颜色 ♡</p>
+          <div class="stack">
+            <section class="xpwin bar-board">
+              <div class="xp-t"><img class="ico" src="icons/Blog.png" alt="">公告栏.txt</div>
+              <div class="xp-b">
+                <p><strong>服务说明：</strong>请把你的痛苦说给我们吃。<span class="rot">您的梦正在厨房里慢慢腐烂……请耐心等待，您的痛苦即将可食用。</span></p>
+                <p><strong>工作时间：</strong>理论上二十四小时。<span class="rot">部分班次已于 2002 年停止应答，我们不知道它们为什么还在名单上。</span></p>
+                <p><strong>我们的立场：</strong>我们不提供救赎，我们也不提供死亡。痛苦不需要被修正，它只需要被命名。</p>
+                <p>这世界拥挤不堪……<a href="logs.html">来电归档</a>翻过桥上温暖的标语就渡到对岸了。。青山依旧 岁月如常。<span class="rot">来掰一块儿厄运饼干吧？</span></p>
+              </div>
+            </section>
+
+            <section class="xpwin bar-wall">
+              <div class="xp-t"><img class="ico" src="icons/Contact.png" alt="">留言墙.exe</div>
+              <div class="xp-b">
                 <div class="chips soft" id="chips">
                   <span class="chip">今天的悲伤适合冷藏</span>
                   <span class="chip">我们已经替您数过羊了</span>
@@ -150,9 +131,11 @@
                   <span class="chip">请耐心等待，痛苦即将可食用</span>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
-        </section>
+
+          <div class="endpic"><img src="picture/sq2.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph2">picture/sq2.png</div></div>
+        </div>
 
       </div>
     </div>
