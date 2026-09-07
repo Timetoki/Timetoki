@@ -923,10 +923,34 @@ body.desktop .p-player .pctrls button{ width:34px; height:34px; }
 /* ==========================================================
    首页桌面 · 修正版布局
    ========================================================== */
-/* 相册放大一点：上三下三 */
-body.desktop .row-top{ display:grid; grid-template-columns:1fr 176px; gap:16px; align-items:stretch; }
-body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,1fr); gap:9px; }
-body.desktop .p-gallery .gcell{ aspect-ratio:4/3; }
+/* 相册压扁到一半高 */
+body.desktop .row-top{ display:grid; grid-template-columns:1fr 150px; gap:16px; align-items:stretch; }
+body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,1fr); gap:8px; }
+body.desktop .p-gallery .gcell{ aspect-ratio:16/7; }
+
+/* 下排：最左唱片机 + 右侧一整块（公告栏、气泡栏两条横长条） */
+body.desktop .row3{ display:grid; grid-template-columns:206px 1fr; gap:16px; align-items:start; }
+body.desktop .row3 > .xpwin{ display:flex; flex-direction:column; }
+.bigblock{ display:flex; flex-direction:column; gap:14px; min-width:0; }
+/* 每条长横栏：左端插图 | 内容铺满 | 右端插图 */
+.barrow{ display:flex; align-items:stretch; gap:0; }
+.barrow > .xpwin{ flex:1; min-width:0; border-radius:0; border-left:none; border-right:none; }
+.barrow .endpic{ width:74px; flex:0 0 auto; border:2px solid var(--ink); overflow:hidden;
+  background:#fff; position:relative; }
+.barrow .endpic.l{ border-radius:12px 0 0 12px; }
+.barrow .endpic.r{ border-radius:0 12px 12px 0; }
+.barrow .endpic img{ width:100%; height:100%; object-fit:cover; display:block; }
+.barrow .endpic .ph2{ position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#ffeaf4 0 10px,#ffdcec 10px 20px);
+  font-family:var(--mono); font-size:10px; color:var(--ink-soft); text-align:center; padding:4px; }
+.bar-board .xp-b{ max-height:132px; overflow:auto; }
+@media (max-width:900px){
+  body.desktop .row-top{ grid-template-columns:1fr; }
+  body.desktop .row3{ grid-template-columns:1fr; }
+  .barrow{ flex-wrap:wrap; }
+  .barrow .endpic{ width:100%; height:90px; border-radius:12px; }
+  .barrow > .xpwin{ border:2px solid var(--ink); border-radius:10px; }
+}
 /* side 独立裸图（不套窗口），贴在相册右边 */
 .sidepic{ border:3px solid var(--ink); border-radius:14px; overflow:hidden; background:#fff;
   box-shadow:3px 4px 0 rgba(44,37,48,.16); position:relative; }
@@ -955,4 +979,33 @@ body.desktop .row3 > .xpwin{ display:flex; flex-direction:column; }
   body.desktop .row3{ grid-template-columns:1fr; }
   .bigblock{ grid-template-columns:1fr; }
   .bigblock .endpic{ min-height:120px; }
+}
+
+/* ==========================================================
+   ★ 首页桌面 · 最终布局（追加在末尾，覆盖前面所有旧规则）
+   ========================================================== */
+body.desktop .row-top{ display:grid !important; grid-template-columns:1fr 150px !important; gap:16px; align-items:stretch; }
+body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,1fr) !important; gap:8px !important; }
+body.desktop .p-gallery .gcell{ aspect-ratio:16/7 !important; }
+
+body.desktop .row3{ display:grid !important; grid-template-columns:206px 1fr !important; gap:16px !important; align-items:start !important; }
+body.desktop .row3 > .xpwin{ height:auto !important; display:flex; flex-direction:column; }
+
+.bigblock{ display:flex !important; flex-direction:column !important; gap:14px; min-width:0; }
+.barrow{ display:flex; align-items:stretch; }
+.barrow > .xpwin{ flex:1 1 auto; min-width:0; border-radius:0 !important; border-left:none; border-right:none; }
+.barrow .endpic{ width:74px; flex:0 0 74px; border:2px solid var(--ink); overflow:hidden; background:#fff; position:relative; }
+.barrow .endpic.l{ border-radius:12px 0 0 12px; }
+.barrow .endpic.r{ border-radius:0 12px 12px 0; }
+.barrow .endpic img{ width:100%; height:100%; object-fit:cover; display:block; }
+.barrow .endpic .ph2{ position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#ffeaf4 0 10px,#ffdcec 10px 20px);
+  font-family:var(--mono); font-size:10px; color:var(--ink-soft); text-align:center; padding:4px; }
+.bar-board .xp-b{ max-height:128px; overflow:auto; }
+@media (max-width:900px){
+  body.desktop .row-top{ grid-template-columns:1fr !important; }
+  body.desktop .row3{ grid-template-columns:1fr !important; }
+  .barrow{ flex-wrap:wrap; }
+  .barrow .endpic{ width:100% !important; flex-basis:auto !important; height:90px; border-radius:12px; }
+  .barrow > .xpwin{ border:2px solid var(--ink); border-radius:10px !important; }
 }
