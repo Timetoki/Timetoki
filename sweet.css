@@ -728,3 +728,100 @@ hr.wig{
   .qq{ left:8px; right:8px; width:auto; }
   .qq.max{ width:96vw; }
 }
+
+/* ==========================================================
+   千禧 · WinXP 灰质感：顶栏 / 面板窗口 / 弹窗
+   背景仍粉白，灰只出现在窗框与标题栏
+   ========================================================== */
+:root{
+  --xp-face:#ece9e0;      /* XP 窗体灰 */
+  --xp-edge:#8a8577;      /* 窗框深灰 */
+  --xp-title1:#ffd0e4;    /* 标题栏粉 渐变浅 */
+  --xp-title2:#cfe6ff;    /* 标题栏蓝 渐变浅 */
+  --xp-titlink:#b9889b;
+}
+
+/* 顶部 XP 灰导航条 */
+.xpbar{
+  display:flex; align-items:center; gap:4px; flex-wrap:wrap;
+  margin:0 0 16px; padding:5px 8px;
+  background:linear-gradient(#fbfaf6,var(--xp-face) 60%,#ddd8cb);
+  border:2px solid var(--ink); border-radius:9px;
+  box-shadow:2px 3px 0 rgba(44,37,48,.16);
+}
+.xpbar .xstart{ font-weight:700; font-size:13px; color:#fff;
+  background:linear-gradient(#ff9ec4,#ff6fa8); border:2px solid var(--ink);
+  border-radius:8px; padding:3px 12px; margin-right:6px; }
+.xpbar a{ border:none; font-size:13px; color:var(--ink); padding:4px 10px;
+  border:2px solid transparent; border-radius:7px; display:inline-flex; align-items:center; gap:5px; }
+.xpbar a:hover{ background:#fff; border-color:var(--xp-edge); transform:none; }
+.xpbar a img{ width:18px; height:18px; image-rendering:pixelated; vertical-align:-4px; }
+.xpbar .clock{ margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+  background:#fff; border:2px solid var(--xp-edge); border-radius:7px; padding:3px 10px; }
+
+/* 面板网格 */
+.desk{ display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+.desk .col-span{ grid-column:1 / -1; }
+@media (max-width:720px){ .desk{ grid-template-columns:1fr; } }
+
+/* XP 窗口（面板 & 弹窗共用外观） */
+.xpwin{
+  background:var(--xp-face); border:2px solid var(--ink); border-radius:10px 10px 8px 8px;
+  box-shadow:3px 4px 0 rgba(44,37,48,.2); overflow:hidden; display:flex; flex-direction:column;
+}
+.xpwin > .xp-t{
+  display:flex; align-items:center; gap:8px; padding:5px 8px;
+  background:linear-gradient(90deg,var(--xp-title1),var(--xp-title2));
+  border-bottom:2px solid var(--ink); color:var(--ink); font-weight:700; font-size:13px;
+}
+.xpwin > .xp-t .ico{ width:18px; height:18px; image-rendering:pixelated; object-fit:contain; }
+.xpwin > .xp-t .btns{ margin-left:auto; display:flex; gap:4px; }
+.xpwin > .xp-t .btns button{ width:20px; height:18px; border:2px solid var(--ink); background:#fff;
+  border-radius:4px; cursor:pointer; font-size:11px; line-height:1; padding:0; color:var(--ink); }
+.xpwin > .xp-t .btns button:hover{ background:var(--yellow); }
+.xpwin > .xp-b{ background:#fff; padding:14px; }
+.xpwin.pink > .xp-t{ background:linear-gradient(90deg,#ffc2dd,#ffe1ee); }
+
+/* 个人卡片面板：把 hero 塞进去，尺寸收一点 */
+.card-hero .hero{ padding:6px 0 0; }
+.card-hero .hero h1{ font-size:clamp(26px,5vw,40px); text-shadow:2px 2px 0 var(--pink),4px 4px 0 var(--blue); }
+.card-hero .hero .sub{ font-size:clamp(15px,3vw,20px); }
+.card-hero .avatar-box{ display:flex; gap:12px; align-items:center; margin-top:8px; }
+.card-hero .avatar-box img{ width:60px;height:60px;image-rendering:pixelated;border:2.5px solid var(--ink);
+  border-radius:12px;background:#fff;object-fit:contain; }
+
+/* 社交小图标面板 */
+.social{ display:flex; flex-wrap:wrap; gap:12px; }
+.social a{ border:none; display:flex; flex-direction:column; align-items:center; width:54px; gap:4px;
+  font-size:11px; color:var(--ink-soft); }
+.social img{ width:38px;height:38px;padding:5px;object-fit:contain;image-rendering:pixelated;
+  border:2.5px solid var(--ink);border-radius:11px;background:var(--pink);box-shadow:2px 2px 0 rgba(44,37,48,.16); }
+.social a:nth-child(2n) img{ background:var(--blue); }
+.social a:nth-child(3n) img{ background:var(--yellow); }
+.social a:hover{ transform:translateY(-2px) rotate(-3deg); color:var(--pink-hot); }
+
+/* 图片墙在面板内去掉外边距 */
+.xpwin .gallery{ margin:0; max-width:none; }
+
+/* 播放器嵌进面板：取消 fixed，变成面板内静态块 */
+.player.docked{ position:static; transform:none; width:auto; z-index:auto;
+  background:transparent; border:none; box-shadow:none; padding:0; }
+
+/* 留言墙气泡：颜色更浅 */
+.chips.soft .chip{ background:#ffe4ef; box-shadow:2px 3px 0 rgba(255,179,209,.5); }
+.chips.soft .chip:nth-child(2n){ background:#e6f3ff; }
+.chips.soft .chip:nth-child(3n){ background:#fff6c9; }
+.chips.soft .chip:nth-child(4n){ background:#e2f7ec; }
+.chips.soft .chip.bad{ background:#d8cbe0; color:#6d5c7d; }
+
+/* ---------- 桌面弹窗（点入口不跳转，弹 XP 窗，音乐不断）---------- */
+.xp-modal{ position:fixed; z-index:80; left:50%; top:54%; transform:translate(-50%,-50%);
+  width:min(680px,92vw); max-height:86vh; display:none; }
+.xp-modal.open{ display:flex; }
+.xp-modal .xp-b{ overflow:auto; max-height:74vh; }
+.xp-modal.max{ width:96vw; top:50%; }
+.xp-mask{ position:fixed; inset:0; z-index:79; background:rgba(60,45,60,.28);
+  backdrop-filter:blur(1px); display:none; }
+.xp-mask.open{ display:block; }
+/* 弹窗内容里的浮层元素隐藏，避免重复 */
+.xp-modal .doodle-layer,.xp-modal .dock,.xp-modal .player,.xp-modal .chatbtn,.xp-modal .chatwin{ display:none !important; }

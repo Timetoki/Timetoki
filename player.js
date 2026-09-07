@@ -50,7 +50,9 @@
     '</div>' +
     '<div class="vrow"><span class="vico">🔊</span>' +
       '<input id="pvol" class="pbar" type="range" min="0" max="100" value="80" step="1" aria-label="音量"></div>';
-  document.body.appendChild(box);
+  var slot = document.getElementById('player-slot');
+  if (slot){ box.classList.add('docked'); slot.appendChild(box); }
+  else { document.body.appendChild(box); }
 
   var audio = new Audio();
   audio.preload = 'metadata';
