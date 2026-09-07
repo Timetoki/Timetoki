@@ -864,3 +864,58 @@ body.desktop .chips.soft .chip{ font-size:15px;padding:3px 11px; }
 .xp-mask.open{ display:block; }
 /* 弹窗内容里的浮层元素隐藏，避免重复 */
 .xp-modal .doodle-layer,.xp-modal .dock,.xp-modal .player,.xp-modal .chatbtn,.xp-modal .chatwin{ display:none !important; }
+
+/* ==========================================================
+   首页桌面 · 细化布局
+   ========================================================== */
+/* 右上：相册(3×2) + 右侧竖图 */
+body.desktop .row-top{ display:grid; grid-template-columns:1fr 188px; gap:16px; align-items:stretch; }
+body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,1fr); gap:8px; }
+body.desktop .p-gallery .gcell{ aspect-ratio:1/1; }
+body.desktop .p-side .xp-b{ padding:9px; height:100%; }
+body.desktop .p-side .imgbox{ height:100%; min-height:200px; }
+@media (max-width:900px){ body.desktop .row-top{ grid-template-columns:1fr; } }
+
+/* 下排三个：唱片机(窄) / 公告栏(带右侧方图) / 留言墙(带左侧方图)——等高、底对齐、公告滚动 */
+body.desktop .row3{ display:grid; grid-template-columns:210px 1.25fr 1.1fr; gap:16px; align-items:stretch; }
+body.desktop .row3 > .xpwin{ height:clamp(300px,42vh,384px); display:flex; flex-direction:column; }
+body.desktop .row3 > .xpwin > .xp-b{ flex:1; min-height:0; }
+@media (max-width:900px){
+  body.desktop .row3{ grid-template-columns:1fr; }
+  body.desktop .row3 > .xpwin{ height:auto; }
+}
+
+/* 图片盒 + 缺图占位 */
+.imgbox{ position:relative; border:3px solid var(--ink); border-radius:12px; overflow:hidden;
+  background:#fff; box-shadow:2px 3px 0 rgba(44,37,48,.14); }
+.imgbox img{ width:100%; height:100%; object-fit:cover; display:block; }
+.imgbox .ph2{ position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#ffeaf4 0 12px,#ffdcec 12px 24px);
+  font-family:var(--mono); font-size:11px; color:var(--ink-soft); text-align:center; padding:6px; }
+
+/* 公告栏：文字滚动 + 右侧方图 */
+.board-flex{ display:flex; gap:12px; height:100%; }
+.board-flex .board-text{ flex:1; overflow:auto; min-height:0; padding-right:4px; }
+.sqimg{ width:126px; height:126px; flex:0 0 auto; align-self:center; }
+
+/* 留言墙：左侧方图 + 气泡 */
+.wall-flex{ display:flex; gap:12px; height:100%; }
+.wall-flex .wall-chips{ flex:1; overflow:auto; min-height:0; }
+
+/* 个人卡片：圆形出框大头像 */
+body.desktop .p-card{ overflow:visible; }
+.card-hero{ position:relative; }
+.bigav{ position:absolute; top:-26px; right:18px; width:98px; height:98px; border-radius:50%;
+  border:4px solid var(--ink); object-fit:cover; background:#fff; z-index:4;
+  box-shadow:3px 4px 0 rgba(44,37,48,.22); }
+body.desktop .p-card .xp-b{ padding-top:16px; }
+
+/* 唱片机去空白、整体缩小（保留全部功能） */
+body.desktop .p-player .xp-b{ padding:8px; display:flex; align-items:center; justify-content:center; }
+body.desktop .p-player .player{ width:auto; }
+body.desktop .p-player .vinyl{ width:92px; height:92px; margin:2px auto 8px; }
+body.desktop .p-player .scr{ margin:4px 0 6px; }
+body.desktop .p-player .prow{ margin:2px 0 6px; }
+body.desktop .p-player .vrow{ margin:4px 2px 0; }
+body.desktop .p-player .pctrls{ gap:8px; }
+body.desktop .p-player .pctrls button{ width:34px; height:34px; }
