@@ -16,7 +16,7 @@
     '</span></div><div class="xp-b" id="xpmbody">加载中…</div>';
   document.body.appendChild(modal);
 
-  function close(){ modal.classList.remove('open','game'); mask.classList.remove('open');
+  function close(){ modal.classList.remove('open','game','answerbook'); mask.classList.remove('open');
     if(window.__player) window.__player.resume(); }
   mask.addEventListener('click',close);
   document.getElementById('xpmcls').addEventListener('click',close);
@@ -90,17 +90,14 @@
 
   /* 答案之书：book1/book2 来回切当假 gif + 晕开白光呼吸文字 + 点击抽签 */
   function openAnswerBook(dbody, navA){
+    modal.classList.add('answerbook');
     dbody.innerHTML=
       '<button class="game-back">← 返回</button>'+
       '<div class="ab-stage">'+
-        '<img class="ab-book" src="picture/book1.png" alt="" onerror="this.style.display=\'none\'">'+
+        '<img class="ab-book" src="picture/book.gif" alt="" onerror="this.style.display=\'none\'">'+
         '<div class="ab-glow"><span class="ab-hint">点击寻找答案</span></div>'+
       '</div>';
     dbody.querySelector('.game-back').addEventListener('click',function(){ navA.click(); });
-    // 假 gif：book1/book2 来回切
-    var book=dbody.querySelector('.ab-book'), frame=1;
-    var flip=setInterval(function(){ frame=frame===1?2:1; book.src='picture/book'+frame+'.png'; },520);
-    // 点击抽答案
     var glow=dbody.querySelector('.ab-glow'), hint=dbody.querySelector('.ab-hint');
     var BOOK=window.ANSWER_BOOK||['……'];
     var last=-1;
@@ -110,11 +107,6 @@
       hint.classList.remove('pop'); void hint.offsetWidth; hint.classList.add('pop');
       hint.textContent=BOOK[i];
     });
-    // 关窗时停掉切换
-    var stop=function(){ clearInterval(flip); };
-    modal.querySelector('#xpmcls').addEventListener('click',stop,{once:true});
-    modal.querySelector('#xpmmin')&&modal.querySelector('#xpmmin').addEventListener('click',stop,{once:true});
-    mask.addEventListener('click',stop,{once:true});
   }
 
   document.addEventListener('click',function(e){

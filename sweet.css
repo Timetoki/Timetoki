@@ -1321,10 +1321,8 @@ ul.slots li{ align-items:center; }
 .game-card .cover img{ width:56px; height:56px; image-rendering:pixelated; object-fit:contain; }
 
 /* 答案之书舞台 */
-.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center;
-  min-height:60vh; padding:20px; }
-.ab-book{ max-height:52vh; max-width:80%; image-rendering:pixelated;
-  filter:drop-shadow(3px 5px 0 rgba(44,37,48,.2)); }
+.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center; min-height:70vh; padding:20px; background:#fff; }
+.ab-book{ max-height:64vh; max-width:90%; image-rendering:pixelated; }
 .ab-glow{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
   width:min(420px,80%); min-height:120px; display:flex; align-items:center; justify-content:center;
   text-align:center; border-radius:50%;
@@ -1377,3 +1375,10 @@ ul.slots li{ align-items:center; }
   background:linear-gradient(#fbfaf6,var(--xp-face) 60%,#ddd8cb) !important;
   color:var(--ink) !important;
 }
+
+
+/* 答案之书：整窗纯白背景 */
+.xp-modal.answerbook > .xp-b{ background:#fff !important; }
+
+/* 答案之书：窗口纯白底 */
+.xp-modal .xp-b:has(.ab-stage){ background:#fff !important; }
