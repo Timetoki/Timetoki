@@ -178,7 +178,7 @@
       ptf:{ name:"过去 · 现在 · 未来", desc:"适合探讨事情的变化", pos:["过去","现在","未来"] },
       root:{ name:"寻求事情本源", desc:"寻求事件的原因", pos:["表象","根源","关键"] }
     };
-    function backHTML(){ return '<img src="picture/card-back.png" alt="牌背">'; }
+    function backHTML(){ return '<img src="picture/Cards/card-back.png" alt="牌背">'; }
 
     function chooser(){
       dbody.innerHTML=
@@ -220,7 +220,7 @@
         c.addEventListener('click',function(){
           if(c.classList.contains('flipped')) return;
           var card=draw();
-          c.querySelector('.front').innerHTML='<img src="picture/cards/'+encodeURIComponent(card.f)+'" alt="'+card.n+'" onerror="this.style.opacity=0">';
+          c.querySelector('.front').innerHTML='<img src="picture/Cards/'+encodeURIComponent(card.f)+'" alt="'+card.n+'" onerror="this.style.opacity=0">';
           c.classList.add('flipped');
           c.querySelector('.tinfo').innerHTML='<div class="tname">'+card.n+'</div><div class="tread">'+card.r+'</div>';
           revealed++;
