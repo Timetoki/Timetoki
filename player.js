@@ -34,6 +34,15 @@
   });
   document.body.appendChild(dock);
 
+  /* 移动端：dock 抽屉把手（PC 端 CSS 里隐藏） */
+  var dockHandle=document.createElement('button');
+  dockHandle.className='dock-handle'; dockHandle.setAttribute('aria-label','菜单'); dockHandle.textContent='≡';
+  document.body.appendChild(dockHandle);
+  dockHandle.addEventListener('click',function(){ dock.classList.toggle('open'); });
+  document.addEventListener('click',function(e){
+    if(dock.classList.contains('open') && !dock.contains(e.target) && e.target!==dockHandle) dock.classList.remove('open');
+  });
+
   /* ---------- 建播放器 ---------- */
   var box = document.createElement('div');
   box.className = 'player';
@@ -52,7 +61,14 @@
       '<input id="pvol" class="pbar" type="range" min="0" max="100" value="80" step="1" aria-label="音量"></div>';
   var slot = document.getElementById('player-slot');
   if (slot){ box.classList.add('docked'); slot.appendChild(box); }
-  else { document.body.appendChild(box); }
+  else {
+    document.body.appendChild(box);
+    /* 移动端：唱片机右下把手（PC 端 CSS 里隐藏） */
+    var pHandle=document.createElement('button');
+    pHandle.className='player-handle'; pHandle.setAttribute('aria-label','唱片机'); pHandle.textContent='♪';
+    document.body.appendChild(pHandle);
+    pHandle.addEventListener('click',function(){ box.classList.toggle('open'); });
+  }
 
   var audio = new Audio();
   audio.preload = 'metadata';

@@ -1335,3 +1335,39 @@ ul.slots li{ align-items:center; }
   color:var(--ink); text-shadow:0 0 6px #fff; padding:0 16px; line-height:1.5; }
 .ab-hint.pop{ animation:abpop .5s ease; }
 @keyframes abpop{ 0%{ opacity:0; transform:scale(.8) } 100%{ opacity:1; transform:scale(1) } }
+
+/* ==========================================================
+   ★ 移动端适配（只影响 ≤820px，PC 端不变）
+   dock 与唱片机改为可收起抽屉；相册仅留最左一张
+   ========================================================== */
+/* 把手默认隐藏（PC 端不显示） */
+.dock-handle, .player-handle{ display:none; }
+
+@media (max-width:820px){
+  /* dock：抽屉，平时藏在左侧外，点把手滑出，压在内容上 */
+  .dock{ display:flex !important; transform:translateX(-118%); transition:transform .26s ease;
+    top:0; bottom:0; height:100dvh; border-radius:0 16px 16px 0; overflow:auto;
+    background:rgba(255,246,251,.92); }
+  .dock.open{ transform:translateX(0); }
+  .dock-handle{ display:flex; position:fixed; left:0; top:46%; z-index:65;
+    width:30px; height:52px; align-items:center; justify-content:center;
+    border:2.5px solid var(--ink); border-left:none; border-radius:0 12px 12px 0;
+    background:var(--pink); color:var(--ink); font-size:20px; cursor:pointer;
+    box-shadow:2px 2px 0 rgba(44,37,48,.2); }
+
+  /* 唱片机：右侧抽屉，点右下把手展开 */
+  .player:not(.docked){ display:block !important; right:0; bottom:70px; top:auto; transform:translateX(125%);
+    transition:transform .26s ease; z-index:65; }
+  .player:not(.docked).open{ transform:translateX(0); }
+  .player-handle{ display:flex; position:fixed; right:14px; bottom:14px; z-index:65;
+    width:46px; height:46px; align-items:center; justify-content:center; border-radius:14px;
+    border:2.5px solid var(--ink); background:var(--blue); color:var(--ink); font-size:22px; cursor:pointer;
+    box-shadow:2px 3px 0 rgba(44,37,48,.2); }
+
+  /* 相册：仅最左一张、铺满；4/2 贴纸照旧 */
+  .album-stage{ grid-template-columns:1fr !important; }
+  .album-main:nth-child(2), .album-main:nth-child(3){ display:none !important; }
+
+  /* 内容不再给 dock 让位（dock 悬浮压在上面） */
+  body.desktop .wrap{ padding-left:12px !important; }
+}
