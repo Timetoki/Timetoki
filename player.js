@@ -6,7 +6,7 @@
   var DOCK = [
     {label:"错误日志", href:"errorlog.html",        icon:"icons/blog2.png"},
     {label:"作品集",   href:"portfolio.html",        icon:"icons/Portfolio.png"},
-    {label:"贩售机",   href:"vending_machine.html",  icon:"icons/Games.png"},
+    {label:"贩售机",   href:"vending_machine.html",  icon:"icons/icon1.png"},
     {label:"新闻",     href:"news.html",             icon:"icons/Media.png"},
     {label:"GitHub",   href:"https://github.com/Timetoki", icon:"icons/github.png", ext:true},
     {label:"回收站",   href:"corrupted_archive.html", icon:"icons/Recycle.png"}

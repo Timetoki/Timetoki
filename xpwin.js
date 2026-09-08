@@ -12,16 +12,17 @@
     '</span></div><div class="xp-b" id="xpmbody">加载中…</div>';
   document.body.appendChild(modal);
 
-  function close(){ modal.classList.remove('open','max'); mask.classList.remove('open'); }
+  function close(){ modal.classList.remove('open','game'); mask.classList.remove('open'); }
   mask.addEventListener('click',close);
   document.getElementById('xpmcls').addEventListener('click',close);
-  document.getElementById('xpmmax').addEventListener('click',function(){ modal.classList.toggle('max'); });
+  document.getElementById('xpmmax').addEventListener('click',function(e){ e.stopPropagation(); /* 最大化：点了无效 */ });
 
   (function(){
     var t=modal.querySelector('.xp-t'),dx=0,dy=0,drag=false;
     t.addEventListener('mousedown',function(e){
-      if(e.target.tagName==='BUTTON')return; drag=true; modal.classList.remove('max');
+      if(e.target.tagName==='BUTTON')return; drag=true;
       var r=modal.getBoundingClientRect();
+      modal.style.width=r.width+'px';
       modal.style.left=r.left+'px'; modal.style.top=r.top+'px'; modal.style.transform='none';
       dx=e.clientX-r.left; dy=e.clientY-r.top; e.preventDefault();
     });
@@ -36,7 +37,7 @@
     if(icon) document.getElementById('xpmico').src=icon;
     var body=document.getElementById('xpmbody'); body.innerHTML='加载中…';
     modal.classList.add('open'); mask.classList.add('open');
-    modal.style.left=''; modal.style.top=''; modal.style.transform='';
+    modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
     fetch(url).then(function(r){return r.text();}).then(function(html){
       var doc=new DOMParser().parseFromString(html,'text/html');
       var w=doc.querySelector('.wrap');
@@ -56,21 +57,22 @@
       document.getElementById('xpmico').src='icons/Games.png';
       var body=document.getElementById('xpmbody');
       body.innerHTML=
-        '<p class="muted" style="margin:0 0 12px">选一个游戏开始玩。游戏在窗口里运行，唱片机不会停 ♡</p>'+
         '<div class="game-pick">'+
           '<div class="game-card" data-game="games/minecraft/index.html">'+
             '<div class="cover"><img src="icons/MC.png" alt=""></div>'+
             '<div class="gname">Minecraft</div>'+
           '</div>'+
         '</div>';
+      modal.classList.remove('game');
       modal.classList.add('open'); mask.classList.add('open');
-      modal.style.left=''; modal.style.top=''; modal.style.transform='';
+      modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
       body.querySelectorAll('.game-card').forEach(function(card){
         card.addEventListener('click',function(){
           var src=card.getAttribute('data-game');
           body.innerHTML='<button class="game-back">← 返回选择</button>'+
                          '<iframe class="game-frame" src="'+src+'" allow="autoplay; fullscreen; gamepad; pointer-lock" allowfullscreen></iframe>';
-          modal.classList.add('max');
+          modal.classList.add('game');
+          modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
           body.querySelector('.game-back').addEventListener('click',function(){ a.click(); });
         });
       });
