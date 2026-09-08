@@ -1309,5 +1309,10 @@ ul.slots li{ align-items:center; }
 
 
 /* 社交面板下方装饰 gif（无框、透明底、居中） */
-.social-deco{ display:block; width:100%; max-width:300px; height:auto; margin:2px auto 0;
+.social-deco{ display:block; width:100%; max-width:300px; height:auto; margin:-8px auto 0;
   image-rendering:pixelated; }
+
+
+/* 贩售机页：电视机顶格 */
+.tv-big{ margin-top:0 !important; }
+.xp-modal .xp-b .tv-big:first-child{ margin-top:0 !important; }
