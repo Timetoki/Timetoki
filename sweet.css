@@ -1026,3 +1026,20 @@ body.desktop .p-card .xp-b{ padding-top:12px !important; }
 }
 /* 标题略缩，确保一行放下不换行 */
 body.desktop .card-hero .hero h1{ font-size:clamp(20px,2vw,28px); }
+
+/* ★ 微调（不改结构）：个人资料下移 / 相册再扁 / 留言板去空白 / 整体收进一屏 */
+/* 1. 个人资料面板整体往下挪约 1cm（38px） */
+body.desktop .p-card{ margin-top:38px; }
+/* 2. 相册再扁一点 */
+body.desktop .p-gallery .gcell{ aspect-ratio:20/5 !important; }
+/* 3. 留言墙上下空白删一点：面板内边距收紧、气泡行距压小 */
+body.desktop .bar-wall .xp-b{ padding:8px 11px !important; }
+body.desktop .bar-wall .chips.soft{ gap:8px 10px; }
+body.desktop .bar-wall .chip{ padding:2px 11px; }
+/* 4. 收进一屏：各面板与行间距整体略缩 */
+body.desktop .wrap{ padding:12px 24px 40px 112px; }
+body.desktop .desk{ gap:14px; }
+body.desktop .col{ gap:14px; }
+body.desktop .row-top{ gap:14px; }
+body.desktop .bigblock{ gap:12px; }
+body.desktop .xpbar{ margin-bottom:12px; }
