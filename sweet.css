@@ -1321,8 +1321,8 @@ ul.slots li{ align-items:center; }
 .game-card .cover img{ width:56px; height:56px; image-rendering:pixelated; object-fit:contain; }
 
 /* 答案之书舞台 */
-.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center; min-height:70vh; padding:20px; background:#fff; }
-.ab-book{ max-height:64vh; max-width:90%; image-rendering:pixelated; }
+.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center; min-height:80vh; padding:12px; background:#fff; }
+.ab-book{ height:74vh; width:auto; max-width:96%; image-rendering:pixelated; }
 .ab-glow{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
   width:min(420px,80%); min-height:120px; display:flex; align-items:center; justify-content:center;
   text-align:center; border-radius:50%;

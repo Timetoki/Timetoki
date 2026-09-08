@@ -99,10 +99,14 @@
       '</div>';
     dbody.querySelector('.game-back').addEventListener('click',function(){ navA.click(); });
     var glow=dbody.querySelector('.ab-glow'), hint=dbody.querySelector('.ab-hint');
+    var book=dbody.querySelector('.ab-book');
     var BOOK=window.ANSWER_BOOK||['……'];
-    var last=-1;
+    var last=-1, timer=null, GIFMS=550;
     glow.style.cursor='pointer';
     glow.addEventListener('click',function(){
+      if(timer) clearTimeout(timer);
+      book.src='picture/book.gif?t='+Date.now();            // 重播一次
+      timer=setTimeout(function(){ book.src='picture/book.png'; }, GIFMS); // 播完停末帧
       var i; do{ i=Math.floor(Math.random()*BOOK.length); }while(i===last&&BOOK.length>1); last=i;
       hint.classList.remove('pop'); void hint.offsetWidth; hint.classList.add('pop');
       hint.textContent=BOOK[i];
