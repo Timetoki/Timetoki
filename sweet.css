@@ -1057,3 +1057,23 @@ body.desktop .p-player{ height:100% !important; }
 body.desktop .p-player > .xp-b{ flex:1; display:flex; align-items:center; justify-content:center; }
 body.desktop .p-player .player{ width:100%; }
 body.desktop .p-player .vinyl{ width:120px; height:120px; margin:6px auto 12px; }
+
+/* ★ 相册/社交 白粉格纹底；相册六图正方+右侧竖 gif；个人资料上方三 gif */
+.pinkgrid, body.desktop .p-gallery > .xp-b, body.desktop .p-social > .xp-b{
+  background:
+    linear-gradient(45deg,#ffd9ea 25%,transparent 25%,transparent 75%,#ffd9ea 75%) 0 0/22px 22px,
+    linear-gradient(45deg,#ffd9ea 25%,transparent 25%,transparent 75%,#ffd9ea 75%) 11px 11px/22px 22px,
+    #fff6fb !important;
+}
+/* 相册加宽后：六图正方 3×2 + 右侧竖 gif */
+body.desktop .gallery-wrap{ display:grid; grid-template-columns:1fr 132px; gap:12px; align-items:center; }
+body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,120px) !important; gap:10px !important; justify-content:center; }
+body.desktop .p-gallery .gcell{ aspect-ratio:1/1 !important; }
+.gallery-gif{ width:100%; height:100%; object-fit:cover; image-rendering:pixelated;
+  border:3px solid var(--ink); border-radius:14px; background:#fff; box-shadow:2px 3px 0 rgba(44,37,48,.16); }
+@media (max-width:900px){ body.desktop .gallery-wrap{ grid-template-columns:1fr; } }
+
+/* 个人资料上方三个透明 gif（无框、透明底、横排） */
+.deco-gifs{ position:absolute; top:-52px; left:14px; display:flex; gap:8px; z-index:8; pointer-events:none; }
+.deco-gifs img{ height:64px; width:auto; image-rendering:pixelated; }
+body.desktop .p-card{ overflow:visible; margin-top:64px; }
