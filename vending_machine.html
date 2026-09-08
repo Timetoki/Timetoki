@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>♡ 5-羟色胺自动贩售机 ♡</title>
 <link rel="stylesheet" href="sweet.css">
+<style>
+/* 掉落动画自带一份，避免依赖 sweet.css 是否更新 */
+.vm-img{ cursor:pointer; }
+.vm-img.shake{ animation:vshake .45s ease !important; }
+@keyframes vshake{ 0%,100%{transform:translate(0,0) rotate(0)} 20%{transform:translate(-4px,0) rotate(-3deg)}
+  40%{transform:translate(4px,0) rotate(3deg)} 60%{transform:translate(-3px,0) rotate(-2deg)} 80%{transform:translate(3px,0) rotate(2deg)} }
+.falling-coin{ position:fixed; top:-60px; width:42px; height:auto; z-index:9990; pointer-events:none;
+  image-rendering:pixelated; animation:fall-through 2.2s linear forwards; }
+@keyframes fall-through{ from{ transform:translateY(0) rotate(0) } to{ transform:translateY(118vh) rotate(40deg) } }
+.falling-item{ position:fixed; top:-50px; width:42px; height:auto; z-index:9980; pointer-events:none;
+  image-rendering:pixelated; animation:fall-bottom 1.5s cubic-bezier(.4,0,.7,1) forwards; }
+@keyframes fall-bottom{ from{ transform:translateY(0) } to{ transform:translateY(100vh) } }
+.piled-item{ position:fixed; bottom:0; width:42px; height:auto; z-index:9980; pointer-events:none; image-rendering:pixelated; }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -56,19 +70,19 @@
     <button class="vitem" data-icon="ball_pen.png"><img src="picture/Pixel_Mart/ball_pen.png" alt=""><span class="vn">文章</span><span class="vp">50 / 千字</span></button>
     <button class="vitem" data-icon="eraser.png"><img src="picture/Pixel_Mart/eraser.png" alt=""><span class="vn">约稿画</span><span class="vp">50 / 张</span></button>
     <button class="vitem" data-icon="light_bulb.png"><img src="picture/Pixel_Mart/light_bulb.png" alt=""><span class="vn">约拍</span><span class="vp">50 / 小时</span></button>
-    <button class="vitem" data-icon="batteries.png"><img src="picture/Pixel_Mart/batteries.png" alt=""><span class="vn">加急</span><span class="vp">面议</span></button>
+    <button class="vitem" data-icon="batteries.png"><img src="picture/Pixel_Mart/batteries.png" alt=""><span class="vn">加急</span><span class="vp">x2</span></button>
     <button class="vitem" data-icon="coffee_bag.png"><img src="picture/Pixel_Mart/coffee_bag.png" alt=""><span class="vn">改稿</span><span class="vp">含原价</span></button>
-    <button class="vitem" data-icon="receipt.png"><img src="picture/Pixel_Mart/receipt.png" alt=""><span class="vn">商用授权</span><span class="vp">另议</span></button>
-    <button class="vitem" data-icon="basket_yellow.png"><img src="picture/Pixel_Mart/basket_yellow.png" alt=""><span class="vn">档期</span><span class="vp">看情况</span></button>
+    <button class="vitem" data-icon="receipt.png"><img src="picture/Pixel_Mart/receipt.png" alt=""><span class="vn">商用授权</span><span class="vp">x2</span></button>
+    <button class="vitem" data-icon="basket_yellow.png"><img src="picture/Pixel_Mart/basket_yellow.png" alt=""><span class="vn">档期</span><span class="vp">空闲中</span></button>
     <button class="vitem out" disabled><img src="picture/Pixel_Mart/egg_white.png" alt=""><span class="vn">多余的星期二</span><span class="vp">售罄</span></button>
     <button class="vitem out" disabled><img src="picture/Pixel_Mart/water.png" alt=""><span class="vn">通过审核的雨水</span><span class="vp">售罄</span></button>
     <button class="vitem out" disabled><img src="picture/Pixel_Mart/marshmallows.png" alt=""><span class="vn">替您数好的羊</span><span class="vp">售罄</span></button>
   </div>
 
-  <p class="mono">单位：人民币。价目仅供参考，最终以私下沟通为准。投喂前请先说清你要的是哪一种。</p>
+  <p class="mono">单位：人民币。价目仅供参考，最终以私下沟通为准。</p>
 
   <footer class="foot">
-    vending / 5-HT · 库存由情绪自动补充，永不为空，也永不满<br>
+    vending / 5-HT · 库存非自动补充，最后补货日期：明天<br>
     <span class="faint">请勿触摸正在融化的下午。</span>
   </footer>
 
