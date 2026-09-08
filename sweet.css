@@ -1382,7 +1382,6 @@ ul.slots li{ align-items:center; }
 
 
 /* 答案之书：整窗纯白背景 */
-.xp-modal.answerbook > .xp-b{ background:#fff !important; }
 
 /* 答案之书：窗口纯白底 */
 
@@ -1439,3 +1438,13 @@ ul.slots li{ align-items:center; }
   box-shadow:2px 3px 0 rgba(44,37,48,.18); }
 .again-btn:hover{ background:var(--blue); color:var(--ink); }
 @media (max-width:560px){ .tcard{ width:150px } .tcard-inner{ width:150px; height:208px } .spread-card{ width:100%%; } } }
+
+/* ★ 修复：所有弹窗内容区统一波点底（覆盖 .xpwin>.xp-b 的白底与残留白底） */
+.xp-modal > .xp-b{
+  background-color:var(--cream) !important;
+  background-image:
+    radial-gradient(var(--pink) 2.2px, transparent 2.3px),
+    radial-gradient(var(--blue) 1.6px, transparent 1.7px) !important;
+  background-size:26px 26px, 26px 26px !important;
+  background-position:0 0, 13px 13px !important;
+}
