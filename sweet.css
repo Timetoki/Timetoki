@@ -1087,3 +1087,27 @@ body.desktop .p-gallery .gallery{ display:grid !important;
   gap:8px !important; justify-content:center !important; align-content:center !important; }
 body.desktop .p-gallery .gcell{ aspect-ratio:auto !important; width:64px !important; height:64px !important; }
 .gallery-gif{ width:100% !important; height:100% !important; }
+
+/* ★ 个人资料圆角找回（overflow:visible 导致直角）+ 摆件坐在上边框 */
+body.desktop .p-card{ border-radius:12px 12px 10px 10px; }
+body.desktop .p-card > .xp-t{ border-radius:9px 9px 0 0; }
+body.desktop .p-card > .xp-b{ border-radius:0 0 9px 9px; }
+/* 装饰 gif 像摆件坐在上边框上（底边贴着面板顶线） */
+.deco-gifs{ position:absolute; left:16px; bottom:100%; top:auto !important; margin-bottom:-8px;
+  display:flex; gap:8px; align-items:flex-end; z-index:8; pointer-events:none; }
+.deco-gifs img{ height:58px; width:auto; image-rendering:pixelated; }
+
+/* ★ 白粉格纹放大 */
+.pinkgrid, body.desktop .p-gallery > .xp-b, body.desktop .p-social > .xp-b{
+  background:
+    linear-gradient(45deg,#ffd9ea 25%,transparent 25%,transparent 75%,#ffd9ea 75%) 0 0/36px 36px,
+    linear-gradient(45deg,#ffd9ea 25%,transparent 25%,transparent 75%,#ffd9ea 75%) 18px 18px/36px 36px,
+    #fff6fb !important;
+}
+
+/* ★ 圆头像黑边缩小 */
+.bigav{ border-width:3px !important; }
+
+/* ★ 相册内竖 gif 去边、直接铺满 */
+.gallery-gif{ border:none !important; border-radius:0 !important; box-shadow:none !important;
+  background:transparent !important; object-fit:cover !important; }
