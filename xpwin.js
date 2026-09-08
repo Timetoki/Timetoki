@@ -48,6 +48,35 @@
 
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return;
+
+    /* 游戏栏：弹出游戏选择界面（不跳转，iframe 载入，音乐不断） */
+    if(a.id==='nav-games'){
+      e.preventDefault();
+      document.getElementById('xpmtitle').textContent='游戏';
+      document.getElementById('xpmico').src='icons/Games.png';
+      var body=document.getElementById('xpmbody');
+      body.innerHTML=
+        '<p class="muted" style="margin:0 0 12px">选一个游戏开始玩。游戏在窗口里运行，唱片机不会停 ♡</p>'+
+        '<div class="game-pick">'+
+          '<div class="game-card" data-game="games/minecraft/index.html">'+
+            '<div class="cover"><img src="icons/MC.png" alt=""></div>'+
+            '<div class="gname">Minecraft</div>'+
+          '</div>'+
+        '</div>';
+      modal.classList.add('open'); mask.classList.add('open');
+      modal.style.left=''; modal.style.top=''; modal.style.transform='';
+      body.querySelectorAll('.game-card').forEach(function(card){
+        card.addEventListener('click',function(){
+          var src=card.getAttribute('data-game');
+          body.innerHTML='<button class="game-back">← 返回选择</button>'+
+                         '<iframe class="game-frame" src="'+src+'" allow="autoplay; fullscreen; gamepad; pointer-lock" allowfullscreen></iframe>';
+          modal.classList.add('max');
+          body.querySelector('.game-back').addEventListener('click',function(){ a.click(); });
+        });
+      });
+      return;
+    }
+
     var href=a.getAttribute('href')||'';
     if(/^https?:/i.test(href)) return;
     var base=href.split('/').pop();

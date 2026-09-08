@@ -858,7 +858,12 @@ body.desktop .chips.soft .chip{ font-size:15px;padding:3px 11px; }
 .xp-modal{ position:fixed; z-index:80; left:50%; top:54%; transform:translate(-50%,-50%);
   width:min(680px,92vw); max-height:86vh; display:none; }
 .xp-modal.open{ display:flex; }
-.xp-modal .xp-b{ overflow:auto; max-height:74vh; }
+.xp-modal .xp-b{ overflow:auto; max-height:74vh;
+  background-color:var(--cream);
+  background-image:
+    radial-gradient(var(--pink) 2.2px, transparent 2.3px),
+    radial-gradient(var(--blue) 1.6px, transparent 1.7px);
+  background-size:26px 26px, 26px 26px; background-position:0 0, 13px 13px; }
 .xp-modal.max{ width:96vw; top:50%; }
 .xp-mask{ position:fixed; inset:0; z-index:79; background:rgba(60,45,60,.28);
   backdrop-filter:blur(1px); display:none; }
@@ -1165,3 +1170,17 @@ body.desktop .p-gallery > .xp-b{ height:170px !important; padding:0 !important; 
 /* 相册允许贴纸出框（section 默认 overflow:hidden 会裁掉 2png/4png） */
 body.desktop .p-gallery{ overflow:visible !important; }
 body.desktop .p-gallery > .xp-b{ overflow:visible !important; }
+
+/* 游戏弹窗：选择界面卡片 + iframe 全屏游戏 */
+.game-pick{ display:flex; flex-wrap:wrap; gap:16px; padding:6px; }
+.game-card{ width:180px; border:3px solid var(--ink); border-radius:14px; background:#fff;
+  box-shadow:3px 4px 0 rgba(44,37,48,.18); overflow:hidden; cursor:pointer;
+  transition:transform .15s ease; }
+.game-card:hover{ transform:translateY(-3px) rotate(-1.5deg); }
+.game-card .cover{ height:110px; display:flex; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#cbe6c9 0 16px,#bcdcb8 16px 32px); }
+.game-card .cover img{ width:56px; height:56px; image-rendering:pixelated; }
+.game-card .gname{ font-weight:700; text-align:center; padding:8px; color:var(--ink); }
+.game-frame{ width:100%; height:72vh; border:0; display:block; background:#000; border-radius:8px; }
+.game-back{ font-family:var(--body); font-weight:700; cursor:pointer; margin-bottom:10px;
+  border:2px solid var(--ink); border-radius:8px; background:var(--pink); color:var(--ink); padding:4px 12px; }
