@@ -1347,11 +1347,14 @@ ul.slots li{ align-items:center; }
     top:0; bottom:0; height:100dvh; border-radius:0 16px 16px 0; overflow:auto;
     background:rgba(255,246,251,.92); }
   .dock.open{ transform:translateX(0); }
-  .dock-handle{ display:flex; position:fixed; left:0; top:46%; z-index:65;
-    width:30px; height:52px; align-items:center; justify-content:center;
-    border:2.5px solid var(--ink); border-left:none; border-radius:0 12px 12px 0;
-    background:var(--pink); color:var(--ink); font-size:20px; cursor:pointer;
-    box-shadow:2px 2px 0 rgba(44,37,48,.2); }
+  .dock-handle{ display:flex; position:fixed; left:0; top:120px; z-index:65;
+    width:44px; min-height:96px; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    border:3px solid var(--ink); border-left:none; border-radius:0 16px 16px 0;
+    background:var(--pink-hot); color:#fff; font-size:22px; cursor:pointer; padding:8px 4px;
+    box-shadow:3px 3px 0 rgba(44,37,48,.25); animation:handlepulse 1.4s ease-in-out infinite; }
+  .dock-handle::after{ content:"菜单"; font-family:var(--body); font-weight:700; font-size:12px;
+    writing-mode:vertical-rl; letter-spacing:2px; }
+  @keyframes handlepulse{ 0%,100%{ transform:translateX(0) } 50%{ transform:translateX(4px) } }
 
   /* 唱片机：右侧抽屉，点右下把手展开 */
   .player:not(.docked){ display:block !important; right:0; bottom:70px; top:auto; transform:translateX(125%);
