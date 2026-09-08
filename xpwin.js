@@ -1,7 +1,9 @@
 /* 桌面弹窗：点入口不跳转，抽取目标页面正文塞进 XP 灰窗，音乐/聊天不断。
    样例先接「贩售机」，验证观感后把更多入口加进 MODAL 即可。 */
 (function(){
-  var MODAL = ['vending_machine.html'];   // 先接这一个做样例
+  var MODAL = ['vending_machine.html','logs.html','operator_notes.html','specimen_room.html',
+    'museum.html','about.html','errorlog.html','portfolio.html','news.html','corrupted_archive.html',
+    'call-0417.html','call-0603.html','call-0912.html','call-2258.html'];
 
   var mask=document.createElement('div'); mask.className='xp-mask'; document.body.appendChild(mask);
   var modal=document.createElement('div'); modal.className='xpwin xp-modal';
@@ -14,7 +16,8 @@
     '</span></div><div class="xp-b" id="xpmbody">加载中…</div>';
   document.body.appendChild(modal);
 
-  function close(){ modal.classList.remove('open','game'); mask.classList.remove('open'); }
+  function close(){ modal.classList.remove('open','game'); mask.classList.remove('open');
+    if(window.__player) window.__player.resume(); }
   mask.addEventListener('click',close);
   document.getElementById('xpmcls').addEventListener('click',close);
   document.getElementById('xpmmin').addEventListener('click',function(e){ e.stopPropagation(); close(); });
@@ -120,6 +123,7 @@
     /* 占卜栏：弹出选择界面（三个入口，先占位） */
     if(a.id==='nav-divination'){
       e.preventDefault();
+      if(window.__player) window.__player.pauseFor();
       document.getElementById('xpmtitle').textContent='占卜';
       document.getElementById('xpmico').src='icons/MSN.png';
       var dbody=document.getElementById('xpmbody');
@@ -151,6 +155,7 @@
     /* 游戏栏：弹出游戏选择界面（不跳转，iframe 载入，音乐不断） */
     if(a.id==='nav-games'){
       e.preventDefault();
+      if(window.__player) window.__player.pauseFor();
       document.getElementById('xpmtitle').textContent='游戏';
       document.getElementById('xpmico').src='icons/Games.png';
       var body=document.getElementById('xpmbody');
@@ -186,4 +191,15 @@
       openModal(href, a.textContent.trim()||base, ico?ico.getAttribute('src'):null);
     }
   });
+
+  /* 直达子页面→跳主页后，读取 ?open= 自动弹窗 */
+  var TITLES={ 'logs.html':'来电归档','operator_notes.html':'接线员手记','specimen_room.html':'标本室',
+    'museum.html':'博物馆','about.html':'关于本站','vending_machine.html':'5-羟色胺自动贩售机',
+    'errorlog.html':'错误日志','portfolio.html':'作品集','news.html':'媒体 · 新闻','corrupted_archive.html':'损坏档案',
+    'call-0417.html':'call-0417','call-0603.html':'call-0603','call-0912.html':'call-0912','call-2258.html':'call-2258' };
+  (function(){
+    var m=/[?&]open=([^&]+)/.exec(location.search); if(!m) return;
+    var f=decodeURIComponent(m[1]);
+    if(MODAL.indexOf(f)>=0){ setTimeout(function(){ openModal(f, TITLES[f]||f, 'icons/file.png'); }, 300); }
+  })();
 })();

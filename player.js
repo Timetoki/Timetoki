@@ -123,4 +123,11 @@
   seek.addEventListener('input',  function(){ seeking = true; if(audio.duration) tcur.textContent = fmt(seek.value/1000*audio.duration); });
   seek.addEventListener('change', function(){ if(audio.duration) audio.currentTime = seek.value/1000*audio.duration; seeking = false; });
   vol.addEventListener('input',   function(){ audio.volume = vol.value/100; });
+
+  /* 供游戏/占卜调用：打开暂停、关闭恢复到原状态 */
+  window.__player = {
+    _resume:false,
+    pauseFor:function(){ this._resume = !audio.paused; if(!audio.paused) audio.pause(); },
+    resume:function(){ if(this._resume){ var p=audio.play(); if(p&&p.catch)p.catch(function(){}); } this._resume=false; }
+  };
 })();

@@ -1371,3 +1371,9 @@ ul.slots li{ align-items:center; }
   /* 内容不再给 dock 让位（dock 悬浮压在上面） */
   body.desktop .wrap{ padding-left:12px !important; }
 }
+
+/* ★ 弹窗标题栏改成和顶栏一样的灰色（不再蓝粉） */
+.xp-modal > .xp-t{
+  background:linear-gradient(#fbfaf6,var(--xp-face) 60%,#ddd8cb) !important;
+  color:var(--ink) !important;
+}
