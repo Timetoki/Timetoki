@@ -113,6 +113,64 @@
     });
   }
 
+  /* 今日运势抽签：摇签筒→白纸条→一天一次（本地日期锁） */
+  function openFortune(dbody, navA){
+    var ICONS=['ball_pen.png','eraser.png','light_bulb.png','coffee_bag.png','receipt.png',
+      'batteries.png','marshmallows.png','candy_bar.png','strawberry.png','banana.png',
+      'cookies.png','bubble_gum.png','rubber_duck.png','light_bulb_box.png','egg_white.png'];
+    var POOL=window.FORTUNE||[];
+    function today(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+    function pickIcon(){ return 'picture/Pixel_Mart/'+ICONS[Math.floor(Math.random()*ICONS.length)]; }
+    function stars(s){ return '★★★★★☆☆☆☆☆'.slice(5-s,10-s); }
+
+    dbody.innerHTML=
+      '<button class="game-back">← 返回</button>'+
+      '<div class="fo-stage">'+
+        '<div class="fo-tube" id="fotube" title="点我摇一摇">'+
+          '<div class="fo-lip"></div><div class="fo-sticks"><i></i><i></i><i></i><i></i><i></i></div>'+
+          '<div class="fo-tip">点击摇签</div>'+
+        '</div>'+
+        '<div class="fo-slip" id="foslip"></div>'+
+      '</div>';
+    dbody.querySelector('.game-back').addEventListener('click',function(){ navA.click(); });
+    var tube=dbody.querySelector('#fotube'), slip=dbody.querySelector('#foslip');
+
+    function render(f, ic){
+      slip.innerHTML=
+        '<div class="fo-paper">'+
+          '<img class="fo-ic" src="'+ic+'" alt="">'+
+          '<div class="fo-name">今日签 · 「'+f.n+'」</div>'+
+          '<div class="fo-stars">'+stars(f.s)+'</div>'+
+          '<p class="fo-line">'+f.a+'<br>'+f.b+'</p>'+
+          '<div class="fo-meta">关键词：'+f.k+'　·　幸运时刻：'+f.t+'　·　幸运物：'+f.o+'</div>'+
+        '</div>';
+      slip.classList.add('show');
+    }
+
+    // 已抽过？直接显示当天那张
+    var saved=null;
+    try{ saved=JSON.parse(localStorage.getItem('fortune_today')||'null'); }catch(e){}
+    if(saved && saved.date===today() && saved.i>=0 && POOL[saved.i]){
+      tube.querySelector('.fo-tip').textContent='今天已抽';
+      render(POOL[saved.i], saved.ic);
+      return;
+    }
+
+    tube.addEventListener('click',function(){
+      // 再次校验，防连点
+      try{ saved=JSON.parse(localStorage.getItem('fortune_today')||'null'); }catch(e){}
+      if(saved && saved.date===today()){ return; }
+      if(!POOL.length) return;
+      tube.classList.remove('shake'); void tube.offsetWidth; tube.classList.add('shake');
+      var i=Math.floor(Math.random()*POOL.length), ic=pickIcon();
+      setTimeout(function(){
+        render(POOL[i], ic);
+        tube.querySelector('.fo-tip').textContent='今天已抽';
+        try{ localStorage.setItem('fortune_today', JSON.stringify({date:today(), i:i, ic:ic})); }catch(e){}
+      }, 650);
+    });
+  }
+
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return;
 
@@ -137,6 +195,7 @@
           var kind=card.getAttribute('data-div');
           var name=card.querySelector('.gname').textContent;
           if(kind==='answers'){ openAnswerBook(dbody, a); return; }
+          if(kind==='fortune'){ openFortune(dbody, a); return; }
           dbody.innerHTML='<button class="game-back">← 返回</button>'+
             '<div style="text-align:center;padding:40px 16px">'+
             '<div style="font-size:40px;margin-bottom:12px">🚧</div>'+
