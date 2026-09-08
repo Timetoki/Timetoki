@@ -53,6 +53,35 @@
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return;
 
+    /* 占卜栏：弹出选择界面（三个入口，先占位） */
+    if(a.id==='nav-divination'){
+      e.preventDefault();
+      document.getElementById('xpmtitle').textContent='占卜';
+      document.getElementById('xpmico').src='icons/MSN.png';
+      var dbody=document.getElementById('xpmbody');
+      dbody.innerHTML=
+        '<div class="game-pick">'+
+          '<div class="game-card div-card" data-div="answers"><div class="cover c1">📖</div><div class="gname">答案之书</div></div>'+
+          '<div class="game-card div-card" data-div="tarot"><div class="cover c2">🔮</div><div class="gname">塔罗牌</div></div>'+
+          '<div class="game-card div-card" data-div="fortune"><div class="cover c3">🎋</div><div class="gname">今日运势抽签</div></div>'+
+        '</div>';
+      modal.classList.remove('game');
+      modal.classList.add('open'); mask.classList.add('open');
+      modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
+      dbody.querySelectorAll('.div-card').forEach(function(card){
+        card.addEventListener('click',function(){
+          var name=card.querySelector('.gname').textContent;
+          dbody.innerHTML='<button class="game-back">← 返回</button>'+
+            '<div style="text-align:center;padding:40px 16px">'+
+            '<div style="font-size:40px;margin-bottom:12px">🚧</div>'+
+            '<div style="font-weight:700;font-size:16px">'+name+'</div>'+
+            '<p class="muted" style="margin-top:8px">施工中，敬请期待 ♡</p></div>';
+          dbody.querySelector('.game-back').addEventListener('click',function(){ a.click(); });
+        });
+      });
+      return;
+    }
+
     /* 游戏栏：弹出游戏选择界面（不跳转，iframe 载入，音乐不断） */
     if(a.id==='nav-games'){
       e.preventDefault();
