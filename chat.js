@@ -122,8 +122,12 @@
 
   launch.addEventListener('click', openChat);
   qq.querySelector('.cls').addEventListener('click', closeChat);
-  qq.querySelector('.min').addEventListener('click', function(){ qq.classList.toggle('min'); });
-  qq.querySelector('.max').addEventListener('click', function(){ qq.classList.toggle('max'); scroll(); });
+  qq.querySelector('.min').addEventListener('click', closeChat);
+  qq.querySelector('.max').addEventListener('click', function(){
+    qq.classList.remove('min'); qq.classList.toggle('max');
+    if(!qq.classList.contains('max')){ qq.style.left=''; qq.style.top=''; qq.style.bottom=''; }
+    scroll();
+  });
   qq.querySelector('#qqSend').addEventListener('click', userSend);
   input.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); userSend(); } });
 

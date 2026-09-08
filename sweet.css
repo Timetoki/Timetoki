@@ -677,8 +677,9 @@ hr.wig{
   font-family:var(--body);
 }
 .qq.open{ display:block; }
-.qq.max{ left:50%; top:50%; bottom:auto; transform:translate(-50%,-50%);
-  width:min(560px,92vw); height:min(80vh,640px); display:flex; flex-direction:column; }
+.qq.max{ left:50%; top:50%; right:auto; bottom:auto; transform:translate(-50%,-50%);
+  width:94vw; height:90vh; max-width:960px; display:flex; flex-direction:column; }
+.qq.max .qq-body{ flex:1 1 auto; height:auto !important; }
 .qq.min .qq-body, .qq.min .qq-input{ display:none; }
 
 .qq-bar{
