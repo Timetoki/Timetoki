@@ -8,13 +8,16 @@
   modal.innerHTML=
     '<div class="xp-t"><img class="ico" id="xpmico" src="icons/Games.png" alt="">' +
     '<span id="xpmtitle">窗口</span><span class="btns">' +
-    '<button id="xpmmax" title="最大化">▢</button><button id="xpmcls" title="关闭">×</button>' +
+    '<button id="xpmmin" title="最小化">_</button>' +
+    '<button id="xpmmax" title="最大化">▢</button>' +
+    '<button id="xpmcls" title="关闭">×</button>' +
     '</span></div><div class="xp-b" id="xpmbody">加载中…</div>';
   document.body.appendChild(modal);
 
   function close(){ modal.classList.remove('open','game'); mask.classList.remove('open'); }
   mask.addEventListener('click',close);
   document.getElementById('xpmcls').addEventListener('click',close);
+  document.getElementById('xpmmin').addEventListener('click',function(e){ e.stopPropagation(); close(); });
   document.getElementById('xpmmax').addEventListener('click',function(e){ e.stopPropagation(); /* 最大化：点了无效 */ });
 
   (function(){
