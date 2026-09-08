@@ -1306,3 +1306,8 @@ ul.slots li{ align-items:center; }
   color:#fff; text-shadow:0 0 1px #f7d84a, 2px 2px 0 #f7d84a;
   background:none; border:none; padding:0; animation:hintblink .9s steps(1) infinite; }
 @keyframes hintblink{ 0%,100%{ opacity:1 } 50%{ opacity:.25 } }
+
+
+/* 社交面板下方装饰 gif（无框、透明底、居中） */
+.social-deco{ display:block; width:100%; max-width:300px; height:auto; margin:2px auto 0;
+  image-rendering:pixelated; }
