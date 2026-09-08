@@ -1043,3 +1043,17 @@ body.desktop .col{ gap:14px; }
 body.desktop .row-top{ gap:14px; }
 body.desktop .bigblock{ gap:12px; }
 body.desktop .xpbar{ margin-bottom:12px; }
+
+/* ★ 留言墙彻底去空白 + 唱片机拉长与留言墙等高 */
+/* 留言墙内边距压到最小、去掉多余行距 */
+body.desktop .bar-wall > .xp-b{ padding:8px 10px !important; }
+body.desktop .bar-wall .chips.soft{ gap:8px 10px !important; margin:0 !important; }
+body.desktop .bar-wall .chip{ padding:2px 11px !important; }
+
+/* 让下排两条横栏与左侧唱片机等高：row3 顶对齐→拉伸对齐 */
+body.desktop .row3{ align-items:stretch !important; }
+body.desktop .p-player{ height:100% !important; }
+/* 唱片机内容纵向铺开填满，占满拉长后的高度、不再留大空白 */
+body.desktop .p-player > .xp-b{ flex:1; display:flex; align-items:center; justify-content:center; }
+body.desktop .p-player .player{ width:100%; }
+body.desktop .p-player .vinyl{ width:120px; height:120px; margin:6px auto 12px; }
