@@ -1316,3 +1316,22 @@ ul.slots li{ align-items:center; }
 /* 贩售机页：电视机顶格 */
 .tv-big{ margin-top:0 !important; }
 .xp-modal .xp-b .tv-big:first-child{ margin-top:0 !important; }
+
+/* 占卜卡片图标图片化 */
+.game-card .cover img{ width:56px; height:56px; image-rendering:pixelated; object-fit:contain; }
+
+/* 答案之书舞台 */
+.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center;
+  min-height:60vh; padding:20px; }
+.ab-book{ max-height:52vh; max-width:80%; image-rendering:pixelated;
+  filter:drop-shadow(3px 5px 0 rgba(44,37,48,.2)); }
+.ab-glow{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(420px,80%); min-height:120px; display:flex; align-items:center; justify-content:center;
+  text-align:center; border-radius:50%;
+  background:radial-gradient(ellipse at center, rgba(255,255,255,.92) 0%, rgba(255,255,255,.65) 40%, rgba(255,255,255,0) 72%);
+  animation:abbreathe 2.6s ease-in-out infinite; }
+@keyframes abbreathe{ 0%,100%{ opacity:.55; transform:translate(-50%,-50%) scale(.94) } 50%{ opacity:1; transform:translate(-50%,-50%) scale(1.04) } }
+.ab-hint{ font-family:var(--hand); font-weight:700; font-size:clamp(18px,2.4vw,26px);
+  color:var(--ink); text-shadow:0 0 6px #fff; padding:0 16px; line-height:1.5; }
+.ab-hint.pop{ animation:abpop .5s ease; }
+@keyframes abpop{ 0%{ opacity:0; transform:scale(.8) } 100%{ opacity:1; transform:scale(1) } }

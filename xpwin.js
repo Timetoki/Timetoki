@@ -85,6 +85,35 @@
     });
   }
 
+  /* 答案之书：book1/book2 来回切当假 gif + 晕开白光呼吸文字 + 点击抽签 */
+  function openAnswerBook(dbody, navA){
+    dbody.innerHTML=
+      '<button class="game-back">← 返回</button>'+
+      '<div class="ab-stage">'+
+        '<img class="ab-book" src="picture/book1.png" alt="" onerror="this.style.display=\'none\'">'+
+        '<div class="ab-glow"><span class="ab-hint">点击寻找答案</span></div>'+
+      '</div>';
+    dbody.querySelector('.game-back').addEventListener('click',function(){ navA.click(); });
+    // 假 gif：book1/book2 来回切
+    var book=dbody.querySelector('.ab-book'), frame=1;
+    var flip=setInterval(function(){ frame=frame===1?2:1; book.src='picture/book'+frame+'.png'; },520);
+    // 点击抽答案
+    var glow=dbody.querySelector('.ab-glow'), hint=dbody.querySelector('.ab-hint');
+    var BOOK=window.ANSWER_BOOK||['……'];
+    var last=-1;
+    glow.style.cursor='pointer';
+    glow.addEventListener('click',function(){
+      var i; do{ i=Math.floor(Math.random()*BOOK.length); }while(i===last&&BOOK.length>1); last=i;
+      hint.classList.remove('pop'); void hint.offsetWidth; hint.classList.add('pop');
+      hint.textContent=BOOK[i];
+    });
+    // 关窗时停掉切换
+    var stop=function(){ clearInterval(flip); };
+    modal.querySelector('#xpmcls').addEventListener('click',stop,{once:true});
+    modal.querySelector('#xpmmin')&&modal.querySelector('#xpmmin').addEventListener('click',stop,{once:true});
+    mask.addEventListener('click',stop,{once:true});
+  }
+
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return;
 
@@ -96,16 +125,18 @@
       var dbody=document.getElementById('xpmbody');
       dbody.innerHTML=
         '<div class="game-pick">'+
-          '<div class="game-card div-card" data-div="answers"><div class="cover c1">📖</div><div class="gname">答案之书</div></div>'+
-          '<div class="game-card div-card" data-div="tarot"><div class="cover c2">🔮</div><div class="gname">塔罗牌</div></div>'+
-          '<div class="game-card div-card" data-div="fortune"><div class="cover c3">🎋</div><div class="gname">今日运势抽签</div></div>'+
+          '<div class="game-card div-card" data-div="answers"><div class="cover c1"><img src="icons/ball.png" alt=""></div><div class="gname">答案之书</div></div>'+
+          '<div class="game-card div-card" data-div="tarot"><div class="cover c2"><img src="icons/moon.png" alt=""></div><div class="gname">塔罗牌</div></div>'+
+          '<div class="game-card div-card" data-div="fortune"><div class="cover c3"><img src="icons/sweet.png" alt=""></div><div class="gname">今日运势抽签</div></div>'+
         '</div>';
       modal.classList.remove('game');
       modal.classList.add('open'); mask.classList.add('open');
       modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
       dbody.querySelectorAll('.div-card').forEach(function(card){
         card.addEventListener('click',function(){
+          var kind=card.getAttribute('data-div');
           var name=card.querySelector('.gname').textContent;
+          if(kind==='answers'){ openAnswerBook(dbody, a); return; }
           dbody.innerHTML='<button class="game-back">← 返回</button>'+
             '<div style="text-align:center;padding:40px 16px">'+
             '<div style="font-size:40px;margin-bottom:12px">🚧</div>'+
