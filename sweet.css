@@ -1355,6 +1355,7 @@ ul.slots li{ align-items:center; }
   .dock-handle::after{ content:"菜单"; font-family:var(--body); font-weight:700; font-size:12px;
     writing-mode:vertical-rl; letter-spacing:2px; }
   @keyframes handlepulse{ 0%,100%{ transform:translateX(0) } 50%{ transform:translateX(4px) } }
+  .dock.open ~ .dock-handle{ display:none !important; }
 
   /* 唱片机：右侧抽屉，点右下把手展开 */
   .player:not(.docked){ display:block !important; right:0; bottom:70px; top:auto; transform:translateX(125%);
