@@ -1321,7 +1321,7 @@ ul.slots li{ align-items:center; }
 .game-card .cover img{ width:56px; height:56px; image-rendering:pixelated; object-fit:contain; }
 
 /* 答案之书舞台 */
-.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center; min-height:80vh; padding:12px; background:#fff; }
+.ab-stage{ position:relative; display:flex; align-items:center; justify-content:center; min-height:80vh; padding:12px; }
 .ab-book{ height:74vh; width:auto; max-width:96%; image-rendering:pixelated; }
 .ab-glow{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
   width:min(420px,80%); min-height:120px; display:flex; align-items:center; justify-content:center;
@@ -1385,7 +1385,6 @@ ul.slots li{ align-items:center; }
 .xp-modal.answerbook > .xp-b{ background:#fff !important; }
 
 /* 答案之书：窗口纯白底 */
-.xp-modal .xp-b:has(.ab-stage){ background:#fff !important; }
 
 /* 今日运势抽签 */
 .fo-stage{ display:flex; flex-direction:column; align-items:center; gap:22px; padding:24px 16px; min-height:60vh; justify-content:center; }
