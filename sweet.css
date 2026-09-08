@@ -1065,10 +1065,10 @@ body.desktop .p-player .vinyl{ width:120px; height:120px; margin:6px auto 12px; 
     linear-gradient(45deg,#ffd9ea 25%,transparent 25%,transparent 75%,#ffd9ea 75%) 11px 11px/22px 22px,
     #fff6fb !important;
 }
-/* 相册加宽后：六图正方 3×2 + 右侧竖 gif */
-body.desktop .gallery-wrap{ display:grid; grid-template-columns:1fr 132px; gap:12px; align-items:center; }
-body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,120px) !important; gap:10px !important; justify-content:center; }
-body.desktop .p-gallery .gcell{ aspect-ratio:1/1 !important; }
+/* 相册加宽后：六图仍是上一版的扁横块 3×2 + 右侧竖 gif */
+body.desktop .gallery-wrap{ display:grid; grid-template-columns:1fr 132px; gap:12px; align-items:stretch; }
+body.desktop .p-gallery .gallery{ grid-template-columns:repeat(3,1fr) !important; gap:10px !important; justify-content:stretch; }
+body.desktop .p-gallery .gcell{ aspect-ratio:20/5 !important; }
 .gallery-gif{ width:100%; height:100%; object-fit:cover; image-rendering:pixelated;
   border:3px solid var(--ink); border-radius:14px; background:#fff; box-shadow:2px 3px 0 rgba(44,37,48,.16); }
 @media (max-width:900px){ body.desktop .gallery-wrap{ grid-template-columns:1fr; } }
@@ -1077,3 +1077,13 @@ body.desktop .p-gallery .gcell{ aspect-ratio:1/1 !important; }
 .deco-gifs{ position:absolute; top:-52px; left:14px; display:flex; gap:8px; z-index:8; pointer-events:none; }
 .deco-gifs img{ height:64px; width:auto; image-rendering:pixelated; }
 body.desktop .p-card{ overflow:visible; margin-top:64px; }
+
+/* ★★ 相册最终修正（末尾覆盖）：框回到扁高度，里面小正方图居中不铺满，右侧竖 gif 撑满 */
+body.desktop .p-gallery > .xp-b{ height:150px !important; padding:10px !important; }
+body.desktop .gallery-wrap{ display:grid !important; grid-template-columns:1fr 108px !important;
+  gap:12px !important; height:100% !important; align-items:center !important; }
+body.desktop .p-gallery .gallery{ display:grid !important;
+  grid-template-columns:repeat(3,64px) !important; grid-template-rows:repeat(2,64px) !important;
+  gap:8px !important; justify-content:center !important; align-content:center !important; }
+body.desktop .p-gallery .gcell{ aspect-ratio:auto !important; width:64px !important; height:64px !important; }
+.gallery-gif{ width:100% !important; height:100% !important; }
