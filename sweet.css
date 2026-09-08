@@ -1111,3 +1111,28 @@ body.desktop .p-card > .xp-b{ border-radius:0 0 9px 9px; }
 /* ★ 相册内竖 gif 去边、直接铺满 */
 .gallery-gif{ border:none !important; border-radius:0 !important; box-shadow:none !important;
   background:transparent !important; object-fit:cover !important; }
+
+/* ★ 摆件再上移贴到黑线 */
+.deco-gifs{ margin-bottom:2px !important; }
+
+/* ★ 文本行内 258 小 gif */
+.inline-gif{ height:20px; width:auto; vertical-align:-5px; image-rendering:pixelated; }
+
+/* ★ 相册叠全屏 4.gif 星星贴纸（透明底、覆盖整块、不挡点击） */
+.gallery-overlay{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  pointer-events:none; z-index:5; image-rendering:pixelated; }
+body.desktop .p-gallery .gallery-wrap{ position:relative; z-index:2; }
+
+/* ★ 去掉气泡高光；留言墙气泡凌乱贴便利贴、填满 */
+.chip::after{ display:none !important; }             /* 高光去掉 */
+body.desktop .bar-wall .chips.messy{ display:flex !important; flex-wrap:wrap;
+  gap:10px 12px !important; align-content:flex-start; }
+body.desktop .bar-wall .chips.messy .chip{ }
+body.desktop .bar-wall .chips.messy .chip:nth-child(1){ transform:rotate(-4deg); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(2){ transform:rotate(3deg); margin-top:6px; }
+body.desktop .bar-wall .chips.messy .chip:nth-child(3){ transform:rotate(-2deg); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(4){ transform:rotate(5deg); margin-top:-4px; }
+body.desktop .bar-wall .chips.messy .chip:nth-child(5){ transform:rotate(-6deg); margin-left:10px; }
+body.desktop .bar-wall .chips.messy .chip:nth-child(6){ transform:rotate(2deg); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(7){ transform:rotate(-3deg); margin-top:4px; }
+body.desktop .bar-wall .chips.messy .chip{ box-shadow:2px 3px 0 rgba(44,37,48,.16); }
