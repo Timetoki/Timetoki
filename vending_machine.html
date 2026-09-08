@@ -18,12 +18,6 @@
     <span class="doodle star-pink tw" style="top:760px;left:6px;width:28px;height:28px;"></span>
   </div>
 
-  <header class="hero">
-    <h1><span class="hh">♡</span> 5-羟色胺自动贩售机 <span class="hh">♡</span></h1>
-    <div class="sub">投币口已锈死 · 请以别的东西支付</div>
-    <div class="num">vending / 5-HT</div>
-  </header>
-
   <nav class="menu">
     <a href="index.html"><img class="mi" src="icons/1.png" alt="">首页</a><span class="sep">✦</span>
     <a href="logs.html"><img class="mi" src="icons/file.png" alt="">来电归档</a><span class="sep">✦</span>
@@ -35,45 +29,43 @@
 
   <hr class="wig">
 
-  <div class="vend-top">
-    <div class="vend-intro">
-      <p class="muted">这台机器摆在值班室走廊尽头，没人记得是谁放的，它不吃硬币。它只在你说出今天有多难的时候，咔哒一声，掉下点什么。</p>
-      <div class="note">
-        <p>约稿须知：</p>
-        <p>本机接受文字、图画、拍摄三类投喂。把你想要的东西说清楚，机器咔哒一声，会掉出一份初稿。不满意可在三次以内重新投币，不额外收费。</p>
-        <p class="rot">未说明用途的绝望不予受理。商用请务必登记，否则视为未授权。</p>
+  <!-- 整页大电视机：左标题 右贩售机（屏内条纹下滑，贩售机浮动，可点） -->
+  <div class="tv-big" aria-hidden="false">
+    <div class="tv-screen">
+      <div class="tv-left">
+        <div class="welcome" style="font-size:15px">welcome to…</div>
+        <h1 class="tv-title"><span class="hh">♡</span> 5-羟色胺自动贩售机 <span class="hh">♡</span></h1>
+        <div class="sub">投币口已锈死 · 请以别的东西支付</div>
+        <div class="num">vending / 5-HT</div>
+      </div>
+      <div class="tv-right">
+        <img id="vm" class="vm-img" src="picture/Pixel%20Art%20Vending%20Machines%20Pack/Vending%20Machine%202.1.png" alt="贩售机" title="点我" onerror="this.style.display='none'">
       </div>
     </div>
-
-    <div class="tv" aria-hidden="true">
-      <div class="screen">
-        <img src="picture/Pixel%20Art%20Vending%20Machines%20Pack/Vending%20Machine%202.1.png" alt="" onerror="this.style.display='none'">
-      </div>
-      <div class="knobs"><i></i><i></i></div>
-    </div>
+    <div class="tv-knobs"><i></i><i></i></div>
   </div>
 
-  <div class="panel">
-  <ul class="slots">
-    <li><img class="vico" src="picture/Pixel_Mart/ball_pen.png" alt=""><span>文章 · 每千字装罐</span><span class="price">50</span></li>
-    <li><img class="vico" src="picture/Pixel_Mart/eraser.png" alt=""><span>约稿画 · 一张</span><span class="price">50</span></li>
-    <li><img class="vico" src="picture/Pixel_Mart/light_bulb.png" alt=""><span>约拍 · 按小时计</span><span class="price">50 / 小时</span></li>
-    <li class="out"><img class="vico" src="picture/Pixel_Mart/egg_white.png" alt=""><span>多余的星期二</span><span class="price">——</span></li>
-    <li><img class="vico" src="picture/Pixel_Mart/batteries.png" alt=""><span>加急 · 把明天提前拆开</span><span class="price">面议</span></li>
-    <li><img class="vico" src="picture/Pixel_Mart/coffee_bag.png" alt=""><span>改稿 · 三次以内免费续杯</span><span class="price">含在原价里</span></li>
-    <li class="out"><img class="vico" src="picture/Pixel_Mart/water.png" alt=""><span>通过审核的雨水</span><span class="price">——</span></li>
-    <li><img class="vico" src="picture/Pixel_Mart/receipt.png" alt=""><span>商用授权 · 需另行登记</span><span class="price">另议</span></li>
-    <li><img class="vico" src="picture/Pixel_Mart/basket_yellow.png" alt=""><span>档期 · 视当晚是否有人还醒着</span><span class="price">看情况</span></li>
-    <li class="out"><img class="vico" src="picture/Pixel_Mart/marshmallows.png" alt=""><span>替您数好的羊 · 一整晚份</span><span class="price">——</span></li>
-  </ul>
+  <p class="muted">这台机器摆在值班室走廊尽头，……是谁放的？</p>
+
+  <div class="note">
+    <p>约稿须知：未说明用途的绝望不予受理。商用请务必登记，否则视为未授权。</p>
+  </div>
+
+  <!-- 方块菜单：点非售罄商品掉一个对应图标 -->
+  <div class="vmenu">
+    <button class="vitem" data-icon="ball_pen.png"><img src="picture/Pixel_Mart/ball_pen.png" alt=""><span class="vn">文章</span><span class="vp">50 / 千字</span></button>
+    <button class="vitem" data-icon="eraser.png"><img src="picture/Pixel_Mart/eraser.png" alt=""><span class="vn">约稿画</span><span class="vp">50 / 张</span></button>
+    <button class="vitem" data-icon="light_bulb.png"><img src="picture/Pixel_Mart/light_bulb.png" alt=""><span class="vn">约拍</span><span class="vp">50 / 小时</span></button>
+    <button class="vitem" data-icon="batteries.png"><img src="picture/Pixel_Mart/batteries.png" alt=""><span class="vn">加急</span><span class="vp">面议</span></button>
+    <button class="vitem" data-icon="coffee_bag.png"><img src="picture/Pixel_Mart/coffee_bag.png" alt=""><span class="vn">改稿</span><span class="vp">含原价</span></button>
+    <button class="vitem" data-icon="receipt.png"><img src="picture/Pixel_Mart/receipt.png" alt=""><span class="vn">商用授权</span><span class="vp">另议</span></button>
+    <button class="vitem" data-icon="basket_yellow.png"><img src="picture/Pixel_Mart/basket_yellow.png" alt=""><span class="vn">档期</span><span class="vp">看情况</span></button>
+    <button class="vitem out" disabled><img src="picture/Pixel_Mart/egg_white.png" alt=""><span class="vn">多余的星期二</span><span class="vp">售罄</span></button>
+    <button class="vitem out" disabled><img src="picture/Pixel_Mart/water.png" alt=""><span class="vn">通过审核的雨水</span><span class="vp">售罄</span></button>
+    <button class="vitem out" disabled><img src="picture/Pixel_Mart/marshmallows.png" alt=""><span class="vn">替您数好的羊</span><span class="vp">售罄</span></button>
   </div>
 
   <p class="mono">单位：人民币。价目仅供参考，最终以私下沟通为准。投喂前请先说清你要的是哪一种。</p>
-
-  <div class="note blue">
-    <p>本机不提供救赎，也不提供死亡。它只把你说不出口的，换成一个你能攥在手里的小东西。</p>
-    <p class="rot">您的痛苦已经烹饪完毕。请勿食用未经登记的绝望。</p>
-  </div>
 
   <footer class="foot">
     vending / 5-HT · 库存由情绪自动补充，永不为空，也永不满<br>
@@ -84,5 +76,51 @@
 <script src="chat-data.js" defer></script>
 <script src="chat.js" defer></script>
 <script src="player.js" defer></script>
+
+<script>
+(function(){
+  var COIN='picture/c.gif';
+  var floating=0;        // 天上飘落的硬币计数（同屏≤7）
+  var pile=[];           // 底部堆叠的商品图标
+  function dropCoin(){
+    if(floating>=7) return;
+    floating++;
+    var img=document.createElement('img');
+    img.src=COIN; img.className='falling-coin';
+    img.style.left=(10+Math.random()*80)+'vw';
+    document.body.appendChild(img);
+    img.addEventListener('animationend',function(){ img.remove(); floating--; });
+  }
+  var vm=document.getElementById('vm');
+  if(vm){ vm.style.cursor='pointer';
+    vm.addEventListener('click',function(){
+      vm.classList.remove('shake'); void vm.offsetWidth; vm.classList.add('shake');
+      dropCoin();
+    });
+  }
+  // 商品掉落并堆在底部
+  function dropItem(icon, fromX){
+    var img=document.createElement('img');
+    img.src='picture/Pixel_Mart/'+icon; img.className='falling-item';
+    var x=(fromX!=null?fromX:Math.random()*window.innerWidth);
+    img.style.left=Math.max(4,Math.min(window.innerWidth-44,x))+'px';
+    document.body.appendChild(img);
+    img.addEventListener('animationend',function(){
+      img.classList.remove('falling-item'); img.classList.add('piled-item');
+      var bx=(fromX!=null?fromX:Math.random()*window.innerWidth);
+      img.style.left=Math.max(4,Math.min(window.innerWidth-44,bx))+'px';
+      img.style.bottom=(Math.random()*10)+'px';
+      pile.push(img);
+      while(pile.length>50){ var old=pile.shift(); old.remove(); }
+    });
+  }
+  document.querySelectorAll('.vitem:not(.out)').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      var icon=btn.getAttribute('data-icon');
+      dropItem(icon, e.clientX);
+    });
+  });
+})();
+</script>
 </body>
 </html>
