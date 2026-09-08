@@ -101,7 +101,7 @@
     var glow=dbody.querySelector('.ab-glow'), hint=dbody.querySelector('.ab-hint');
     var book=dbody.querySelector('.ab-book');
     var BOOK=window.ANSWER_BOOK||['……'];
-    var last=-1, timer=null, GIFMS=1000;
+    var last=-1, timer=null, GIFMS=1500;
     glow.style.cursor='pointer';
     glow.addEventListener('click',function(){
       if(timer) clearTimeout(timer);
