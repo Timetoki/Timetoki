@@ -14,11 +14,12 @@
 
   /* ---------- 播放列表：mp3 放进仓库根的 music/ 文件夹 ---------- */
   var PLAYLIST = [
-    {title:"All by My Design", src:"music/All by My Design.mp3"},
-    {title:"Idol",             src:"music/Idol.mp3"},
-    {title:"彼女は旅に出る",    src:"music/彼女は旅に出る.mp3"},
-    {title:"春日影",           src:"music/春日影.mp3"},
-    {title:"铁花飞",           src:"music/铁花飞.mp3"}
+    {title:"nop",              artist:"桃汽水", album:"回不去的夏天", src:"music/nop.mp3"},
+    {title:"All by My Design", artist:"未知",   album:"未知",         src:"music/All by My Design.mp3"},
+    {title:"Idol",             artist:"未知",   album:"未知",         src:"music/Idol.mp3"},
+    {title:"彼女は旅に出る",    artist:"未知",   album:"未知",         src:"music/彼女は旅に出る.mp3"},
+    {title:"春日影",           artist:"未知",   album:"未知",         src:"music/春日影.mp3"},
+    {title:"铁花飞",           artist:"未知",   album:"未知",         src:"music/铁花飞.mp3"}
   ];
 
   /* ---------- 建 dock ---------- */
@@ -49,6 +50,7 @@
   box.innerHTML =
     '<div class="vinyl" id="pv"><div class="lbl"></div><div class="shine"></div></div>' +
     '<div class="scr" id="pscr">— 未放入唱片 —</div>' +
+    '<div class="pmeta"><div>歌手：<span id="partist">未知</span></div><div>专辑：<span id="palbum">未知</span></div></div>' +
     '<div class="prow"><span id="ptcur">0:00</span>' +
       '<input id="pseek" class="pbar" type="range" min="0" max="1000" value="0" step="1" aria-label="进度">' +
       '<span id="ptdur">0:00</span></div>' +
@@ -82,6 +84,8 @@
   var vol   = document.getElementById('pvol');
   var tcur  = document.getElementById('ptcur');
   var tdur  = document.getElementById('ptdur');
+  var artistEl = document.getElementById('partist');
+  var albumEl  = document.getElementById('palbum');
   var seeking = false;
 
   function fmt(s){ s=Math.floor(s||0); var m=Math.floor(s/60); var r=s%60; return m+':'+(r<10?'0':'')+r; }
@@ -89,12 +93,21 @@
     i = (idx + PLAYLIST.length) % PLAYLIST.length;
     audio.src = encodeURI(PLAYLIST[i].src);
     scr.textContent = PLAYLIST[i].title;
+    if(artistEl) artistEl.textContent = PLAYLIST[i].artist || '未知';
+    if(albumEl)  albumEl.textContent  = PLAYLIST[i].album  || '未知';
     tcur.textContent='0:00'; tdur.textContent='0:00'; seek.value=0;
   }
   function spin(on){ vinyl.classList.toggle('spin', on); }
   function setPlayIcon(){ play.textContent = audio.paused ? '▶' : '❚❚'; }
 
   load(0);
+  /* 进入网页默认播放第一首（浏览器可能拦截自动播放，拦截则等首次交互再放） */
+  (function(){
+    var tryPlay=function(){ var p=audio.play(); if(p&&p.catch) p.catch(function(){}); };
+    tryPlay();
+    var kick=function(){ if(audio.paused) tryPlay(); document.removeEventListener('pointerdown',kick); document.removeEventListener('keydown',kick); };
+    document.addEventListener('pointerdown',kick); document.addEventListener('keydown',kick);
+  })();
 
   play.addEventListener('click', function(){
     if (audio.paused){
