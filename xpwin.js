@@ -77,6 +77,7 @@
       });
     }
     if(vm){ vm.style.cursor='pointer';
+      vm.addEventListener('animationend',function(){ vm.classList.remove('shake'); });
       vm.addEventListener('click',function(){ vm.classList.remove('shake'); void vm.offsetWidth; vm.classList.add('shake'); dropCoin(); });
     }
     scope.querySelectorAll('.vitem:not(.out)').forEach(function(btn){

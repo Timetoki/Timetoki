@@ -49,17 +49,16 @@
       <div class="tv-left">
         <div class="welcome" style="font-size:15px">welcome to…</div>
         <h1 class="tv-title"><span class="hh">♡</span> 5-羟色胺自动贩售机 <span class="hh">♡</span></h1>
-        <div class="sub">投币口已锈死 · 请以别的东西支付</div>
+        <div class="sub">这台机器摆在值班室走廊尽头，……是谁放的？</div>
         <div class="num">vending / 5-HT</div>
       </div>
       <div class="tv-right">
+        <div class="vm-hint" aria-hidden="true">▶ 点击贩售机投币_</div>
         <img id="vm" class="vm-img" src="picture/Pixel%20Art%20Vending%20Machines%20Pack/Vending%20Machine%202.1.png" alt="贩售机" title="点我" onerror="this.style.display='none'">
       </div>
     </div>
     <div class="tv-knobs"><i></i><i></i></div>
   </div>
-
-  <p class="muted">这台机器摆在值班室走廊尽头，……是谁放的？</p>
 
   <div class="note">
     <p>约稿须知：未说明用途的绝望不予受理。商用请务必登记，否则视为未授权。</p>
@@ -110,6 +109,8 @@
     vm.addEventListener('click',function(){
       vm.classList.remove('shake'); void vm.offsetWidth; vm.classList.add('shake');
       dropCoin();
+    });
+    vm.addEventListener('animationend',function(){ vm.classList.remove('shake');
     });
   }
   // 商品掉落并堆在底部
