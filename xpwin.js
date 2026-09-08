@@ -171,6 +171,68 @@
     });
   }
 
+  /* 塔罗：选牌阵 → 三张牌背翻开 → 显示中文名与简析 → 再寻求一次 */
+  function openTarot(dbody, navA){
+    var DECK=(window.TAROT||[]);
+    var SPREADS={
+      ptf:{ name:"过去 · 现在 · 未来", desc:"适合探讨事情的变化", pos:["过去","现在","未来"] },
+      root:{ name:"寻求事情本源", desc:"寻求事件的原因", pos:["表象","根源","关键"] }
+    };
+    function backHTML(){ return '<img src="picture/card-back.png" alt="牌背">'; }
+
+    function chooser(){
+      dbody.innerHTML=
+        '<button class="game-back">← 返回</button>'+
+        '<p class="muted" style="text-align:center;margin:4px 0 14px">选择一个牌阵</p>'+
+        '<div class="tarot-spreads">'+
+          '<button class="spread-card" data-s="ptf"><div class="sp-name">过去 · 现在 · 未来阵</div><div class="sp-desc">适合探讨事情的变化</div></button>'+
+          '<button class="spread-card" data-s="root"><div class="sp-name">寻求事情本源阵</div><div class="sp-desc">寻求事件的原因</div></button>'+
+        '</div>';
+      dbody.querySelector('.game-back').addEventListener('click',function(){ navA.click(); });
+      dbody.querySelectorAll('.spread-card').forEach(function(b){
+        b.addEventListener('click',function(){ table(SPREADS[b.getAttribute('data-s')]); });
+      });
+    }
+
+    function table(sp){
+      var picks=[], used={};
+      function draw(){ var i; do{ i=Math.floor(Math.random()*DECK.length); }while(used[i]); used[i]=1; return DECK[i]; }
+      dbody.innerHTML=
+        '<button class="game-back">← 换牌阵</button>'+
+        '<div class="tarot-title">'+sp.name+'　<span class="muted" style="font-size:12px">'+sp.desc+'</span></div>'+
+        '<div class="tarot-row">'+
+          sp.pos.map(function(p,idx){
+            return '<div class="tcard" data-idx="'+idx+'">'+
+              '<div class="tcard-inner">'+
+                '<div class="tcard-face back">'+backHTML()+'</div>'+
+                '<div class="tcard-face front"></div>'+
+              '</div>'+
+              '<div class="tpos">'+p+'</div>'+
+              '<div class="tinfo"></div>'+
+            '</div>';
+          }).join('')+
+        '</div>'+
+        '<div class="tarot-again" style="display:none"><button class="again-btn">再寻求一次</button></div>';
+      dbody.querySelector('.game-back').addEventListener('click',chooser);
+      var revealed=0, total=sp.pos.length;
+      var cards=dbody.querySelectorAll('.tcard');
+      cards.forEach(function(c){
+        c.addEventListener('click',function(){
+          if(c.classList.contains('flipped')) return;
+          var card=draw();
+          c.querySelector('.front').innerHTML='<img src="picture/cards/'+encodeURIComponent(card.f)+'" alt="'+card.n+'" onerror="this.style.opacity=0">';
+          c.classList.add('flipped');
+          c.querySelector('.tinfo').innerHTML='<div class="tname">'+card.n+'</div><div class="tread">'+card.r+'</div>';
+          revealed++;
+          if(revealed>=total){ dbody.querySelector('.tarot-again').style.display='block'; }
+        });
+      });
+      dbody.querySelector('.again-btn').addEventListener('click',function(){ table(sp); });
+    }
+
+    chooser();
+  }
+
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return;
 
@@ -196,6 +258,7 @@
           var name=card.querySelector('.gname').textContent;
           if(kind==='answers'){ openAnswerBook(dbody, a); return; }
           if(kind==='fortune'){ openFortune(dbody, a); return; }
+          if(kind==='tarot'){ openTarot(dbody, a); return; }
           dbody.innerHTML='<button class="game-back">← 返回</button>'+
             '<div style="text-align:center;padding:40px 16px">'+
             '<div style="font-size:40px;margin-bottom:12px">🚧</div>'+
