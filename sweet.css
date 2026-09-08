@@ -858,7 +858,8 @@ body.desktop .chips.soft .chip{ font-size:15px;padding:3px 11px; }
 .xp-modal{ position:fixed; z-index:80; left:50%; top:54%; transform:translate(-50%,-50%);
   width:min(680px,92vw); max-height:86vh; display:none; }
 .xp-modal.open{ display:flex; }
-.xp-modal .xp-b{ overflow:auto; max-height:74vh;
+.xp-modal{ width:min(1040px,96vw) !important; }
+.xp-modal .xp-b{ overflow:auto; max-height:78vh;
   background-color:var(--cream);
   background-image:
     radial-gradient(var(--pink) 2.2px, transparent 2.3px),
@@ -1231,7 +1232,7 @@ ul.slots li{ align-items:center; }
   background:linear-gradient(#f3a6c4,#e78ab2); border:8px solid var(--ink);
   border-radius:28px; padding:20px 20px 40px; box-shadow:5px 7px 0 rgba(44,37,48,.28); }
 .tv-screen{ position:relative; overflow:hidden; border:6px solid var(--ink); border-radius:16px;
-  display:grid; grid-template-columns:1fr 300px; gap:16px; align-items:center;
+  display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:16px; align-items:center;
   min-height:280px; padding:22px 26px; background:#ffd0e4; }
 .tv-screen::before{ content:""; position:absolute; left:0; right:0; top:-100%; height:300%; z-index:0;
   background:repeating-linear-gradient(180deg,#ff7fb0 0 18px,#ffd6e8 18px 36px);
@@ -1243,9 +1244,9 @@ ul.slots li{ align-items:center; }
 .tv-left{ position:relative; z-index:2; }
 .tv-left .tv-title{ font-family:var(--hand); font-weight:700; margin:2px 0 6px;
   font-size:clamp(26px,3.6vw,46px); color:var(--ink);
-  text-shadow:3px 3px 0 #fff, 5px 5px 0 var(--blue); white-space:nowrap; }
+  text-shadow:3px 3px 0 #fff, 5px 5px 0 var(--blue); white-space:normal; line-height:1.12; }
 .tv-left .sub{ color:#7a3f57; } .tv-left .num, .tv-left .welcome{ color:#8a4a63; }
-.tv-right{ position:relative; z-index:2; display:flex; justify-content:center; }
+.tv-right{ position:relative; z-index:2; display:flex; justify-content:center; min-width:0; }
 .vm-img{ height:230px; image-rendering:pixelated; animation:vfloat 2.6s ease-in-out infinite;
   filter:drop-shadow(3px 4px 0 rgba(44,37,48,.25)); }
 @keyframes vfloat{ 0%,100%{ transform:translateY(-6px) } 50%{ transform:translateY(8px) } }
