@@ -47,7 +47,41 @@
       if(!w){ body.innerHTML='打不开这个窗口。'; return; }
       w.querySelectorAll('.doodle-layer,.dock,.player,.chatbtn,.chatwin,script,nav.menu').forEach(function(n){n.remove();});
       body.innerHTML=w.innerHTML;
+      bindVending(body);
     }).catch(function(){ body.innerHTML='打不开这个窗口（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
+  }
+
+  /* 弹窗里重新绑定贩售机掉落（弹窗剥离了原页脚本，需在此重挂） */
+  function bindVending(scope){
+    var vm=scope.querySelector('#vm'); if(!vm && !scope.querySelector('.vitem')) return;
+    var floating=0, pile=[];
+    function dropCoin(){
+      if(floating>=7) return; floating++;
+      var img=document.createElement('img');
+      img.src='picture/c.gif'; img.className='xp-fall-coin';
+      img.style.left=(10+Math.random()*80)+'vw';
+      document.body.appendChild(img);
+      img.addEventListener('animationend',function(){ img.remove(); floating--; });
+    }
+    function dropItem(icon, fromX){
+      var img=document.createElement('img');
+      img.src='picture/Pixel_Mart/'+icon; img.className='xp-fall-item';
+      var x=(fromX!=null?fromX:Math.random()*window.innerWidth);
+      img.style.left=Math.max(4,Math.min(window.innerWidth-46,x))+'px';
+      document.body.appendChild(img);
+      img.addEventListener('animationend',function(){
+        img.classList.remove('xp-fall-item'); img.classList.add('xp-piled');
+        img.style.left=Math.max(4,Math.min(window.innerWidth-46,x))+'px';
+        img.style.bottom=(Math.random()*10)+'px';
+        pile.push(img); while(pile.length>50){ pile.shift().remove(); }
+      });
+    }
+    if(vm){ vm.style.cursor='pointer';
+      vm.addEventListener('click',function(){ vm.classList.remove('shake'); void vm.offsetWidth; vm.classList.add('shake'); dropCoin(); });
+    }
+    scope.querySelectorAll('.vitem:not(.out)').forEach(function(btn){
+      btn.addEventListener('click',function(e){ dropItem(btn.getAttribute('data-icon'), e.clientX); });
+    });
   }
 
   document.addEventListener('click',function(e){
