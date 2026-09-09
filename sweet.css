@@ -182,7 +182,7 @@ a.dead:hover{ color:var(--corrupt); }
 }
 
 /* ---------------- 短语贴纸（超现实词条做成糖果 chip） ---------------- */
-.chips{ display:flex; flex-wrap:wrap; gap:10px 12px; margin:22px 0; }
+.chips{ display:flex; flex-wrap:wrap; gap:5px 12px; margin:22px 0; }
 .chip{
   font-family:var(--hand); font-size:17px; color:var(--ink);
   background:var(--pink); border:2.5px solid var(--ink);
