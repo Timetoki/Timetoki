@@ -1482,3 +1482,18 @@ ul.slots li{ align-items:center; }
   padding:7px 14px !important; border:2px solid var(--ink) !important; border-radius:8px !important;
   background:var(--pink) !important; color:var(--ink) !important; box-shadow:2px 2px 0 rgba(44,37,48,.16) !important; }
 .qq-input button:hover{ background:var(--pink-hot) !important; color:#fff !important; text-decoration:none !important; }
+
+/* ★ 留言墙：固定 3 列网格（3/3/2），每条不换行、大小不随文字变化，行距更大 */
+body.desktop .bar-wall .chips.messy{
+  display:grid !important; grid-template-columns:repeat(3,1fr) !important;
+  gap:20px 14px !important; align-content:start; justify-items:center; margin:0 !important;
+}
+body.desktop .bar-wall .chips.messy .chip{
+  white-space:nowrap !important; margin:0 !important; transform:none !important;
+  justify-self:center; max-width:100%;
+}
+/* 保留一点点错落感（不影响换行/大小） */
+body.desktop .bar-wall .chips.messy .chip:nth-child(3n+1){ transform:rotate(-2deg) !important; }
+body.desktop .bar-wall .chips.messy .chip:nth-child(3n+2){ transform:rotate(1.5deg) !important; }
+body.desktop .bar-wall .chips.messy .chip:nth-child(3n){ transform:rotate(-1deg) !important; }
+@media (max-width:560px){ body.desktop .bar-wall .chips.messy{ grid-template-columns:repeat(2,1fr) !important; } }
