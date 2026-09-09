@@ -1451,7 +1451,7 @@ ul.slots li{ align-items:center; }
 
 /* ★ 留言墙：白底 + 浅粉半色调网点（下大上小）；唱片机极浅粉底；歌手/专辑两栏 */
 .bar-wall > .xp-b{
-  background:#ffffff url("picture/halftone.png") bottom center / 100% auto no-repeat !important;
+  background:#ffffff url("picture/halftone.png") bottom left / 150px auto repeat-x !important;
 }
 .p-player > .xp-b{ background:#fff6fa !important; background-image:none !important; }
 .player .pmeta{ font-size:12px; color:var(--ink-soft); line-height:1.7; margin:4px 0 8px; text-align:center; }
@@ -1465,3 +1465,20 @@ ul.slots li{ align-items:center; }
 .qq-btns button:hover{ background:var(--yellow); }
 /* 消息区改成 XP 灰白 */
 .qq-body{ background:#f4f2ec !important; }
+
+/* ★ 对话框：消息区纯白、输入区灰色、发送=纯文字无框（古早 QQ 感） */
+.qq-body{ background:#ffffff !important; }
+.qq-input{ background:#e9e6de !important; border-top:2px solid var(--xp-edge) !important; align-items:center; }
+.qq-input input{ background:#fff !important; border:1.5px solid var(--xp-edge) !important; border-radius:4px !important; }
+
+/* ★ 聊天：老 QQ 文字消息（无框，上 id 下文本，id 深蓝）+ 发送保持按钮 */
+.qq-body{ background:#ffffff !important; }
+.qq .msg{ display:block !important; margin:6px 0 10px; padding:0; }
+.qq .msg .id{ font-weight:700; font-size:12px; color:#1e4b8f; margin-bottom:2px; }
+.qq .msg.me .id{ color:#1e4b8f; }
+.qq .msg .t{ font-size:14px; color:var(--ink); line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.qq .msg .pfp, .qq .msg .b{ all:unset; }   /* 去掉旧气泡结构影响 */
+.qq-input button{ font-family:var(--body); font-weight:700; font-size:13px; cursor:pointer;
+  padding:7px 14px !important; border:2px solid var(--ink) !important; border-radius:8px !important;
+  background:var(--pink) !important; color:var(--ink) !important; box-shadow:2px 2px 0 rgba(44,37,48,.16) !important; }
+.qq-input button:hover{ background:var(--pink-hot) !important; color:#fff !important; text-decoration:none !important; }

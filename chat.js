@@ -51,12 +51,12 @@
 
   function addMe(text){
     var m=document.createElement('div'); m.className='msg me';
-    m.innerHTML='<img class="pfp" src="'+AVATAR+'" style="visibility:hidden"><div class="b">'+esc(text)+'</div>';
+    m.innerHTML='<div class="id">我</div><div class="t">'+esc(text)+'</div>';
     body.appendChild(m); scroll();
   }
   function addHer(text){
     var m=document.createElement('div'); m.className='msg her';
-    m.innerHTML='<img class="pfp" src="'+AVATAR+'" alt=""><div class="b">'+esc(text)+'</div>';
+    m.innerHTML='<div class="id">Time</div><div class="t">'+esc(text)+'</div>';
     body.appendChild(m); scroll();
     if (!isOpen()){ unread++; renderBadge(); }
   }
@@ -67,7 +67,7 @@
   function typing(cb){
     stat.textContent='对方正在输入…';
     var t=document.createElement('div'); t.className='msg her typing';
-    t.innerHTML='<img class="pfp" src="'+AVATAR+'" alt=""><div class="b">正在输入…</div>';
+    t.innerHTML='<div class="id">Time</div><div class="t">正在输入…</div>';
     body.appendChild(t); scroll();
     var wait = 900 + Math.random()*900;
     setTimeout(function(){ t.remove(); stat.textContent='在线'; cb(); }, wait);
