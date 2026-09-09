@@ -3,7 +3,7 @@
 (function(){
   if (document.querySelector('.qq')) return;
   var C = window.TIME_CORPUS || {keywords:[],greetings:["你来了。"],random:["……"]};
-  var AVATAR = "avatars/1.png";   // Time 头像，可换成 avatars/别的号
+  var AVATAR = "picture/anon.jpg";   // Time 头像，可换成 avatars/别的号
   var NAME = "Time";
 
   /* ---------- 入口按钮（左下，带红点角标）---------- */

@@ -1451,15 +1451,17 @@ ul.slots li{ align-items:center; }
 
 /* ★ 留言墙：白底 + 浅粉半色调网点（下大上小）；唱片机极浅粉底；歌手/专辑两栏 */
 .bar-wall > .xp-b{
-  background-color:#ffffff !important;
-  background-image:
-    radial-gradient(circle, #ffc7de 1.6px, transparent 2px),
-    radial-gradient(circle, #ffd6e6 1.1px, transparent 1.6px),
-    radial-gradient(circle, #ffe6f0 0.7px, transparent 1.1px) !important;
-  background-size:14px 14px, 11px 11px, 8px 8px !important;
-  background-position:0 100%, 0 42%, 0 0 !important;
-  background-repeat:repeat-x, repeat-x, repeat-x !important;
+  background:#ffffff url("picture/halftone.png") bottom center / 100% auto no-repeat !important;
 }
 .p-player > .xp-b{ background:#fff6fa !important; background-image:none !important; }
 .player .pmeta{ font-size:12px; color:var(--ink-soft); line-height:1.7; margin:4px 0 8px; text-align:center; }
 .player .pmeta span{ color:var(--ink); }
+
+/* ★ 聊天对话框改灰色千禧 UI（标题栏灰渐变、窗体灰边、头像方形去像素化） */
+.qq-bar{ background:linear-gradient(#fbfaf6,var(--xp-face) 60%,#ddd8cb) !important; }
+.qq-ava{ image-rendering:auto !important; border-radius:6px !important; }
+.qq{ border-radius:12px 12px 8px 8px; }
+.qq-btns button{ background:#fff; }
+.qq-btns button:hover{ background:var(--yellow); }
+/* 消息区改成 XP 灰白 */
+.qq-body{ background:#f4f2ec !important; }
