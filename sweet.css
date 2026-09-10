@@ -1106,5 +1106,13 @@ img.inline-gif{
   .album-main:nth-child(2), .album-main:nth-child(3){ display:none !important; }
 }
 
-.barrow{ display:flex; align-items:stretch; }   /* 拉伸成同高 */
-.sqbox{ width:118px; height:100%; ... }          /* 方图跟着公告栏走 */
+/* ★ 公告栏：固定高度 + 滚动 */
+.bar-board .xp-b{
+  height:120px;
+  overflow:auto;
+}
+
+/* ★ 公告栏那一行的方图：同高 */
+.barrow:has(.bar-board) .sqbox{
+  height:120px;
+}
