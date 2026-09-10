@@ -810,7 +810,6 @@ body.desktop .bar-wall .chips.messy{
 body.desktop .bar-wall .chips.messy .chip{
   white-space:nowrap !important;
   overflow:hidden;
-  text-overflow:ellipsis;
   margin:0 !important;
   padding:2px 11px !important;
   max-width:100%;
@@ -1096,7 +1095,7 @@ img.inline-gif{
 
 /* ★ 公告栏：固定高度 + 滚动 */
 .bar-board .xp-b{
-  height:143px;
+  height:146px;
   overflow:auto;
 }
 
