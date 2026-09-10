@@ -785,7 +785,7 @@ body.desktop .p-gallery > .xp-b{ height:170px; padding:0; overflow:visible; }
 .album-p2{ position:absolute; top:-38px; right:14%; width:140px; height:auto; z-index:8;
   image-rendering:pixelated; filter:drop-shadow(2px 3px 0 rgba(44,37,48,.18)); }
 
-/* ★ 留言墙：固定高裁切 + 3列网格 + 太长省略号 + 错落角度 */
+/* ★ 留言墙：3行固定高，第4行起变 …… */
 .bar-wall > .xp-b{
   background-color:#ffffff;
   background-image:url("picture/halftone.png");
@@ -793,14 +793,14 @@ body.desktop .p-gallery > .xp-b{ height:170px; padding:0; overflow:visible; }
   background-position:bottom left;
   background-size:150px auto;
   padding:8px 10px;
-  height:138px;          /* ★ 固定高，跟公告栏同高 */
-  overflow:hidden;       /* ★ 超出裁掉，不滚动 */
+  height:138px;        /* 3 行高度：34×3 + 上padding ≈ 110~120，你调 */
+  overflow:hidden;
 }
 
 body.desktop .bar-wall .chips.messy{
   display:grid !important;
   grid-template-columns:repeat(3,1fr) !important;
-  grid-auto-rows:34px;
+  grid-auto-rows:34px;          /* 每行 34px */
   gap:6px 14px !important;
   align-content:start;
   margin:0 !important;
@@ -819,15 +819,11 @@ body.desktop .bar-wall .chips.messy .chip{
   transform:rotate(-1deg);
 }
 
-/* 错落角度（只保留 rotate，去掉 translateY，避免和固定行高打架） */
+/* 错落角度 */
 body.desktop .bar-wall .chips.messy .chip:nth-child(3n+1){ transform:rotate(-2deg); }
 body.desktop .bar-wall .chips.messy .chip:nth-child(3n+2){ transform:rotate(1.5deg); }
 body.desktop .bar-wall .chips.messy .chip:nth-child(3n){ transform:rotate(-1deg); }
 
-@media (max-width:560px){
-  body.desktop .bar-wall .chips.messy{ grid-template-columns:repeat(2,1fr) !important; gap:6px 10px !important; }
-  body.desktop .bar-wall .chips.messy .chip{ height:32px; line-height:28px; }
-}
 
 /* 唱片机面板 */
 .p-player > .xp-b{ background:#fff6fa; background-image:none;

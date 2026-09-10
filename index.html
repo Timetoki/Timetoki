@@ -159,19 +159,26 @@
 /* 顶栏时钟 */
 (function(){var c=document.getElementById('xpclock');function t(){var d=new Date();c.textContent=(''+d.getHours()).padStart(2,'0')+':'+(''+d.getMinutes()).padStart(2,'0');}t();setInterval(t,15000);})();
 
-/* 留言墙气泡：点击换句换色（无重复）+ 太长整条变 …… */
+/* 留言墙气泡：点击换句换色（无重复）+ 第4行起整条变 …… */
 (function(){
   var POOL=["今天的悲伤适合冷藏","我们已经替您数过羊了","请耐心等待，痛苦即将可食用","我们的冰箱里住着一个春天","请勿触摸正在融化的下午","您的沉默正在长出牙齿","该情绪无法退货，请妥善保存","昨夜的雨没有通过审核","她把昨天折成一只很小的鸟","请把心事切成适合吞咽的大小","您提交的孤独格式正确","今天适合把自己折起来","您的眼泪已经完成消毒","我们把昨天晒干了，味道不太好","来掰一块儿厄运饼干吧？","自杀援助热线在线中……请拨打???","您呼叫的用户已离开服务区…","我在听","请把你的痛苦说给我们吃","您的痛苦已经烹饪完毕","悲伤会在冰箱门关闭后继续生长","多余的星期二","您的梦正在厨房里慢慢腐烂","本页面没有任何需要您相信的内容","请勿食用未经登记的绝望","通过审核的雨水","今天的悲伤没有达到最低回收重量","请不要重复提交同一份绝望"];
   var COLORS=[{b:"#ffe4ef",c:"#2c2530"},{b:"#e6f3ff",c:"#2c2530"},{b:"#fff6c9",c:"#2c2530"},{b:"#e2f7ec",c:"#2c2530"},{b:"#efe4f7",c:"#2c2530"},{b:"#d8cbe0",c:"#6d5c7d"}];
   var chips=[].slice.call(document.querySelectorAll('#chips .chip'));
+  var MAX_ROWS=3;
+  var ROW_H=34, GAP_V=6;
 
-  /* 太长就整条变 …… */
-  function trimChips(){
+  /* 第4行起整条变 …… */
+  function trimRows(){
     chips.forEach(function(el){
       var full = el.dataset.full || el.textContent;
       el.dataset.full = full;
       el.textContent = full;
-      if(el.scrollWidth > el.clientWidth){
+    });
+    var baseTop = chips[0] ? chips[0].offsetTop : 0;
+    var rowH = ROW_H + GAP_V;
+    chips.forEach(function(el){
+      var row = Math.round((el.offsetTop - baseTop) / rowH);
+      if(row >= MAX_ROWS){
         el.textContent = '……';
       }
     });
@@ -201,12 +208,12 @@
         el.style.background=col.b;
         el.style.color=col.c;
         el.classList.remove('pop');
-        trimChips();
+        trimRows();
       },800);
     });
   });
 
-  trimChips();
-  window.addEventListener('resize',trimChips);
+  trimRows();
+  window.addEventListener('resize',trimRows);
 })();
 </script>
