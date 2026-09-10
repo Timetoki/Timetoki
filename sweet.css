@@ -1113,3 +1113,15 @@ img.inline-gif{
 }
 
 .sqbox{ width:118px; flex:0 0 118px; align-self:stretch}
+
+/* ★ 公告栏：框体卡死 + 内容滚动 */
+.bar-board .xp-b{
+  height:146px;
+  overflow:auto;
+}
+
+/* ★ 留言墙：框体卡死 + 剪切蒙版（超出直接裁掉） */
+.bar-wall .xp-b{
+  height:146px;
+  overflow:hidden;
+}
