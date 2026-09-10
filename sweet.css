@@ -789,7 +789,7 @@ body.desktop .p-gallery > .xp-b{ height:170px; padding:0; overflow:visible; }
 body.desktop .bar-wall .chips.messy{
   display:flex !important;
   flex-wrap:wrap !important;
-  gap:10px 14px !important;          /* 行距 20→10（减半），列距保持14 */
+  gap:7px 14px !important;          /* 行距 20→7，列距保持14 */
   align-content:flex-start;
   margin:0 !important;
   padding:2px 4px !important;
