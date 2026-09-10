@@ -44,6 +44,15 @@
     var body=document.getElementById('xpmbody'); body.innerHTML='加载中…';
     modal.classList.add('open'); mask.classList.add('open');
     modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
+    if(window.Achievements){
+      var base=url.split('/').pop();
+      if(base==='corrupted_archive.html'||base==='errorlog.html'){
+        window.Achievements.visit(base, ['corrupted_archive.html','errorlog.html'], 'archive-digger');
+      }
+      if(/^call-/.test(base)){
+        window.Achievements.visit(base, ['call-0417.html','call-0603.html','call-0912.html','call-2258.html'], 'hotline-completionist');
+      }
+    }
     fetch(url).then(function(r){return r.text();}).then(function(html){
       var doc=new DOMParser().parseFromString(html,'text/html');
       var w=doc.querySelector('.wrap');
@@ -60,6 +69,7 @@
     var floating=0, pile=[];
     function dropCoin(){
       if(floating>=7) return; floating++;
+      if(window.Achievements) window.Achievements.bump('vendingCoins', 10, 'vending-broke');
       var img=document.createElement('img');
       img.src='picture/c.gif'; img.className='xp-fall-coin';
       img.style.left=(10+Math.random()*80)+'vw';
@@ -110,6 +120,7 @@
       var i; do{ i=Math.floor(Math.random()*BOOK.length); }while(i===last&&BOOK.length>1); last=i;
       hint.classList.remove('pop'); void hint.offsetWidth; hint.classList.add('pop');
       hint.textContent=BOOK[i];
+      if(window.Achievements) window.Achievements.bump('bookFlips', 20, 'book-worn-out');
     });
   }
 
@@ -153,6 +164,7 @@
     if(saved && saved.date===today() && saved.i>=0 && POOL[saved.i]){
       tube.querySelector('.fo-tip').textContent='今天已抽';
       render(POOL[saved.i], saved.ic);
+      if(window.Achievements) window.Achievements.bump('fortuneRevisit', 5, 'shrine-denied');
       return;
     }
 
@@ -227,7 +239,10 @@
           if(revealed>=total){ dbody.querySelector('.tarot-again').style.display='block'; }
         });
       });
-      dbody.querySelector('.again-btn').addEventListener('click',function(){ table(sp); });
+      dbody.querySelector('.again-btn').addEventListener('click',function(){
+        if(window.Achievements) window.Achievements.bump('tarotAgain', 5, 'tarot-addict');
+        table(sp);
+      });
     }
 
     chooser();
@@ -290,6 +305,7 @@
       body.querySelectorAll('.game-card').forEach(function(card){
         card.addEventListener('click',function(){
           var src=card.getAttribute('data-game');
+          if(window.Achievements && /minecraft/i.test(src)) window.Achievements.unlock('block-breaker');
           body.innerHTML='<button class="game-back">← 返回选择</button>'+
                          '<iframe class="game-frame" src="'+src+'" allow="autoplay; fullscreen; gamepad; pointer-lock" allowfullscreen></iframe>';
           modal.classList.add('game');

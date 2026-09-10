@@ -128,9 +128,11 @@
   });
   document.getElementById('pprev').addEventListener('click', function(){
     var w=!audio.paused; load(i-1); if(w) audio.play();
+    if(window.Achievements) window.Achievements.bump('djSkips', 10, 'dj-timetoki');
   });
   document.getElementById('pnext').addEventListener('click', function(){
     var w=!audio.paused; load(i+1); if(w) audio.play();
+    if(window.Achievements) window.Achievements.bump('djSkips', 10, 'dj-timetoki');
   });
 
   audio.addEventListener('play',  function(){ spin(true);  setPlayIcon(); });
