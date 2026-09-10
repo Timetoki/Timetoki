@@ -1108,9 +1108,8 @@ img.inline-gif{
 
 /* ★ 公告栏：固定高度 + 滚动 */
 .bar-board .xp-b{
-  height:138px;
+  height:140px;
   overflow:auto;
 }
 
-/* ★ 公告栏那一行的方图：同高 */
-.bar-board + .sqbox{ height:138px; }
+.sqbox{ width:118px; flex:0 0 118px; align-self:stretch; ... }
