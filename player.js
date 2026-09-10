@@ -22,6 +22,10 @@
     {title:"铁花飞",           artist:"未知",   album:"未知",         src:"music/铁花飞.mp3"}
   ];
 
+  /* ---------- 唱片中心专辑图（裁圆叠在黑胶上，加载失败就露出黑胶本体） ---------- */
+  var COVERS = ["picture/picture1.png","picture/picture2.png","picture/picture3.png",
+    "picture/picture4.png","picture/picture5.png","picture/picture6.png","picture/picture7.jpg"];
+
   /* ---------- 建 dock ---------- */
   var dock = document.createElement('nav');
   dock.className = 'dock';
@@ -48,7 +52,7 @@
   var box = document.createElement('div');
   box.className = 'player';
   box.innerHTML =
-    '<div class="vinyl" id="pv"><div class="lbl"></div><div class="shine"></div></div>' +
+    '<div class="vinyl" id="pv"><div class="lbl"></div><img class="cover" id="pcover" alt=""><div class="shine"></div></div>' +
     '<div class="scr" id="pscr">— 未放入唱片 —</div>' +
     '<div class="pmeta"><div>歌手：<span id="partist">未知</span></div><div>专辑：<span id="palbum">未知</span></div></div>' +
     '<div class="prow"><span id="ptcur">0:00</span>' +
@@ -78,6 +82,7 @@
   var i = 0;
 
   var vinyl = document.getElementById('pv');
+  var cover = document.getElementById('pcover');
   var scr   = document.getElementById('pscr');
   var play  = document.getElementById('pplay');
   var seek  = document.getElementById('pseek');
@@ -95,10 +100,16 @@
     scr.textContent = PLAYLIST[i].title;
     if(artistEl) artistEl.textContent = PLAYLIST[i].artist || '未知';
     if(albumEl)  albumEl.textContent  = PLAYLIST[i].album  || '未知';
+    if(cover){ cover.style.visibility='hidden'; cover.src = encodeURI(COVERS[i % COVERS.length]); }
     tcur.textContent='0:00'; tdur.textContent='0:00'; seek.value=0;
   }
   function spin(on){ vinyl.classList.toggle('spin', on); }
   function setPlayIcon(){ play.textContent = audio.paused ? '▶' : '❚❚'; }
+
+  if(cover){
+    cover.addEventListener('load',  function(){ cover.style.visibility='visible'; });
+    cover.addEventListener('error', function(){ cover.style.visibility='hidden'; });
+  }
 
   load(0);
   /* 进入网页默认播放第一首（浏览器可能拦截自动播放，拦截则等首次交互再放） */
