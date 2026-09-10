@@ -60,6 +60,7 @@
       w.querySelectorAll('.doodle-layer,.dock,.player,.chatbtn,.chatwin,script,nav.menu').forEach(function(n){n.remove();});
       body.innerHTML=w.innerHTML;
       bindVending(body);
+      if(window.Achievements) window.Achievements.render();
     }).catch(function(){ body.innerHTML='打不开这个窗口（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
   }
 

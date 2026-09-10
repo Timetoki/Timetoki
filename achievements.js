@@ -86,6 +86,6 @@
   }
   function isUnlocked(id){ return !!unlocked[id]; }
 
-  window.Achievements = { unlock:unlock, bump:bump, visit:visit, isUnlocked:isUnlocked };
+  window.Achievements = { unlock:unlock, bump:bump, visit:visit, isUnlocked:isUnlocked, render:renderGrid };
   renderGrid();
 })();
