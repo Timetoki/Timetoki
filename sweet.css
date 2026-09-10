@@ -328,29 +328,6 @@ hr.wig{
   a:hover, nav.menu a:hover{ transform:none; }
 }
 
-/* ---------------- 水泡文案 ---------------- */
-.bubbles{ display:flex; flex-direction:column; gap:14px; align-items:flex-start;
-  margin:24px 0 28px; }
-.bubble{
-  font-family:var(--body); font-weight:700; font-size:19px; line-height:1.5;
-  color:var(--ink); background:rgba(255,179,209,.55);
-  border:2.5px solid var(--ink); border-radius:26px 26px 26px 9px;
-  padding:12px 22px; cursor:pointer; text-align:left; max-width:100%;
-  box-shadow:3px 4px 0 rgba(44,37,48,.14), inset 7px 7px 16px rgba(255,255,255,.55);
-  transition:transform .28s cubic-bezier(.2,1.5,.4,1), opacity .8s ease,
-             background .8s ease, color .8s ease;
-  position:relative;
-}
-.bubble::after{ content:""; position:absolute; top:10px; left:18px;
-  width:17px; height:10px; background:rgba(255,255,255,.75);
-  border-radius:50%; transform:rotate(-20deg); pointer-events:none; }
-.bubble:hover{ transform:scale(1.14) rotate(-1deg); }
-.bubble:focus-visible{ outline:3px dashed var(--pink-hot); outline-offset:3px; }
-.bubble.pop{ opacity:0; transform:scale(.6); }
-@media (prefers-reduced-motion:reduce){
-  .bubble{ transition:opacity .3s ease, background .3s ease, color .3s ease; }
-  .bubble:hover{ transform:none; }
-}
 
 /* ---------------- 像素图标 ---------------- */
 .mi{ width:20px; height:20px; object-fit:contain; vertical-align:-5px;
@@ -808,24 +785,51 @@ body.desktop .p-gallery > .xp-b{ height:170px; padding:0; overflow:visible; }
 .album-p2{ position:absolute; top:-38px; right:14%; width:140px; height:auto; z-index:8;
   image-rendering:pixelated; filter:drop-shadow(2px 3px 0 rgba(44,37,48,.18)); }
 
-/* 留言墙 */
-.bar-wall > .xp-b{
-  background:#ffffff url("picture/halftone.png") bottom left / 150px auto repeat-x !important;
-  padding:8px 10px !important;
-}
+/* ★ 留言墙：错落贴纸（每颗角度不同、上下行错位、行距减半） */
 body.desktop .bar-wall .chips.messy{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:20px 14px; align-content:start; justify-items:center; margin:0;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:10px 14px !important;          /* 行距 20→10（减半），列距保持14 */
+  align-content:flex-start;
+  margin:0 !important;
+  padding:2px 4px !important;
 }
+
 body.desktop .bar-wall .chips.messy .chip{
-  white-space:nowrap; margin:0; justify-self:center; max-width:100%;
-  padding:2px 11px;
+  white-space:nowrap !important;
+  margin:0 !important;
+  padding:2px 11px !important;
+  max-width:100%;
+  /* 每颗默认给一点随机感，靠下面的 nth-child 覆盖 */
+  transform:rotate(-1deg);
 }
-body.desktop .bar-wall .chips.messy .chip:nth-child(3n+1){ transform:rotate(-2deg); }
-body.desktop .bar-wall .chips.messy .chip:nth-child(3n+2){ transform:rotate(1.5deg); }
-body.desktop .bar-wall .chips.messy .chip:nth-child(3n){ transform:rotate(-1deg); }
+
+/* 逐颗设定角度 + 上下偏移，避免任何两颗平行 */
+body.desktop .bar-wall .chips.messy .chip:nth-child(1){ transform:rotate(-4deg) translateY(2px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(2){ transform:rotate(3deg)  translateY(-3px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(3){ transform:rotate(-2deg) translateY(1px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(4){ transform:rotate(5deg)  translateY(-2px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(5){ transform:rotate(-5deg) translateY(3px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(6){ transform:rotate(1.5deg) translateY(-1px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(7){ transform:rotate(-3deg) translateY(2px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(8){ transform:rotate(4deg)  translateY(-2px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(9){ transform:rotate(-1deg) translateY(1px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(10){ transform:rotate(6deg) translateY(-3px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(11){ transform:rotate(-4.5deg) translateY(2px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(12){ transform:rotate(2.5deg) translateY(-1px); }
+/* 第13颗起循环回第1颗的角度（一般留言墙不会超过12条，够用） */
+body.desktop .bar-wall .chips.messy .chip:nth-child(13){ transform:rotate(-4deg) translateY(2px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(14){ transform:rotate(3deg)  translateY(-3px); }
+body.desktop .bar-wall .chips.messy .chip:nth-child(15){ transform:rotate(-2deg) translateY(1px); }
+
 @media (max-width:560px){
-  body.desktop .bar-wall .chips.messy{ grid-template-columns:repeat(2,1fr); }
+  body.desktop .bar-wall .chips.messy{ gap:8px 10px !important; }
+  body.desktop .bar-wall .chips.messy .chip{
+    /* 手机上取消位移，只保留角度，避免挤爆 */
+    transform:rotate(-2deg);
+  }
+  body.desktop .bar-wall .chips.messy .chip:nth-child(2n){ transform:rotate(2deg); }
+  body.desktop .bar-wall .chips.messy .chip:nth-child(3n){ transform:rotate(-1.5deg); }
 }
 
 /* 唱片机面板 */
