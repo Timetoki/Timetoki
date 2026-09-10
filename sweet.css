@@ -832,6 +832,16 @@ body.desktop .bar-wall .chips.messy .chip:nth-child(15){ transform:rotate(-2deg)
   body.desktop .bar-wall .chips.messy .chip:nth-child(3n){ transform:rotate(-1.5deg); }
 }
 
+/* 留言墙：白底 + halftone 网点（底部横向无缝平铺） */
+.bar-wall > .xp-b{
+  background-color:#ffffff;
+  background-image:url("picture/halftone.png");
+  background-repeat:repeat-x;           /* 横向重复 */
+  background-position:bottom left;       /* 贴底 */
+  background-size:150px auto;            /* 宽150px，高按比例 —— 关键 */
+  padding:8px 10px;
+}
+
 /* 唱片机面板 */
 .p-player > .xp-b{ background:#fff6fa; background-image:none;
   flex:1; display:flex; align-items:center; justify-content:center; padding:8px; }
