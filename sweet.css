@@ -875,6 +875,13 @@ body.desktop .p-player .pctrls button{ width:34px; height:34px; }
 /* 行内小 gif */
 .inline-gif{ height:20px; width:auto; vertical-align:-5px; image-rendering:pixelated;
   border:none; background:transparent; box-shadow:none; }
+  /* 258.gif 小表情强制去黑框 */
+img.inline-gif{
+  border:none !important;
+  box-shadow:none !important;
+  background:transparent !important;
+  padding:0 !important;
+}
 
 /* ==========================================================
    游戏弹窗
