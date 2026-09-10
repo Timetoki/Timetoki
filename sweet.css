@@ -1113,6 +1113,6 @@ img.inline-gif{
 }
 
 /* ★ 公告栏那一行的方图：同高 */
-.barrow:has(.bar-board) .sqbox{
-  height:120px;
+.bar-board + .sqbox{ height:120px; }
+
 }
