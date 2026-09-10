@@ -255,7 +255,6 @@
     /* 占卜栏：弹出选择界面（三个入口，先占位） */
     if(a.id==='nav-divination'){
       e.preventDefault();
-      if(window.__player) window.__player.pauseFor();
       document.getElementById('xpmtitle').textContent='占卜';
       document.getElementById('xpmico').src='icons/MSN.png';
       var dbody=document.getElementById('xpmbody');
