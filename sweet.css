@@ -1104,7 +1104,8 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .pf-coverflow{ display:flex; align-items:center; justify-content:center; gap:10px; padding:14px 0; }
 .pf-cf-viewport{ overflow:hidden; width:min(560px,88vw); }
 .pf-cf-track{ display:flex; align-items:center; gap:20px; transition:transform .45s ease; will-change:transform; }
-.pf-cf-track.no-anim{ transition:none !important; }
+.pf-cf-track.no-anim,
+.pf-cf-track.no-anim .pf-cf-item{ transition:none !important; }
 .pf-cf-item{ flex:none; width:min(380px,58vw); cursor:pointer;
   opacity:.4; filter:blur(1.5px); transform:scale(.82);
   transition:opacity .45s ease, transform .45s ease, filter .45s ease; }
