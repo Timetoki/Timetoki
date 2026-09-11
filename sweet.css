@@ -124,57 +124,6 @@ a.dead:hover{ color:var(--corrupt); }
 .squiggle{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 40'%3E%3Cpath d='M5 22 Q26 2 46 22 T87 22 T128 22 T169 22 T205 20' fill='none' stroke='%23ff6fa8' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"); }
 .spiral{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 50 m0 0 a6 6 0 1 1 -8 4 a16 16 0 1 1 22 6 a26 26 0 1 1 -34 -8' fill='none' stroke='%23bfe3ff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"); }
 
-/* ---------------- 贴纸/拍立得 ---------------- */
-.sticker{
-  position:relative; background:#fff; padding:12px 12px 14px;
-  border-radius:14px 10px 16px 8px;
-  box-shadow:3px 5px 0 rgba(44,37,48,.18), 0 0 0 3px var(--ink) inset;
-  transform:rotate(-1.6deg); margin:26px auto; max-width:100%;
-}
-.sticker.r{ transform:rotate(1.8deg); }
-.sticker::before{
-  content:""; position:absolute; top:-11px; left:50%; width:78px; height:22px;
-  transform:translateX(-50%) rotate(-3deg);
-  background:rgba(255,230,107,.7); box-shadow:0 1px 2px rgba(0,0,0,.12);
-}
-.sticker img{ display:block; width:100%; height:auto; border-radius:8px; }
-.sticker figcaption{
-  font-family:var(--hand); font-size:18px; color:var(--pink-hot);
-  text-align:center; margin-top:8px; font-weight:700;
-}
-.sticker .slot{
-  aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
-  text-align:center; padding:16px; border-radius:8px;
-  background:
-    repeating-linear-gradient(45deg,var(--cream-2) 0 14px,#ffdcec 14px 28px);
-  color:var(--ink-soft); font-size:13px; line-height:1.6;
-}
-
-/* ---------------- 顶部六格图片墙 ---------------- */
-.gallery{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
-  margin:16px auto 6px; max-width:560px;
-}
-.gcell{
-  position:relative; aspect-ratio:1/1; background:#fff;
-  border:3px solid var(--ink); border-radius:12px 8px 12px 8px;
-  box-shadow:3px 4px 0 rgba(44,37,48,.16); overflow:hidden;
-  transform:rotate(-1.4deg);
-}
-.gcell:nth-child(2n){ transform:rotate(1.6deg); box-shadow:3px 4px 0 var(--blue); }
-.gcell:nth-child(3n){ transform:rotate(-.6deg); box-shadow:3px 4px 0 var(--yellow); }
-.gcell img{ display:block; width:100%; height:100%; object-fit:cover; }
-.gcell .ph{
-  position:absolute; inset:0; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center; gap:6px;
-  background:repeating-linear-gradient(45deg,var(--cream-2) 0 12px,#ffdcec 12px 24px);
-  color:var(--ink-soft); font-family:var(--mono); font-size:11px; line-height:1.5;
-}
-.gcell .ph b{ font-family:var(--hand); font-size:19px; color:var(--pink-hot); font-weight:700; }
-@media (max-width:560px){
-  .gallery{ grid-template-columns:repeat(2,1fr); gap:9px; }
-}
-
 /* ---------------- 短语贴纸（糖果 chip） ---------------- */
 .chips{ display:flex; flex-wrap:wrap; gap:10px 12px; margin:22px 0; }
 .chip{
@@ -582,7 +531,6 @@ body.desktop .card-hero .hero .sub{ font-size:16px; }
 body.desktop .card-hero .hero .welcome{ font-size:14px; }
 body.desktop .card-hero .num{ font-size:12px; }
 body.desktop .card-hero .avatar-box img{ width:50px;height:50px; }
-body.desktop .gallery{ gap:8px; }
 body.desktop .social img{ width:34px;height:34px; }
 body.desktop .social a{ width:48px;font-size:10px; }
 body.desktop h3.sub2{ font-size:18px;margin:14px 0 4px; }
@@ -623,8 +571,6 @@ body.desktop .chips.soft .chip{ font-size:15px;padding:3px 11px; }
 .social a:hover{ transform:translateY(-2px) rotate(-3deg); color:var(--pink-hot); }
 .social-deco{ display:block; width:100%; max-width:300px; height:auto; margin:-8px auto 0;
   image-rendering:pixelated; }
-
-.xpwin .gallery{ margin:0; max-width:none; }
 
 .player.docked{ position:static; transform:none; width:auto; z-index:auto;
   background:transparent; border:none; box-shadow:none; padding:0; }
@@ -1128,3 +1074,48 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   padding:8px 20px; font-size:14px; }
 .hotline-dial:hover{ background:#f8f7f4; }
 .hotline-dial:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* ---------------- 作品集：白一点医学一点 ---------------- */
+.pf-tabs{ position:sticky; top:0; z-index:20; display:flex; gap:8px; flex-wrap:wrap;
+  background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:10px 12px; margin:16px 0 20px; }
+.pf-tab{ font-family:var(--body); font-weight:700; font-size:13px; cursor:pointer;
+  border:1px solid #d8d4cc; border-radius:8px; background:#f8f7f4; color:#8a8577; padding:6px 14px; }
+.pf-tab:hover{ background:#eeece6; }
+.pf-tab.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+.photo-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.pg-cell{ position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:8px;
+  border:1px solid #d8d4cc; background:#f8f7f4; }
+.pg-cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+.pg-ph{ position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:11px; color:#8a8577; text-align:center; padding:6px; }
+@media (max-width:640px){ .photo-grid{ grid-template-columns:repeat(2,1fr); } }
+
+.pf-carousel{ display:flex; align-items:center; justify-content:center; gap:14px; padding:10px 0; }
+.pf-car-stage{ width:min(480px,78vw); height:min(480px,78vw); border:1px solid #d8d4cc;
+  border-radius:10px; overflow:hidden; background:#f8f7f4; position:relative; }
+.pf-car-stage img{ width:100%; height:100%; object-fit:contain; display:block;
+  transition:transform .3s ease, opacity .3s ease; }
+.pf-car-stage img.slide-left{ transform:translateX(-24px); opacity:0; }
+.pf-car-stage img.slide-right{ transform:translateX(24px); opacity:0; }
+.pf-car-btn{ font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
+  flex:none; width:40px; height:40px; border:1px solid #d8d4cc; border-radius:50%;
+  background:#fff; color:var(--ink); }
+.pf-car-btn:hover{ background:#f8f7f4; }
+
+.pf-cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+.pf-card{ display:block; background:#fff; border:1px solid #d8d4cc; border-radius:10px;
+  padding:16px; text-decoration:none; color:var(--ink); cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease; }
+.pf-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44,37,48,.08); }
+.pf-card-title{ font-weight:700; font-size:16px; margin-bottom:6px; letter-spacing:.5px; }
+.pf-card-desc{ font-size:13px; color:#8a8577; line-height:1.5; }
+
+.pf-reader{ background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:18px 20px; margin-top:6px; }
+.pf-reader-close{ font-family:var(--body); font-weight:700; cursor:pointer; border:1px solid #d8d4cc;
+  border-radius:8px; background:#f8f7f4; color:var(--ink); padding:6px 14px; margin-bottom:12px; }
+.pf-reader-title{ font-weight:700; font-size:18px; margin-bottom:10px; }
+.pf-reader-text{ font-family:var(--body); font-size:14px; line-height:1.9; color:var(--ink);
+  white-space:pre-wrap; word-break:break-word; max-height:70vh; overflow:auto; margin:0; }
+
+.pf-empty{ font-family:var(--mono); font-size:13px; color:#8a8577; text-align:center; padding:40px 0; }

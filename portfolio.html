@@ -20,7 +20,7 @@
   </div>
   <header class="hero">
     <h1><span class="hh">♡</span> 作品集 <span class="hh">♡</span></h1>
-    <div class="sub">portfolio · 文字 / 网站 / 摄影 / 画</div>
+    <div class="sub">portfolio · 摄影 / 板绘 / 项目 / 文字 / 板写</div>
   </header>
   <nav class="menu">
     <a href="index.html"><img class="mi" src="icons/largeicons/1.png" alt="">首页</a><span class="sep">✦</span>
@@ -30,41 +30,58 @@
     <a href="museum.html"><img class="mi" src="icons/largeicons/Portfolio.png" alt="">博物馆</a><span class="sep">✦</span>
     <a href="about.html"><img class="mi" src="icons/largeicons/About.png" alt="">关于</a>
   </nav>
-  <hr class="wig">
-  <p class="muted">这里放我自己做的东西。文字和网站小游戏在上面，摄影在中间，画在最下面。空位先留着，之后往里填。</p>
 
-  <h2 class="sec">文章</h2>
-  <div class="note">
-    <p><a href="#" class="fill">[文章标题一 · 待填链接]</a><br><span class="muted fill">[一句话简介]</span></p>
-    <p><a href="#" class="fill">[文章标题二 · 待填链接]</a><br><span class="muted fill">[一句话简介]</span></p>
-    <p class="fill">[复制上面一行继续加。]</p>
-  </div>
+  <nav class="pf-tabs" id="pfTabs">
+    <button class="pf-tab active" data-cat="photo">摄影</button>
+    <button class="pf-tab" data-cat="painting">板绘</button>
+    <button class="pf-tab" data-cat="projects">项目</button>
+    <button class="pf-tab" data-cat="text">文字</button>
+    <button class="pf-tab" data-cat="handwrite">板写</button>
+  </nav>
 
-  <h2 class="sec">网站 · 小游戏</h2>
-  <div class="chips">
-    <span class="chip fill">[项目一 · 待填]</span>
-    <span class="chip fill">[项目二 · 待填]</span>
-    <span class="chip fill">[小游戏 · 待填]</span>
-  </div>
-  <p class="mono fill">[把上面每个 chip 换成 &lt;a href="项目链接"&gt;项目名&lt;/a&gt; 即可点击跳转。]</p>
+  <section class="pf-panel" data-panel="photo">
+    <div class="photo-grid">
+      <div class="pg-cell"><img src="pictures/assets/photo1.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="pg-ph">photo1</div></div>
+      <div class="pg-cell"><img src="pictures/assets/photo2.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="pg-ph">photo2</div></div>
+      <div class="pg-cell"><img src="pictures/assets/photo3.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="pg-ph">photo3</div></div>
+      <div class="pg-cell"><img src="pictures/assets/photo4.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="pg-ph">photo4</div></div>
+    </div>
+  </section>
 
-  <h2 class="sec">摄影</h2>
-  <div class="gallery" style="max-width:600px">
-    <div class="gcell"><img src="pictures/assets/photo1.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>pictures/assets/photo1.jpg</div></div>
-    <div class="gcell"><img src="pictures/assets/photo2.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>pictures/assets/photo2.jpg</div></div>
-    <div class="gcell"><img src="pictures/assets/photo3.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none"><b>♡</b>pictures/assets/photo3.jpg</div></div>
-  </div>
+  <section class="pf-panel" data-panel="painting" hidden>
+    <div class="pf-carousel">
+      <button class="pf-car-btn" id="pfPrev" aria-label="上一张">‹</button>
+      <div class="pf-car-stage"><img id="pfCarImg" src="" alt="板绘作品"></div>
+      <button class="pf-car-btn" id="pfNext" aria-label="下一张">›</button>
+    </div>
+  </section>
 
-  <h2 class="sec">画</h2>
-  <p class="muted">留给画的位置在最下面。往 pictures/assets/ 里放 art1.png…，或把下面的 slot 换成 &lt;img&gt;。</p>
-  <figure class="sticker">
-    <div class="slot">［画作一 → pictures/assets/art1.png］</div>
-    <figcaption>作品 · 其一 ♡</figcaption>
-  </figure>
-  <figure class="sticker r">
-    <div class="slot">［画作二 → pictures/assets/art2.png］</div>
-    <figcaption>作品 · 其二 ♡</figcaption>
-  </figure>
+  <section class="pf-panel" data-panel="projects" hidden>
+    <div class="pf-cards">
+      <a class="pf-card" href="https://timetoki.github.io/Terra-Echo/" target="_blank" rel="noopener">
+        <div class="pf-card-title">TERRA ECHO</div>
+        <div class="pf-card-desc">明日方舟同人小游戏</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="pf-panel" data-panel="text" hidden>
+    <div class="pf-cards" id="pfTextCards">
+      <div class="pf-card" id="pfArticleCard">
+        <div class="pf-card-title">一阳尾戒</div>
+        <div class="pf-card-desc fill">[待填 · 两句话简介]</div>
+      </div>
+    </div>
+    <div class="pf-reader" id="pfReader" hidden>
+      <button class="pf-reader-close" id="pfReaderClose">← 返回</button>
+      <div class="pf-reader-title">一阳尾戒</div>
+      <pre class="pf-reader-text" id="pfReaderText">加载中…</pre>
+    </div>
+  </section>
+
+  <section class="pf-panel" data-panel="handwrite" hidden>
+    <p class="pf-empty">敬请期待。</p>
+  </section>
 
   <footer class="foot">
     portfolio · 空位是留给以后的<br>
@@ -76,5 +93,76 @@
 <script src="chat-data.js" defer></script>
 <script src="chat.js" defer></script>
 <script src="player.js" defer></script>
+
+<script>
+(function(){
+  function bindPortfolio(scope){
+    var tabs = scope.querySelectorAll('.pf-tab'); if(!tabs.length || tabs[0].dataset.bound) return;
+    var panels = scope.querySelectorAll('.pf-panel');
+    tabs.forEach(function(tab){
+      tab.dataset.bound = '1';
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        var cat = tab.getAttribute('data-cat');
+        panels.forEach(function(p){ p.hidden = (p.getAttribute('data-panel') !== cat); });
+      });
+    });
+
+    /* 板绘轮播：点左右箭头切换，带滑入滑出动画 */
+    var PAINTINGS = [
+      'pruducts/paintings/U2R3b25UY1lrQU5QSHEyQnZLQVZpYzA4L0pvc0JqS3pGc3pWbU10T0NEUT0.png',
+      'pruducts/paintings/U2R3b25UY1lrQU9SZWIxaVFPdWFHZjl0STNVdnVoYjZGSUY1cFFTSHpVVT0.jpg',
+      'pruducts/paintings/U2R3b25UY1lrQU9ySnlNRWdsL255b0ZNVk1aOW1QRGRFOVBobGJyWG4zWT0.jpg'
+    ];
+    var pIdx = 0;
+    var carImg = scope.querySelector('#pfCarImg');
+    var prevBtn = scope.querySelector('#pfPrev');
+    var nextBtn = scope.querySelector('#pfNext');
+    function renderPainting(dir){
+      if(!carImg) return;
+      if(dir){
+        carImg.classList.add(dir==='next' ? 'slide-left' : 'slide-right');
+        setTimeout(function(){
+          carImg.src = PAINTINGS[pIdx];
+          carImg.classList.remove('slide-left','slide-right');
+        }, 260);
+      } else {
+        carImg.src = PAINTINGS[pIdx];
+      }
+    }
+    renderPainting();
+    if(prevBtn) prevBtn.addEventListener('click', function(){ pIdx=(pIdx-1+PAINTINGS.length)%PAINTINGS.length; renderPainting('prev'); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ pIdx=(pIdx+1)%PAINTINGS.length; renderPainting('next'); });
+
+    /* 文字：点卡片进全文阅读，懒加载 txt 文件 */
+    var articleCard = scope.querySelector('#pfArticleCard');
+    var textCards = scope.querySelector('#pfTextCards');
+    var reader = scope.querySelector('#pfReader');
+    var readerText = scope.querySelector('#pfReaderText');
+    var readerClose = scope.querySelector('#pfReaderClose');
+    if(articleCard){
+      articleCard.addEventListener('click', function(){
+        textCards.hidden = true;
+        reader.hidden = false;
+        if(readerText.dataset.loaded) return;
+        fetch(encodeURI('pruducts/txts/【一阳】尾戒.txt')).then(function(r){ return r.text(); }).then(function(t){
+          readerText.textContent = t;
+          readerText.dataset.loaded = '1';
+        }).catch(function(){ readerText.textContent = '读取失败（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
+      });
+    }
+    if(readerClose){
+      readerClose.addEventListener('click', function(){
+        reader.hidden = true;
+        textCards.hidden = false;
+      });
+    }
+  }
+  window.bindPortfolio = bindPortfolio;
+
+  bindPortfolio(document);
+})();
+</script>
 </body>
 </html>

@@ -45,6 +45,7 @@
       body.innerHTML=w.innerHTML;
       bindVending(body);
       bindHotline(body);
+      bindPortfolio(body);
       if(window.Achievements) window.Achievements.render();
     }).catch(function(){ body.innerHTML='打不开这个窗口（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
   }
@@ -82,6 +83,67 @@
     scope.querySelectorAll('.vitem:not(.out)').forEach(function(btn){
       btn.addEventListener('click',function(e){ dropItem(btn.getAttribute('data-icon'), e.clientX); });
     });
+  }
+
+  /* 作品集：分类切换 + 板绘轮播 + 文字全文阅读（弹窗剥离了原页脚本，需在此重挂） */
+  function bindPortfolio(scope){
+    var tabs=scope.querySelectorAll('.pf-tab'); if(!tabs.length || tabs[0].dataset.bound) return;
+    var panels=scope.querySelectorAll('.pf-panel');
+    tabs.forEach(function(tab){
+      tab.dataset.bound='1';
+      tab.addEventListener('click',function(){
+        tabs.forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        var cat=tab.getAttribute('data-cat');
+        panels.forEach(function(p){ p.hidden=(p.getAttribute('data-panel')!==cat); });
+      });
+    });
+
+    var PAINTINGS=[
+      'pruducts/paintings/U2R3b25UY1lrQU5QSHEyQnZLQVZpYzA4L0pvc0JqS3pGc3pWbU10T0NEUT0.png',
+      'pruducts/paintings/U2R3b25UY1lrQU9SZWIxaVFPdWFHZjl0STNVdnVoYjZGSUY1cFFTSHpVVT0.jpg',
+      'pruducts/paintings/U2R3b25UY1lrQU9ySnlNRWdsL255b0ZNVk1aOW1QRGRFOVBobGJyWG4zWT0.jpg'
+    ];
+    var pIdx=0;
+    var carImg=scope.querySelector('#pfCarImg');
+    var prevBtn=scope.querySelector('#pfPrev');
+    var nextBtn=scope.querySelector('#pfNext');
+    function renderPainting(dir){
+      if(!carImg) return;
+      if(dir){
+        carImg.classList.add(dir==='next' ? 'slide-left' : 'slide-right');
+        setTimeout(function(){
+          carImg.src=PAINTINGS[pIdx];
+          carImg.classList.remove('slide-left','slide-right');
+        },260);
+      } else { carImg.src=PAINTINGS[pIdx]; }
+    }
+    renderPainting();
+    if(prevBtn) prevBtn.addEventListener('click',function(){ pIdx=(pIdx-1+PAINTINGS.length)%PAINTINGS.length; renderPainting('prev'); });
+    if(nextBtn) nextBtn.addEventListener('click',function(){ pIdx=(pIdx+1)%PAINTINGS.length; renderPainting('next'); });
+
+    var articleCard=scope.querySelector('#pfArticleCard');
+    var textCards=scope.querySelector('#pfTextCards');
+    var reader=scope.querySelector('#pfReader');
+    var readerText=scope.querySelector('#pfReaderText');
+    var readerClose=scope.querySelector('#pfReaderClose');
+    if(articleCard){
+      articleCard.addEventListener('click',function(){
+        textCards.hidden=true;
+        reader.hidden=false;
+        if(readerText.dataset.loaded) return;
+        fetch(encodeURI('pruducts/txts/【一阳】尾戒.txt')).then(function(r){ return r.text(); }).then(function(t){
+          readerText.textContent=t;
+          readerText.dataset.loaded='1';
+        }).catch(function(){ readerText.textContent='读取失败（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
+      });
+    }
+    if(readerClose){
+      readerClose.addEventListener('click',function(){
+        reader.hidden=true;
+        textCards.hidden=false;
+      });
+    }
   }
 
   /* +86自杀援助中心：电话机（弹窗剥离了原页脚本，需在此重挂） */
