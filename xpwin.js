@@ -8,7 +8,7 @@
   var mask=document.createElement('div'); mask.className='xp-mask'; document.body.appendChild(mask);
   var modal=document.createElement('div'); modal.className='xpwin xp-modal';
   modal.innerHTML=
-    '<div class="xp-t"><img class="ico" id="xpmico" src="icons/Games.png" alt="">' +
+    '<div class="xp-t"><img class="ico" id="xpmico" src="icons/largeicons/Games.png" alt="">' +
     '<span id="xpmtitle">窗口</span><span class="btns">' +
     '<button id="xpmmin" title="最小化">_</button>' +
     '<button id="xpmmax" title="最大化">▢</button>' +
@@ -72,14 +72,14 @@
       if(floating>=7) return; floating++;
       if(window.Achievements) window.Achievements.bump('vendingCoins', 10, 'vending-broke');
       var img=document.createElement('img');
-      img.src='picture/c.gif'; img.className='xp-fall-coin';
+      img.src='pictures/assets/c.gif'; img.className='xp-fall-coin';
       img.style.left=(10+Math.random()*80)+'vw';
       document.body.appendChild(img);
       img.addEventListener('animationend',function(){ img.remove(); floating--; });
     }
     function dropItem(icon, fromX){
       var img=document.createElement('img');
-      img.src='picture/Pixel_Mart/'+icon; img.className='xp-fall-item';
+      img.src='icons/Pixel_Mart/'+icon; img.className='xp-fall-item';
       var x=(fromX!=null?fromX:Math.random()*window.innerWidth);
       img.style.left=Math.max(4,Math.min(window.innerWidth-46,x))+'px';
       document.body.appendChild(img);
@@ -105,7 +105,7 @@
     dbody.innerHTML=
       '<button class="game-back">← 返回</button>'+
       '<div class="ab-stage">'+
-        '<img class="ab-book" src="picture/book.gif" alt="" onerror="this.style.display=\'none\'">'+
+        '<img class="ab-book" src="pictures/assets/book.gif" alt="" onerror="this.style.display=\'none\'">'+
         '<div class="ab-glow"><span class="ab-hint">点击寻找答案</span></div>'+
       '</div>';
     dbody.querySelector('.game-back').addEventListener('click',function(){ navA.click(); });
@@ -116,8 +116,8 @@
     glow.style.cursor='pointer';
     glow.addEventListener('click',function(){
       if(timer) clearTimeout(timer);
-      book.src='picture/book.gif?t='+Date.now();            // 重播一次
-      timer=setTimeout(function(){ book.src='picture/book.png'; }, GIFMS); // 播完停末帧
+      book.src='pictures/assets/book.gif?t='+Date.now();            // 重播一次
+      timer=setTimeout(function(){ book.src='pictures/assets/book.png'; }, GIFMS); // 播完停末帧
       var i; do{ i=Math.floor(Math.random()*BOOK.length); }while(i===last&&BOOK.length>1); last=i;
       hint.classList.remove('pop'); void hint.offsetWidth; hint.classList.add('pop');
       hint.textContent=BOOK[i];
@@ -132,7 +132,7 @@
       'cookies.png','bubble_gum.png','rubber_duck.png','light_bulb_box.png','egg_white.png'];
     var POOL=window.FORTUNE||[];
     function today(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
-    function pickIcon(){ return 'picture/Pixel_Mart/'+ICONS[Math.floor(Math.random()*ICONS.length)]; }
+    function pickIcon(){ return 'icons/Pixel_Mart/'+ICONS[Math.floor(Math.random()*ICONS.length)]; }
     function stars(s){ return '★★★★★☆☆☆☆☆'.slice(5-s,10-s); }
 
     dbody.innerHTML=
@@ -191,7 +191,7 @@
       ptf:{ name:"过去 · 现在 · 未来", desc:"适合探讨事情的变化", pos:["过去","现在","未来"] },
       root:{ name:"寻求事情本源", desc:"寻求事件的原因", pos:["表象","根源","关键"] }
     };
-    function backHTML(){ return '<img src="picture/Cards/card-back.png" alt="牌背">'; }
+    function backHTML(){ return '<img src="pictures/Cards/card-back.png" alt="牌背">'; }
 
     function chooser(){
       dbody.innerHTML=
@@ -233,7 +233,7 @@
         c.addEventListener('click',function(){
           if(c.classList.contains('flipped')) return;
           var card=draw();
-          c.querySelector('.front').innerHTML='<img src="picture/Cards/'+encodeURIComponent(card.f)+'" alt="'+card.n+'" onerror="this.style.opacity=0">';
+          c.querySelector('.front').innerHTML='<img src="pictures/Cards/'+encodeURIComponent(card.f)+'" alt="'+card.n+'" onerror="this.style.opacity=0">';
           c.classList.add('flipped');
           c.querySelector('.tinfo').innerHTML='<div class="tname">'+card.n+'</div><div class="tread">'+card.r+'</div>';
           revealed++;
@@ -256,13 +256,13 @@
     if(a.id==='nav-divination'){
       e.preventDefault();
       document.getElementById('xpmtitle').textContent='占卜';
-      document.getElementById('xpmico').src='icons/MSN.png';
+      document.getElementById('xpmico').src='icons/largeicons/MSN.png';
       var dbody=document.getElementById('xpmbody');
       dbody.innerHTML=
         '<div class="game-pick">'+
-          '<div class="game-card div-card" data-div="answers"><div class="cover c1"><img src="icons/ball.png" alt=""></div><div class="gname">答案之书</div></div>'+
-          '<div class="game-card div-card" data-div="tarot"><div class="cover c2"><img src="icons/moon.png" alt=""></div><div class="gname">塔罗牌</div></div>'+
-          '<div class="game-card div-card" data-div="fortune"><div class="cover c3"><img src="icons/sweet.png" alt=""></div><div class="gname">今日运势抽签</div></div>'+
+          '<div class="game-card div-card" data-div="answers"><div class="cover c1"><img src="icons/px/ball.png" alt=""></div><div class="gname">答案之书</div></div>'+
+          '<div class="game-card div-card" data-div="tarot"><div class="cover c2"><img src="icons/px/moon.png" alt=""></div><div class="gname">塔罗牌</div></div>'+
+          '<div class="game-card div-card" data-div="fortune"><div class="cover c3"><img src="icons/px/sweet.png" alt=""></div><div class="gname">今日运势抽签</div></div>'+
         '</div>';
       modal.classList.remove('game');
       modal.classList.add('open'); mask.classList.add('open');
@@ -290,12 +290,12 @@
       e.preventDefault();
       if(window.__player) window.__player.pauseFor();
       document.getElementById('xpmtitle').textContent='游戏';
-      document.getElementById('xpmico').src='icons/Games.png';
+      document.getElementById('xpmico').src='icons/largeicons/Games.png';
       var body=document.getElementById('xpmbody');
       body.innerHTML=
         '<div class="game-pick">'+
           '<div class="game-card" data-game="games/minecraft/index.html">'+
-            '<div class="cover"><img src="icons/MC.png" alt=""></div>'+
+            '<div class="cover"><img src="icons/largeicons/MC.png" alt=""></div>'+
             '<div class="gname">Minecraft</div>'+
           '</div>'+
         '</div>';
@@ -334,6 +334,6 @@
   (function(){
     var m=/[?&]open=([^&]+)/.exec(location.search); if(!m) return;
     var f=decodeURIComponent(m[1]);
-    if(MODAL.indexOf(f)>=0){ setTimeout(function(){ openModal(f, TITLES[f]||f, 'icons/file.png'); }, 300); }
+    if(MODAL.indexOf(f)>=0){ setTimeout(function(){ openModal(f, TITLES[f]||f, 'icons/largeicons/file.png'); }, 300); }
   })();
 })();

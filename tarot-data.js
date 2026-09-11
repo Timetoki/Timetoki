@@ -1,5 +1,5 @@
 /* 塔罗 · 牌面文件名 → 中文名 + 简析
-   文件在 picture/cards/ ，文件名与截图一致（含 Trhee 这种拼写）。抽牌时排除 card-back。 */
+   文件在 pictures/Cards/ ，文件名与截图一致（含 Trhee 这种拼写）。抽牌时排除 card-back。 */
 window.TAROT = [
 /* —— 大阿卡纳 —— */
 {f:"The fool.png",         n:"愚者",     r:"新的开始 · 冒险 · 纯真"},

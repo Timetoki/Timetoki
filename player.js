@@ -4,12 +4,12 @@
 
   /* ---------- 左侧快捷方式（已排除顶部导航里已有的项）---------- */
   var DOCK = [
-    {label:"错误日志", href:"errorlog.html",        icon:"icons/blog2.png"},
-    {label:"作品集",   href:"portfolio.html",        icon:"icons/Portfolio.png"},
-    {label:"贩售机",   href:"vending_machine.html",  icon:"icons/icon1.png"},
-    {label:"新闻",     href:"news.html",             icon:"icons/Media.png"},
-    {label:"GitHub",   href:"https://github.com/Timetoki", icon:"icons/github.png", ext:true},
-    {label:"回收站",   href:"corrupted_archive.html", icon:"icons/Recycle.png"}
+    {label:"错误日志", href:"errorlog.html",        icon:"icons/largeicons/blog2.png"},
+    {label:"作品集",   href:"portfolio.html",        icon:"icons/largeicons/Portfolio.png"},
+    {label:"贩售机",   href:"vending_machine.html",  icon:"icons/px/icon1.png"},
+    {label:"新闻",     href:"news.html",             icon:"icons/largeicons/Media.png"},
+    {label:"GitHub",   href:"https://github.com/Timetoki", icon:"icons/largeicons/github.png", ext:true},
+    {label:"回收站",   href:"corrupted_archive.html", icon:"icons/largeicons/Recycle.png"}
   ];
 
   /* ---------- 播放列表：mp3 放进仓库根的 music/ 文件夹 ---------- */
@@ -23,8 +23,8 @@
   ];
 
   /* ---------- 唱片中心专辑图（裁圆叠在黑胶上，加载失败就露出黑胶本体） ---------- */
-  var COVERS = ["picture/picture1.png","picture/picture2.png","picture/picture3.png",
-    "picture/picture4.png","picture/picture5.png","picture/picture6.png","picture/picture7.jpg"];
+  var COVERS = ["pictures/assets/picture1.png","pictures/assets/picture2.png","pictures/assets/picture3.png",
+    "pictures/assets/picture4.png","pictures/assets/picture5.png","pictures/assets/picture6.png","pictures/assets/picture7.jpg"];
 
   /* ---------- 建 dock ---------- */
   var dock = document.createElement('nav');
