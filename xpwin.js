@@ -23,27 +23,11 @@
   document.getElementById('xpmmin').addEventListener('click',function(e){ e.stopPropagation(); close(); });
   document.getElementById('xpmmax').addEventListener('click',function(e){ e.stopPropagation(); /* 最大化：点了无效 */ });
 
-  (function(){
-    var t=modal.querySelector('.xp-t'),dx=0,dy=0,drag=false;
-    t.addEventListener('mousedown',function(e){
-      if(e.target.tagName==='BUTTON')return; drag=true;
-      var r=modal.getBoundingClientRect();
-      modal.style.width=r.width+'px';
-      modal.style.left=r.left+'px'; modal.style.top=r.top+'px'; modal.style.transform='none';
-      dx=e.clientX-r.left; dy=e.clientY-r.top; e.preventDefault();
-    });
-    document.addEventListener('mousemove',function(e){ if(!drag)return;
-      modal.style.left=Math.max(4,Math.min(window.innerWidth-80,e.clientX-dx))+'px';
-      modal.style.top =Math.max(4,Math.min(window.innerHeight-40,e.clientY-dy))+'px'; });
-    document.addEventListener('mouseup',function(){drag=false;});
-  })();
-
   function openModal(url,title,icon){
     document.getElementById('xpmtitle').textContent=title||'窗口';
     if(icon) document.getElementById('xpmico').src=icon;
     var body=document.getElementById('xpmbody'); body.innerHTML='加载中…';
     modal.classList.add('open'); mask.classList.add('open');
-    modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
     if(window.Achievements){
       var base=url.split('/').pop();
       if(base==='corrupted_archive.html'||base==='errorlog.html'){
@@ -374,7 +358,6 @@
         '</div>';
       modal.classList.remove('game');
       modal.classList.add('open'); mask.classList.add('open');
-      modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
       dbody.querySelectorAll('.div-card').forEach(function(card){
         card.addEventListener('click',function(){
           var kind=card.getAttribute('data-div');
@@ -409,7 +392,6 @@
         '</div>';
       modal.classList.remove('game');
       modal.classList.add('open'); mask.classList.add('open');
-      modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
       body.querySelectorAll('.game-card').forEach(function(card){
         card.addEventListener('click',function(){
           var src=card.getAttribute('data-game');
@@ -417,7 +399,6 @@
           body.innerHTML='<button class="game-back">← 返回选择</button>'+
                          '<iframe class="game-frame" src="'+src+'" allow="autoplay; fullscreen; gamepad; pointer-lock" allowfullscreen></iframe>';
           modal.classList.add('game');
-          modal.style.left=''; modal.style.top=''; modal.style.transform=''; modal.style.width='';
           body.querySelector('.game-back').addEventListener('click',function(){ a.click(); });
         });
       });
