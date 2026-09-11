@@ -1108,6 +1108,7 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   transition:opacity .35s ease, transform .35s ease, filter .35s ease; }
 .pf-cf-item.active{ opacity:1; filter:none; transform:scale(1); cursor:zoom-in; }
 .pf-cf-track.no-anim .pf-cf-item{ transition:none !important; }
+.pf-cf-clone{ pointer-events:none; }
 .pf-cf-item img{ width:100%; height:auto; display:block; border-radius:10px;
   box-shadow:0 8px 24px rgba(44,37,48,.18); }
 .pf-cf-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:5;
