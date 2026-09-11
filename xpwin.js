@@ -100,83 +100,16 @@
     });
   }
 
-  /* +86自杀援助中心：假接线小剧场（弹窗剥离了原页脚本，需在此重挂） */
-  var HOTLINE_CALLS = [
-    { id:'call-0417.html', time:'04:17', tag:'PARTIAL RECORD', lines:[
-      {c:'stamp', t:'[04:17:02]'},
-      {c:'caller', t:'来电者：喂……还有人吗。这么晚了。'},
-      {c:'op', t:'接线员：有。我在。你慢慢说。'},
-      {c:'caller', t:'来电者：我不知道要说什么。我只是不想一个人待着，又不想见任何人。'},
-      {c:'op', t:'接线员：那你现在也不算一个人。这样就行。'},
-      {c:'caller', t:'来电者：我今天把一整天折起来了，折得很小，想塞进抽屉。可它一直弹开。'},
-      {c:'op', t:'接线员：我记下来了。今天，被你折成了很小的东西。'},
-      {c:'caller', t:'来电者：我妈说我就是想太多。她说想开点就好了。'},
-      {c:'op late', t:'接线员：……'},
-      {c:'caller', t:'来电者：喂？你还在吗。'},
-      {c:'op late', t:'接线员：（一片空白）'},
-      {c:'caller', t:'来电者：刚才你说的话，我没听清。你能再说一遍吗。'},
-      {c:'op late', t:'接线员：（内容已涂黑）'},
-      {c:'caller', t:'来电者：算了。反正说了也不会有什么不一样。'},
-      {c:'caller', t:'来电者：那种感觉你懂吗，像是站在一间没关灯的房间里，可是灯也照不到你。'},
-      {c:'op late', t:'接线员：〔此处应有接线员回复 · 未能恢复〕'},
-      {c:'caller', t:'来电者：……好吧。谢谢你听我说。'},
-      {c:'caller', t:'来电者：虽然我也不知道你有没有在听。'},
-      {c:'stamp', t:'[记录在此中断]'}
-    ]},
-    { id:'call-0603.html', time:'06:03', tag:'COMPLETE', lines:[
-      {c:'stamp', t:'[06:03:00]'},
-      {c:'caller', t:'来电者：天快亮了。我一晚上没睡，就想等到有人接。'},
-      {c:'op', t:'接线员：接到了。你等到了。'},
-      {c:'caller', t:'来电者：我不是想寻死。你别紧张。我只是，累。累得连难过都难过不动了。'},
-      {c:'op', t:'接线员：那种累我知道。它比难过更安静。'},
-      {c:'caller', t:'来电者：对。就是很安静。安静到我怀疑自己是不是还在。'},
-      {c:'op', t:'接线员：你在。你的声音现在正被记录着，一个字都没漏。'},
-      {c:'caller', t:'来电者：你们记录这些做什么？'},
-      {c:'op', t:'接线员：留着。不修改，不评判，也不还给你。就是留着。'},
-      {c:'caller', t:'来电者：留着有什么用。'},
-      {c:'op', t:'接线员：没有用。命名一件东西，本来就不是为了有用。'},
-      {c:'caller', t:'来电者：你这个人，怎么说话跟别的热线不一样。'},
-      {c:'op', t:'接线员：因为我不打算让你好起来。我只打算，在你说的时候，别走开。'},
-      {c:'caller', t:'来电者：……谢谢。这样反而轻松一点。那我先挂了，天亮了，我去睡一会儿。'},
-      {c:'op', t:'接线员：去吧。你的今天已经登记完毕。'},
-      {c:'stamp', t:'[06:41:55 · 通话结束]'}
-    ]},
-    { id:'call-0912.html', time:'09:12', tag:'AUDIO CORRUPTED', lines:[
-      {c:'caller', t:'来电者：████████雨████没有通过审核██'},
-      {c:'op', t:'接线员：〔无法还原〕'},
-      {c:'caller', t:'来电者：████████████'},
-      {c:'caller', t:'来电者：请问……你们的冰箱里，是不是██████'},
-      {c:'op', t:'接线员：住着一个春天'},
-      {c:'caller', t:'来电者：████████████████████'},
-      {c:'stamp', t:'[09:44 · 波形转为直线]'}
-    ]},
-    { id:'call-2258.html', time:'22:58', tag:'PARTIAL RECORD', lines:[
-      {c:'caller', t:'A：今天你也没睡吧。'},
-      {c:'op', t:'B：你怎么知道。'},
-      {c:'caller', t:'A：因为你接电话的声音，和我心里那个声音一模一样。'},
-      {c:'op', t:'B：那到底是你打给我，还是我打给你。'},
-      {c:'caller', t:'A：重要吗。反正线路两头都没人好过。'},
-      {c:'op', t:'B：说说你的今天。'},
-      {c:'caller', t:'A：我的今天？我以为你是来说你的。'},
-      {c:'op late', t:'B：……'},
-      {c:'caller', t:'A：你看，又轮到我听你的沉默了。'},
-      {c:'op', t:'B：我们把彼此的悲伤记混了。现在归档里有两份，都不知道该退给谁。'},
-      {c:'caller', t:'A：那就别退了。留着吧。'},
-      {c:'op', t:'B：留着。反正也不还给你。'},
-      {c:'stamp', t:'[记录在此中断 · 说话人无法复原]'}
-    ]}
-  ];
-
+  /* +86自杀援助中心：电话机（弹窗剥离了原页脚本，需在此重挂） */
   function bindHotline(scope){
     var dial=scope.querySelector('#hlDial'); if(!dial || dial.dataset.bound) return;
     dial.dataset.bound='1';
     var screen=scope.querySelector('#hlScreen');
-    var archive=scope.querySelector('#hlArchive');
-    var skipBtn=scope.querySelector('#hlSkip');
-    var dropForm=scope.querySelector('#hlDropForm');
-    var dropInput=scope.querySelector('#hlDropInput');
-    var dropMsg=scope.querySelector('#hlDropMsg');
-    var busy=false, skip=false, audioCtx=null;
+    var listen=scope.querySelector('#hlListen');
+    var inputRow=scope.querySelector('#hlInputRow');
+    var input=scope.querySelector('#hlDropInput');
+    var dropBtn=scope.querySelector('#hlDropBtn');
+    var audioCtx=null, listenTimer=null, busy=false;
 
     function beep(freq, dur, vol){
       try{
@@ -188,100 +121,91 @@
         o.start(); o.stop(audioCtx.currentTime+dur);
       }catch(e){}
     }
-    function visited(){
-      try{ return JSON.parse(localStorage.getItem('achv_visited')||'{}'); }catch(e){ return {}; }
-    }
-    function renderArchive(){
-      var v=visited();
-      archive.innerHTML=HOTLINE_CALLS.map(function(c){
-        var done=!!v[c.id];
-        return '<span class="ha'+(done?' done':'')+'">'+c.time+(done?' ✓':'')+'</span>';
-      }).join('');
-    }
-    function pickCall(){
-      var v=visited();
-      var fresh=HOTLINE_CALLS.filter(function(c){ return !v[c.id]; });
-      var pool=fresh.length?fresh:HOTLINE_CALLS;
-      return pool[Math.floor(Math.random()*pool.length)];
-    }
-    function typeLine(p, text, cb){
+    function typeLine(text, cb){
+      var box=screen.querySelector('.transcript');
+      if(!box){ box=document.createElement('div'); box.className='transcript'; screen.appendChild(box); }
+      var p=document.createElement('p'); p.className='op'; box.appendChild(p);
       var i=0;
       (function step(){
-        if(skip){ p.textContent=text; cb(); return; }
         p.textContent=text.slice(0,i);
         if(i%3===0) beep(520+Math.random()*80, 0.02, 0.025);
         i++;
-        if(i<=text.length){ setTimeout(step,26); }
-        else{ cb(); }
+        if(i<=text.length){ setTimeout(step,34); }
+        else{ cb&&cb(); }
       })();
     }
-    function typeCall(call){
-      screen.innerHTML='<div class="transcript" id="hlTranscript"></div>';
-      var box=screen.querySelector('#hlTranscript');
-      var idx=0;
-      skip=false;
-      skipBtn.hidden=false;
-      dial.disabled=true;
-      function next(){
-        if(idx>=call.lines.length){
-          skipBtn.hidden=true;
-          dial.disabled=false;
-          busy=false;
-          try{
-            var v=visited(); v[call.id]=1;
-            localStorage.setItem('achv_visited', JSON.stringify(v));
-          }catch(e){}
-          if(window.Achievements) window.Achievements.visit(call.id,
-            ['call-0417.html','call-0603.html','call-0912.html','call-2258.html'],
-            'hotline-completionist');
-          renderArchive();
-          return;
-        }
-        var line=call.lines[idx++];
-        var p=document.createElement('p');
-        p.className=line.c;
-        box.appendChild(p);
-        typeLine(p, line.t, function(){ setTimeout(next, line.c==='stamp'?120:260); });
-      }
-      next();
+    function sayCaller(text){
+      var box=screen.querySelector('.transcript');
+      if(!box){ box=document.createElement('div'); box.className='transcript'; screen.appendChild(box); }
+      var p=document.createElement('p'); p.className='caller'; p.textContent=text; box.appendChild(p);
+    }
+    function startListenPulse(){
+      var frames=['正在聆听','正在聆听…','正在聆听……'];
+      var i=0;
+      listen.hidden=false;
+      listen.textContent=frames[0];
+      listenTimer=setInterval(function(){
+        i=(i+1)%frames.length;
+        listen.textContent=frames[i];
+      },450);
+    }
+    function stopListenPulse(){
+      if(listenTimer){ clearInterval(listenTimer); listenTimer=null; }
+      listen.hidden=true;
     }
 
-    dial.addEventListener('click',function(){
+    function submitPain(){
+      var v=(input.value||'').trim();
+      if(!v) return;
+      inputRow.hidden=true;
+      stopListenPulse();
+      try{
+        var arr=JSON.parse(localStorage.getItem('user_pain_submissions')||'[]');
+        arr.push(v);
+        while(arr.length>50) arr.shift();
+        localStorage.setItem('user_pain_submissions', JSON.stringify(arr));
+      }catch(e){}
+      sayCaller(v);
+      input.value='';
+      setTimeout(function(){
+        typeLine('我在听。', function(){
+          setTimeout(function(){
+            typeLine('已经收到您投喂的痛苦，请稍等，我们正在烹饪中……', function(){
+              setTimeout(function(){
+                screen.classList.add('dim');
+                screen.innerHTML='<p class="hl-idle">对方已挂断。</p>';
+                dial.disabled=false;
+                busy=false;
+              }, 5000);
+            });
+          }, 500);
+        });
+      }, 400);
+    }
+
+    dial.addEventListener('click', function(){
       if(busy) return;
       busy=true;
-      var call=pickCall();
+      dial.disabled=true;
+      inputRow.hidden=true;
+      stopListenPulse();
+      screen.classList.remove('dim');
       screen.innerHTML='<p class="hl-idle">拨号中……</p>';
       beep(300,0.15,0.05);
       setTimeout(function(){ beep(300,0.15,0.05); },350);
       setTimeout(function(){
-        screen.innerHTML='<p class="hl-idle">已接通 · '+call.time+' · '+call.tag+'</p>';
-        setTimeout(function(){ typeCall(call); },500);
+        screen.innerHTML='';
+        typeLine('您好，这里是+86自杀援助热线。', function(){
+          inputRow.hidden=false;
+          input.focus();
+          startListenPulse();
+        });
       },750);
     });
-    skipBtn.addEventListener('click',function(){ skip=true; });
 
-    if(dropForm){
-      dropForm.addEventListener('submit',function(e){
-        e.preventDefault();
-        var v=(dropInput.value||'').trim();
-        if(!v) return;
-        try{
-          var arr=JSON.parse(localStorage.getItem('user_pain_submissions')||'[]');
-          arr.push(v);
-          while(arr.length>50) arr.shift();
-          localStorage.setItem('user_pain_submissions', JSON.stringify(arr));
-        }catch(e){}
-        dropInput.value='';
-        if(dropMsg){
-          dropMsg.textContent='已收下，正在冷藏。';
-          setTimeout(function(){ dropMsg.textContent=''; },2600);
-        }
-      });
-    }
-
-    renderArchive();
+    dropBtn.addEventListener('click', submitPain);
+    input.addEventListener('keydown', function(e){ if(e.key==='Enter') submitPain(); });
   }
-
   /* 答案之书：book1/book2 来回切当假 gif + 晕开白光呼吸文字 + 点击抽签 */
   function openAnswerBook(dbody, navA){
     modal.classList.add('answerbook');

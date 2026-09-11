@@ -1182,30 +1182,30 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   overflow:hidden;
 }
 
-/* ---------------- +86自杀援助中心：假接线小剧场 ---------------- */
-.hotline-unit{ background:#fff; border:3px solid var(--ink); border-radius:16px;
-  padding:20px 18px; margin:18px 0; box-shadow:4px 5px 0 var(--blue); }
-.hotline-screen{ background:#fffdf6; border:2.5px dashed var(--pink); border-radius:12px;
-  padding:14px 16px; min-height:120px; margin-bottom:14px; }
-.hotline-screen .hl-idle{ color:var(--ink-soft); font-family:var(--mono); font-size:13px;
-  text-align:center; padding:36px 0; margin:0; }
+/* ---------------- +86自杀援助中心：电话机 ---------------- */
+.hotline-hero{ margin-bottom:6px; }
+.hotline-hero h1{ font-size:clamp(18px,3vw,22px); text-shadow:none; }
+.hotline-unit{ background:#fff; border:1px solid #d8d4cc; border-radius:10px;
+  padding:16px; margin:10px 0 18px; box-shadow:0 2px 10px rgba(44,37,48,.06); }
+.hotline-screen{ background:#f8f7f4; border:1px solid #d8d4cc; border-radius:8px;
+  padding:14px 16px; min-height:110px; margin-bottom:10px;
+  transition:background .6s ease, opacity .6s ease; }
+.hotline-screen.dim{ background:#efeee9; opacity:.55; }
+.hotline-screen .hl-idle{ color:#8a8577; font-family:var(--mono); font-size:13px;
+  text-align:center; padding:34px 0; margin:0; }
 .hotline-screen .transcript{ margin:0; }
+.hotline-listen{ font-family:var(--mono); font-size:12px; font-style:italic;
+  color:#8a8577; margin:0 0 10px; }
+.hotline-inputrow{ display:flex; gap:8px; margin-bottom:12px; }
+.hotline-inputrow input{ flex:1; font-family:var(--body); font-size:14px;
+  border:1px solid #d8d4cc; border-radius:8px; padding:8px 10px; background:#fff; color:var(--ink); }
+.hotline-inputrow input:focus{ outline:none; border-color:#b9b3a6; }
+.hotline-inputrow button{ font-family:var(--body); font-weight:700; cursor:pointer;
+  border:1px solid #d8d4cc; border-radius:8px; background:#f8f7f4; color:var(--ink); padding:8px 16px; }
+.hotline-inputrow button:hover{ background:#eeece6; }
 .hotline-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .hotline-dial{ font-family:var(--body); font-weight:700; cursor:pointer;
-  border:3px solid var(--ink); border-radius:10px; background:var(--pink); color:var(--ink);
-  padding:8px 18px; font-size:14px; }
-.hotline-dial:hover{ background:#ffc2dd; }
-.hotline-dial:disabled{ opacity:.5; cursor:not-allowed; }
-.hotline-skip{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); cursor:pointer;
-  border:1.5px dashed var(--pink); border-radius:8px; background:none; padding:6px 10px; }
-.hotline-archive{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
-.hotline-archive .ha{ font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:8px;
-  border:1.5px solid var(--ink-soft); color:var(--ink-soft); }
-.hotline-archive .ha.done{ border-color:#4fae7a; color:#4fae7a; }
-
-.hotline-drop{ display:flex; gap:8px; margin-top:6px; }
-.hotline-drop input{ flex:1; font-family:var(--body); font-size:14px; border:2px solid var(--ink);
-  border-radius:8px; padding:8px 10px; background:#fffdf6; color:var(--ink); }
-.hotline-drop button{ font-family:var(--body); font-weight:700; cursor:pointer;
-  border:2px solid var(--ink); border-radius:8px; background:var(--pink); color:var(--ink); padding:8px 16px; }
-.hotline-drop button:hover{ background:#ffc2dd; }
+  border:1px solid var(--ink); border-radius:8px; background:#fff; color:var(--ink);
+  padding:8px 20px; font-size:14px; }
+.hotline-dial:hover{ background:#f8f7f4; }
+.hotline-dial:disabled{ opacity:.4; cursor:not-allowed; }
