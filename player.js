@@ -8,7 +8,7 @@
     {label:"作品集",   href:"portfolio.html",        icon:"icons/largeicons/Portfolio.png"},
     {label:"贩售机",   href:"vending_machine.html",  icon:"icons/px/icon1.png"},
     {label:"新闻",     href:"news.html",             icon:"icons/largeicons/Media.png"},
-    {label:"GitHub",   href:"https://github.com/Timetoki", icon:"icons/largeicons/github.png", ext:true},
+    {label:"+86自杀援助中心", href:"hotline.html",      icon:"icons/px/Telephone.png"},
     {label:"回收站",   href:"corrupted_archive.html", icon:"icons/largeicons/Recycle.png"}
   ];
 

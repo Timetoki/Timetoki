@@ -22,7 +22,7 @@ window.ACHIEVEMENTS = [
     icon:'icons/px/Telephone.png' },
   { id:'dj-timetoki', name:'DJ TIMETOKI',
     desc:'手动切歌 10 次。别切了，好好听完一首完整的。',
-    icon:'icons/px/cd.png' },
+    icon:'icons/px/CD.png' },
   { id:'block-breaker', name:'方块人格',
     desc:'点开过 Minecraft。逃避现实，但好歹换了个像素风的现实。',
     icon:'icons/largeicons/MC.png' }
