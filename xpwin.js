@@ -159,13 +159,13 @@
           var img=it.querySelector('img');
           if(img && lightbox && lightboxImg){
             lightboxImg.src=img.src;
-            lightbox.hidden=false;
+            lightbox.classList.add('open');
           }
         } else { goTo(it); }
       });
     });
     if(lightbox){
-      lightbox.addEventListener('click',function(){ lightbox.hidden=true; });
+      lightbox.addEventListener('click',function(){ lightbox.classList.remove('open'); });
     }
 
     var articleCard=scope.querySelector('#pfArticleCard');

@@ -20,6 +20,7 @@
   </div>
   <header class="hero">
     <h1><span class="hh">♡</span> 情绪呕吐罐头厂 <span class="hh">♡</span></h1>
+    <div class="sub">portfolio</div>
   </header>
   <nav class="menu">
     <a href="index.html"><img class="mi" src="icons/largeicons/1.png" alt="">首页</a><span class="sep">✦</span>
@@ -41,7 +42,7 @@
   <section class="pf-panel" data-panel="projects">
     <h2 class="sec">项目</h2>
     <a class="pf-card pf-card-hero" href="https://timetoki.github.io/Terra-Echo/" target="_blank" rel="noopener">
-      <div class="pf-card-title">TERRA ECHO</div>
+      <div class="pf-card-title">TERRA ECHO 泰拉回响</div>
       <div class="pf-card-desc">明日方舟同人小游戏，一段用碎片与回声拼起来的短暂旅程。</div>
       <div class="pf-card-cta">点击进入游戏 →</div>
     </a>
@@ -90,7 +91,7 @@
     <p class="pf-empty">敬请期待。</p>
   </section>
 
-  <div class="pf-lightbox" id="pfLightbox" hidden>
+  <div class="pf-lightbox" id="pfLightbox">
     <img id="pfLightboxImg" src="" alt="">
   </div>
 
@@ -182,7 +183,7 @@
           var img = it.querySelector('img');
           if(img && lightbox && lightboxImg){
             lightboxImg.src = img.src;
-            lightbox.hidden = false;
+            lightbox.classList.add('open');
           }
         } else {
           goTo(it);
@@ -190,7 +191,7 @@
       });
     });
     if(lightbox){
-      lightbox.addEventListener('click', function(){ lightbox.hidden = true; });
+      lightbox.addEventListener('click', function(){ lightbox.classList.remove('open'); });
     }
 
     /* 文字：点卡片进全文阅读，懒加载 txt 文件 */

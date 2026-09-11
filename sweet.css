@@ -1113,8 +1113,9 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .pf-cf-arrow.prev{ left:2px; } .pf-cf-arrow.next{ right:2px; }
 @media (max-width:640px){ .pf-cf-track{ padding:20px 12vw; } }
 
-.pf-lightbox{ position:fixed; inset:0; z-index:200; background:rgba(20,17,20,.86);
-  display:flex; align-items:center; justify-content:center; padding:5vh 5vw; cursor:zoom-out; }
+.pf-lightbox{ display:none; position:fixed; inset:0; z-index:200; background:rgba(20,17,20,.86);
+  align-items:center; justify-content:center; padding:5vh 5vw; cursor:zoom-out; }
+.pf-lightbox.open{ display:flex; }
 .pf-lightbox img{ max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 12px 40px rgba(0,0,0,.4); }
 
 .pf-cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
