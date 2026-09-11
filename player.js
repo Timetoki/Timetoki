@@ -14,17 +14,15 @@
 
   /* ---------- 播放列表：mp3 放进仓库根的 music/ 文件夹 ---------- */
   var PLAYLIST = [
-    {title:"nop",              artist:"桃汽水", album:"回不去的夏天", src:"music/nop.mp3"},
-    {title:"All by My Design", artist:"未知",   album:"未知",         src:"music/All by My Design.mp3"},
-    {title:"Idol",             artist:"未知",   album:"未知",         src:"music/Idol.mp3"},
-    {title:"彼女は旅に出る",    artist:"未知",   album:"未知",         src:"music/彼女は旅に出る.mp3"},
-    {title:"春日影",           artist:"未知",   album:"未知",         src:"music/春日影.mp3"},
-    {title:"铁花飞",           artist:"未知",   album:"未知",         src:"music/铁花飞.mp3"}
+    {title:"nop",              artist:"桃汽水",     album:"回不去的夏天",                  src:"music/nop.mp3"},
+    {title:"彼女は旅に出る",    artist:"鎖那",       album:"Hush a by little girl",         src:"music/彼女は旅に出る.mp3"},
+    {title:"春日影",           artist:"MyGO!!!!!", album:"BanG Dream! It's MyGO!!!!!",    src:"music/春日影.mp3"},
+    {title:"铁花飞",           artist:"Mili",       album:"塞壬唱片",                      src:"music/铁花飞.mp3"}
   ];
 
   /* ---------- 唱片中心专辑图（裁圆叠在黑胶上，加载失败就露出黑胶本体） ---------- */
   var COVERS = ["pictures/assets/picture1.png","pictures/assets/picture2.png","pictures/assets/picture3.png",
-    "pictures/assets/picture4.png","pictures/assets/picture5.png","pictures/assets/picture6.png","pictures/assets/picture7.jpg"];
+    "pictures/assets/picture4.png","pictures/assets/picture5.png","pictures/assets/picture7.jpg"];
 
   /* ---------- 建 dock ---------- */
   var dock = document.createElement('nav');
