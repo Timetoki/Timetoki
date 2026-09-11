@@ -111,16 +111,17 @@
     var dropBtn=scope.querySelector('#hlDropBtn');
     var audioCtx=null, listenTimer=null, busy=false;
 
-    function beep(freq, dur, vol){
+    function beep(freq, dur, vol, type){
       try{
         if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
         var o=audioCtx.createOscillator(), g=audioCtx.createGain();
-        o.type='square'; o.frequency.value=freq;
+        o.type=type||'square'; o.frequency.value=freq;
         g.gain.value=vol||0.03;
         o.connect(g); g.connect(audioCtx.destination);
         o.start(); o.stop(audioCtx.currentTime+dur);
       }catch(e){}
     }
+    function dialTone(){ beep(400, 0.55, 0.045, 'sine'); }
     function typeLine(text, cb){
       var box=screen.querySelector('.transcript');
       if(!box){ box=document.createElement('div'); box.className='transcript'; screen.appendChild(box); }
@@ -191,8 +192,8 @@
       stopListenPulse();
       screen.classList.remove('dim');
       screen.innerHTML='<p class="hl-idle">拨号中……</p>';
-      beep(300,0.15,0.05);
-      setTimeout(function(){ beep(300,0.15,0.05); },350);
+      dialTone();
+      setTimeout(dialTone, 700);
       setTimeout(function(){
         screen.innerHTML='';
         typeLine('您好，这里是+86自杀援助热线。', function(){
@@ -200,7 +201,7 @@
           input.focus();
           startListenPulse();
         });
-      },750);
+      },1450);
     });
 
     dropBtn.addEventListener('click', submitPain);
@@ -438,7 +439,7 @@
     'museum.html':'博物馆','about.html':'关于本站','vending_machine.html':'5-羟色胺自动贩售机',
     'errorlog.html':'错误日志','portfolio.html':'作品集','news.html':'媒体 · 新闻','corrupted_archive.html':'损坏档案',
     'call-0417.html':'call-0417','call-0603.html':'call-0603','call-0912.html':'call-0912','call-2258.html':'call-2258',
-    'hotline.html':'+86自杀援助中心' };
+    'hotline.html':'+86自杀援助热线接线中心' };
   (function(){
     var m=/[?&]open=([^&]+)/.exec(location.search); if(!m) return;
     var f=decodeURIComponent(m[1]);

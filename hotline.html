@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>♡ +86自杀援助中心 ♡</title>
+<title>♡ +86自杀援助热线接线中心 ♡</title>
 <link rel="stylesheet" href="sweet.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
   </div>
 
   <header class="hero hotline-hero">
-    <h1><span class="hh">♡</span> +86自杀援助中心 <span class="hh">♡</span></h1>
+    <h1><span class="hh">♡</span> +86自杀援助热线接线中心 <span class="hh">♡</span></h1>
   </header>
 
   <nav class="menu">
@@ -69,16 +69,17 @@
     var dropBtn=scope.querySelector('#hlDropBtn');
     var audioCtx=null, listenTimer=null, busy=false;
 
-    function beep(freq, dur, vol){
+    function beep(freq, dur, vol, type){
       try{
         if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
         var o=audioCtx.createOscillator(), g=audioCtx.createGain();
-        o.type='square'; o.frequency.value=freq;
+        o.type=type||'square'; o.frequency.value=freq;
         g.gain.value=vol||0.03;
         o.connect(g); g.connect(audioCtx.destination);
         o.start(); o.stop(audioCtx.currentTime+dur);
       }catch(e){}
     }
+    function dialTone(){ beep(400, 0.55, 0.045, 'sine'); }
     function typeLine(text, cb){
       var box=screen.querySelector('.transcript');
       if(!box){ box=document.createElement('div'); box.className='transcript'; screen.appendChild(box); }
@@ -149,8 +150,8 @@
       stopListenPulse();
       screen.classList.remove('dim');
       screen.innerHTML='<p class="hl-idle">拨号中……</p>';
-      beep(300,0.15,0.05);
-      setTimeout(function(){ beep(300,0.15,0.05); },350);
+      dialTone();
+      setTimeout(dialTone, 700);
       setTimeout(function(){
         screen.innerHTML='';
         typeLine('您好，这里是+86自杀援助热线。', function(){
@@ -158,7 +159,7 @@
           input.focus();
           startListenPulse();
         });
-      },750);
+      },1450);
     });
 
     dropBtn.addEventListener('click', submitPain);
