@@ -16,7 +16,7 @@
   var PLAYLIST = [
     {title:"nop",              artist:"桃汽水",     album:"回不去的夏天",                  src:"music/nop.mp3"},
     {title:"彼女は旅に出る",    artist:"鎖那",       album:"Hush a by little girl",         src:"music/彼女は旅に出る.mp3"},
-    {title:"春日影",           artist:"MyGO!!!!!", album:"BanG Dream! It's MyGO!!!!!",    src:"music/春日影.mp3"},
+    {title:"春日影",           artist:"MyGO!!!!!", album:"BanG Dream It's MyGO",    src:"music/春日影.mp3"},
     {title:"铁花飞",           artist:"Mili",       album:"塞壬唱片",                      src:"music/铁花飞.mp3"}
   ];
 
