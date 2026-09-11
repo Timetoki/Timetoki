@@ -1077,11 +1077,14 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 
 /* ---------------- 作品集：白一点医学一点 ---------------- */
 .pf-tabs{ position:sticky; top:0; z-index:20; display:flex; gap:8px; flex-wrap:wrap;
-  background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:10px 12px; margin:16px 0 20px; }
+  background:rgba(255,255,255,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border:1px solid #d8d4cc; border-radius:10px; padding:10px 12px; margin:16px 0 26px; }
 .pf-tab{ font-family:var(--body); font-weight:700; font-size:13px; cursor:pointer;
-  border:1px solid #d8d4cc; border-radius:8px; background:#f8f7f4; color:#8a8577; padding:6px 14px; }
+  border:1px solid #d8d4cc; border-radius:8px; background:rgba(248,247,244,.8); color:#8a8577; padding:6px 14px; }
 .pf-tab:hover{ background:#eeece6; }
 .pf-tab.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+.pf-panel{ scroll-margin-top:64px; margin-bottom:44px; }
 
 .photo-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
 .pg-cell{ position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:8px;
@@ -1091,17 +1094,28 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   font-family:var(--mono); font-size:11px; color:#8a8577; text-align:center; padding:6px; }
 @media (max-width:640px){ .photo-grid{ grid-template-columns:repeat(2,1fr); } }
 
-.pf-carousel{ display:flex; align-items:center; justify-content:center; gap:14px; padding:10px 0; }
-.pf-car-stage{ width:min(480px,78vw); height:min(480px,78vw); border:1px solid #d8d4cc;
-  border-radius:10px; overflow:hidden; background:#f8f7f4; position:relative; }
-.pf-car-stage img{ width:100%; height:100%; object-fit:contain; display:block;
-  transition:transform .3s ease, opacity .3s ease; }
-.pf-car-stage img.slide-left{ transform:translateX(-24px); opacity:0; }
-.pf-car-stage img.slide-right{ transform:translateX(24px); opacity:0; }
-.pf-car-btn{ font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
-  flex:none; width:40px; height:40px; border:1px solid #d8d4cc; border-radius:50%;
+/* 板绘：横向滚动 coverflow，居中清晰、两侧虚化退后 */
+.pf-coverflow{ position:relative; }
+.pf-cf-track{ display:flex; align-items:center; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:20px 30vw; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.pf-cf-track::-webkit-scrollbar{ display:none; }
+.pf-cf-item{ flex:none; width:min(420px,58vw); scroll-snap-align:center; cursor:pointer;
+  opacity:.4; filter:blur(1.5px); transform:scale(.82);
+  transition:opacity .35s ease, transform .35s ease, filter .35s ease; }
+.pf-cf-item.active{ opacity:1; filter:none; transform:scale(1); cursor:zoom-in; }
+.pf-cf-item img{ width:100%; height:auto; display:block; border-radius:10px;
+  box-shadow:0 8px 24px rgba(44,37,48,.18); }
+.pf-cf-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+  font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
+  width:40px; height:40px; border:1px solid #d8d4cc; border-radius:50%;
   background:#fff; color:var(--ink); }
-.pf-car-btn:hover{ background:#f8f7f4; }
+.pf-cf-arrow:hover{ background:#f8f7f4; }
+.pf-cf-arrow.prev{ left:2px; } .pf-cf-arrow.next{ right:2px; }
+@media (max-width:640px){ .pf-cf-track{ padding:20px 12vw; } }
+
+.pf-lightbox{ position:fixed; inset:0; z-index:200; background:rgba(20,17,20,.86);
+  display:flex; align-items:center; justify-content:center; padding:5vh 5vw; cursor:zoom-out; }
+.pf-lightbox img{ max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 12px 40px rgba(0,0,0,.4); }
 
 .pf-cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
 .pf-card{ display:block; background:#fff; border:1px solid #d8d4cc; border-radius:10px;
@@ -1110,6 +1124,11 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .pf-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44,37,48,.08); }
 .pf-card-title{ font-weight:700; font-size:16px; margin-bottom:6px; letter-spacing:.5px; }
 .pf-card-desc{ font-size:13px; color:#8a8577; line-height:1.5; }
+
+.pf-card-hero{ width:100%; padding:34px 30px; }
+.pf-card-hero .pf-card-title{ font-size:26px; margin-bottom:12px; }
+.pf-card-hero .pf-card-desc{ font-size:15px; line-height:1.7; }
+.pf-card-cta{ margin-top:16px; font-family:var(--mono); font-size:12px; color:var(--ink); }
 
 .pf-reader{ background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:18px 20px; margin-top:6px; }
 .pf-reader-close{ font-family:var(--body); font-weight:700; cursor:pointer; border:1px solid #d8d4cc;

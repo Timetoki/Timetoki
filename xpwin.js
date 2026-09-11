@@ -89,38 +89,84 @@
   function bindPortfolio(scope){
     var tabs=scope.querySelectorAll('.pf-tab'); if(!tabs.length || tabs[0].dataset.bound) return;
     var panels=scope.querySelectorAll('.pf-panel');
+
     tabs.forEach(function(tab){
       tab.dataset.bound='1';
       tab.addEventListener('click',function(){
-        tabs.forEach(function(t){ t.classList.remove('active'); });
-        tab.classList.add('active');
         var cat=tab.getAttribute('data-cat');
-        panels.forEach(function(p){ p.hidden=(p.getAttribute('data-panel')!==cat); });
+        var target=scope.querySelector('.pf-panel[data-panel="'+cat+'"]');
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
 
-    var PAINTINGS=[
-      'pruducts/paintings/U2R3b25UY1lrQU5QSHEyQnZLQVZpYzA4L0pvc0JqS3pGc3pWbU10T0NEUT0.png',
-      'pruducts/paintings/U2R3b25UY1lrQU9SZWIxaVFPdWFHZjl0STNVdnVoYjZGSUY1cFFTSHpVVT0.jpg',
-      'pruducts/paintings/U2R3b25UY1lrQU9ySnlNRWdsL255b0ZNVk1aOW1QRGRFOVBobGJyWG4zWT0.jpg'
-    ];
-    var pIdx=0;
-    var carImg=scope.querySelector('#pfCarImg');
+    if('IntersectionObserver' in window){
+      var navByCat={};
+      tabs.forEach(function(t){ navByCat[t.getAttribute('data-cat')]=t; });
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(!en.isIntersecting) return;
+          tabs.forEach(function(t){ t.classList.remove('active'); });
+          var cat=en.target.getAttribute('data-panel');
+          if(navByCat[cat]) navByCat[cat].classList.add('active');
+        });
+      }, { rootMargin:'-30% 0px -60% 0px' });
+      panels.forEach(function(p){ obs.observe(p); });
+    }
+
+    var track=scope.querySelector('#pfCfTrack');
+    var items=scope.querySelectorAll('.pf-cf-item');
     var prevBtn=scope.querySelector('#pfPrev');
     var nextBtn=scope.querySelector('#pfNext');
-    function renderPainting(dir){
-      if(!carImg) return;
-      if(dir){
-        carImg.classList.add(dir==='next' ? 'slide-left' : 'slide-right');
-        setTimeout(function(){
-          carImg.src=PAINTINGS[pIdx];
-          carImg.classList.remove('slide-left','slide-right');
-        },260);
-      } else { carImg.src=PAINTINGS[pIdx]; }
+    var lightbox=scope.querySelector('#pfLightbox');
+    var lightboxImg=scope.querySelector('#pfLightboxImg');
+
+    function markActive(){
+      if(!track) return;
+      var mid=track.scrollLeft + track.clientWidth/2;
+      var best=null, bestDist=Infinity;
+      items.forEach(function(it){
+        var itMid=it.offsetLeft + it.offsetWidth/2;
+        var dist=Math.abs(itMid-mid);
+        if(dist<bestDist){ bestDist=dist; best=it; }
+      });
+      items.forEach(function(it){ it.classList.toggle('active', it===best); });
     }
-    renderPainting();
-    if(prevBtn) prevBtn.addEventListener('click',function(){ pIdx=(pIdx-1+PAINTINGS.length)%PAINTINGS.length; renderPainting('prev'); });
-    if(nextBtn) nextBtn.addEventListener('click',function(){ pIdx=(pIdx+1)%PAINTINGS.length; renderPainting('next'); });
+    function goTo(it){ if(it) it.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); }
+    function step(dir){
+      var mid=track.scrollLeft + track.clientWidth/2;
+      var list=Array.prototype.slice.call(items);
+      if(dir<0) list.reverse();
+      for(var i=0;i<list.length;i++){
+        var it=list[i];
+        var itMid=it.offsetLeft + it.offsetWidth/2;
+        if((dir>0 && itMid>mid+4) || (dir<0 && itMid<mid-4)){ goTo(it); return; }
+      }
+      goTo(list[0]);
+    }
+
+    if(track){
+      track.addEventListener('scroll',function(){
+        clearTimeout(track._t);
+        track._t=setTimeout(markActive,60);
+      });
+      markActive();
+    }
+    if(prevBtn) prevBtn.addEventListener('click',function(){ step(-1); });
+    if(nextBtn) nextBtn.addEventListener('click',function(){ step(1); });
+    items.forEach(function(it){
+      it.addEventListener('click',function(){
+        if(it.classList.contains('active')){
+          var img=it.querySelector('img');
+          if(img && lightbox && lightboxImg){
+            lightboxImg.src=img.src;
+            lightbox.hidden=false;
+          }
+        } else { goTo(it); }
+      });
+    });
+    if(lightbox){
+      lightbox.addEventListener('click',function(){ lightbox.hidden=true; });
+    }
 
     var articleCard=scope.querySelector('#pfArticleCard');
     var textCards=scope.querySelector('#pfTextCards');
