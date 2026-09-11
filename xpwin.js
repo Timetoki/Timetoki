@@ -144,15 +144,25 @@
       goTo(list[0]);
     }
 
+    var autoplayTimer=null;
+    function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer=null; } }
+    function startAutoplay(){
+      stopAutoplay();
+      if(!track || items.length<2) return;
+      autoplayTimer=setInterval(function(){ step(1); },4000);
+    }
+    function kickAutoplay(){ startAutoplay(); }
+
     if(track){
       track.addEventListener('scroll',function(){
         clearTimeout(track._t);
         track._t=setTimeout(markActive,60);
       });
       markActive();
+      startAutoplay();
     }
-    if(prevBtn) prevBtn.addEventListener('click',function(){ step(-1); });
-    if(nextBtn) nextBtn.addEventListener('click',function(){ step(1); });
+    if(prevBtn) prevBtn.addEventListener('click',function(){ step(-1); kickAutoplay(); });
+    if(nextBtn) nextBtn.addEventListener('click',function(){ step(1); kickAutoplay(); });
     items.forEach(function(it){
       it.addEventListener('click',function(){
         if(it.classList.contains('active')){
@@ -160,12 +170,13 @@
           if(img && lightbox && lightboxImg){
             lightboxImg.src=img.src;
             lightbox.classList.add('open');
+            stopAutoplay();
           }
-        } else { goTo(it); }
+        } else { goTo(it); kickAutoplay(); }
       });
     });
     if(lightbox){
-      lightbox.addEventListener('click',function(){ lightbox.classList.remove('open'); });
+      lightbox.addEventListener('click',function(){ lightbox.classList.remove('open'); startAutoplay(); });
     }
 
     var articleCard=scope.querySelector('#pfArticleCard');

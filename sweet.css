@@ -1076,13 +1076,17 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .hotline-dial:disabled{ opacity:.4; cursor:not-allowed; }
 
 /* ---------------- 作品集：白一点医学一点 ---------------- */
-.pf-tabs{ position:sticky; top:0; z-index:20; display:flex; gap:8px; flex-wrap:wrap;
-  background:rgba(255,255,255,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-  border:1px solid #d8d4cc; border-radius:10px; padding:10px 12px; margin:16px 0 26px; }
-.pf-tab{ font-family:var(--body); font-weight:700; font-size:13px; cursor:pointer;
-  border:1px solid #d8d4cc; border-radius:8px; background:rgba(248,247,244,.8); color:#8a8577; padding:6px 14px; }
-.pf-tab:hover{ background:#eeece6; }
-.pf-tab.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+.pf-tabs{ position:sticky; top:0; z-index:20; display:flex; margin:16px 0 26px; }
+.pf-tab{ flex:1 1 0; font-family:var(--body); font-weight:700; font-size:13px; cursor:pointer;
+  border:1px solid #d8d4cc; background:rgba(255,255,255,.55);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  color:#8a8577; padding:10px 6px; text-align:center; margin-left:-1px; }
+.pf-tab:first-child{ margin-left:0; border-radius:10px 0 0 10px; }
+.pf-tab:last-child{ border-radius:0 10px 10px 0; }
+.pf-tab:hover{ background:rgba(255,255,255,.8); }
+.pf-tab.active{ position:relative; z-index:1; background:var(--ink); color:#fff; border-color:var(--ink); }
+
+.pf-panel h2.sec{ text-shadow:2px 2px 0 #ffdcec; }
 
 .pf-panel{ scroll-margin-top:64px; margin-bottom:44px; }
 
