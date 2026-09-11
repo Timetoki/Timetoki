@@ -1107,6 +1107,7 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   opacity:.4; filter:blur(1.5px); transform:scale(.82);
   transition:opacity .35s ease, transform .35s ease, filter .35s ease; }
 .pf-cf-item.active{ opacity:1; filter:none; transform:scale(1); cursor:zoom-in; }
+.pf-cf-track.no-anim .pf-cf-item{ transition:none !important; }
 .pf-cf-item img{ width:100%; height:auto; display:block; border-radius:10px;
   box-shadow:0 8px 24px rgba(44,37,48,.18); }
 .pf-cf-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:5;
@@ -1135,12 +1136,15 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .pf-card-cta{ margin-top:16px; font-family:var(--mono); font-size:12px; color:var(--ink); }
 
 .pf-article-list{ display:flex; flex-direction:column; gap:8px; }
-.pf-article-row{ display:flex; align-items:center; justify-content:space-between;
+.pf-article-row{ display:flex; align-items:center; justify-content:space-between; gap:10px;
   width:100%; background:#fff; border:1px solid #d8d4cc; border-radius:8px;
-  padding:11px 16px; cursor:pointer; transition:background .15s ease; }
+  padding:12px 16px; cursor:pointer; transition:background .15s ease; }
 .pf-article-row:hover{ background:#f8f7f4; }
+.pf-article-main{ display:flex; flex-direction:column; gap:3px; min-width:0; }
 .pf-article-title{ font-weight:700; font-size:14px; color:var(--ink); }
-.pf-lock{ font-size:14px; }
+.pf-article-note{ font-family:var(--mono); font-size:11px; color:#8a8577;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pf-lock{ flex:none; font-size:14px; }
 
 .pf-reader{ background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:18px 20px; margin-top:6px; }
 .pf-reader-close{ font-family:var(--body); font-weight:700; cursor:pointer; border:1px solid #d8d4cc;

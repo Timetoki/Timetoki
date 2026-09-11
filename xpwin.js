@@ -131,10 +131,18 @@
       });
       items.forEach(function(it){ it.classList.toggle('active', it===best); });
     }
-    function goTo(it){
+    function goTo(it, instant){
       if(!it || !track) return;
       var target=it.offsetLeft + it.offsetWidth/2 - track.clientWidth/2;
-      if(track.scrollTo){ track.scrollTo({left:target, behavior:'smooth'}); }
+      if(instant){
+        track.classList.add('no-anim');
+        track.scrollLeft=target;
+        markActive();
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){ track.classList.remove('no-anim'); });
+        });
+      }
+      else if(track.scrollTo){ track.scrollTo({left:target, behavior:'smooth'}); }
       else{ track.scrollLeft=target; }
     }
     function step(dir){
@@ -146,7 +154,7 @@
         var itMid=it.offsetLeft + it.offsetWidth/2;
         if((dir>0 && itMid>mid+4) || (dir<0 && itMid<mid-4)){ goTo(it); return; }
       }
-      goTo(list[0]);
+      goTo(list[0], true);
     }
 
     var autoplayTimer=null;
@@ -185,8 +193,8 @@
     }
 
     var ARTICLES=[
-      { file:'【xunelk】记瑞士轮的一件小事.txt', full:'【xunelk】记瑞士轮的一件小事', locked:true },
       { file:'【一阳】尾戒.txt', full:'【一阳】尾戒', locked:false },
+      { file:'【xunelk】记瑞士轮的一件小事.txt', full:'【xunelk】记瑞士轮的一件小事', locked:true },
       { file:'【兮星】海难.txt', full:'【兮星】海难', locked:true },
       { file:'【宁蓝】直到夏末。.txt', full:'【宁蓝】直到夏末。', locked:true },
       { file:'【猫兰】Just like donuts.txt', full:'【猫兰】Just like donuts', locked:true }
