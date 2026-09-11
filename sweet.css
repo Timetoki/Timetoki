@@ -726,7 +726,22 @@ body.desktop .row3{ display:grid; grid-template-columns:206px 1fr; gap:16px; ali
 body.desktop .row3 > .xpwin{ height:auto; display:flex; flex-direction:column; }
 @media (max-width:900px){
   body.desktop .row-top{ grid-template-columns:1fr; }
-  body.desktop .row3{ grid-template-columns:1fr; }
+  /* 唱片机竖着占左半，两张 side 图占右半上下各半，公告栏/留言墙各占一整行 */
+  body.desktop .row3{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "player img1"
+      "player img2"
+      "board board"
+      "wall wall";
+  }
+  body.desktop .row3 .bigblock,
+  body.desktop .row3 .barrow{ display:contents; }
+  body.desktop .row3 .p-player{ grid-area:player; }
+  body.desktop .row3 .barrow:nth-of-type(1) .sqbox{ grid-area:img1; }
+  body.desktop .row3 .barrow:nth-of-type(2) .sqbox{ grid-area:img2; }
+  body.desktop .row3 .bar-board{ grid-area:board; }
+  body.desktop .row3 .bar-wall{ grid-area:wall; }
 }
 
 /* 右侧大块：两条横栏堆叠 */
@@ -743,8 +758,7 @@ body.desktop .row3 > .xpwin{ height:auto; display:flex; flex-direction:column; }
   background:repeating-linear-gradient(45deg,#ffeaf4 0 12px,#ffdcec 12px 24px);
   font-family:var(--mono); font-size:10px; color:var(--ink-soft); text-align:center; padding:5px; }
 @media (max-width:900px){
-  .barrow{ flex-wrap:wrap; }
-  .sqbox{ width:100%; flex-basis:auto; height:120px; }
+  .sqbox{ width:100%; height:120px; }
 }
 
 /* 个人卡片：出框圆头像 + 装饰 gif */
