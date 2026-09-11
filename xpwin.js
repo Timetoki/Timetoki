@@ -13,7 +13,7 @@
     '<button id="xpmmin" title="最小化">_</button>' +
     '<button id="xpmmax" title="最大化">▢</button>' +
     '<button id="xpmcls" title="关闭">×</button>' +
-    '</span></div><div class="xp-b" id="xpmbody">加载中…</div>';
+    '</span></div><div class="xp-b" id="xpmbody">准备上菜……</div>';
   document.body.appendChild(modal);
 
   function close(){ modal.classList.remove('open','game','answerbook'); mask.classList.remove('open');
@@ -26,7 +26,7 @@
   function openModal(url,title,icon){
     document.getElementById('xpmtitle').textContent=title||'窗口';
     if(icon) document.getElementById('xpmico').src=icon;
-    var body=document.getElementById('xpmbody'); body.innerHTML='加载中…';
+    var body=document.getElementById('xpmbody'); body.innerHTML='准备上菜……';
     modal.classList.add('open'); mask.classList.add('open');
     if(window.Achievements){
       var base=url.split('/').pop();
@@ -47,7 +47,7 @@
       bindHotline(body);
       bindPortfolio(body);
       if(window.Achievements) window.Achievements.render();
-    }).catch(function(){ body.innerHTML='打不开这个窗口（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
+    }).catch(function(){ body.innerHTML='数据已???完好，请刷新。'; });
   }
 
   /* 弹窗里重新绑定贩售机掉落（弹窗剥离了原页脚本，需在此重挂） */
@@ -131,7 +131,12 @@
       });
       items.forEach(function(it){ it.classList.toggle('active', it===best); });
     }
-    function goTo(it){ if(it) it.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); }
+    function goTo(it){
+      if(!it || !track) return;
+      var target=it.offsetLeft + it.offsetWidth/2 - track.clientWidth/2;
+      if(track.scrollTo){ track.scrollTo({left:target, behavior:'smooth'}); }
+      else{ track.scrollLeft=target; }
+    }
     function step(dir){
       var mid=track.scrollLeft + track.clientWidth/2;
       var list=Array.prototype.slice.call(items);
@@ -179,26 +184,68 @@
       lightbox.addEventListener('click',function(){ lightbox.classList.remove('open'); startAutoplay(); });
     }
 
-    var articleCard=scope.querySelector('#pfArticleCard');
-    var textCards=scope.querySelector('#pfTextCards');
+    var ARTICLES=[
+      { file:'【xunelk】记瑞士轮的一件小事.txt', full:'【xunelk】记瑞士轮的一件小事', locked:true },
+      { file:'【一阳】尾戒.txt', full:'【一阳】尾戒', locked:false },
+      { file:'【兮星】海难.txt', full:'【兮星】海难', locked:true },
+      { file:'【宁蓝】直到夏末。.txt', full:'【宁蓝】直到夏末。', locked:true },
+      { file:'【猫兰】Just like donuts.txt', full:'【猫兰】Just like donuts', locked:true }
+    ];
+    var GATE_PASSWORD='1010';
+    var unlockedFiles={};
+    var currentArticle=null;
+
+    var articleList=scope.querySelector('#pfArticleList');
     var reader=scope.querySelector('#pfReader');
+    var readerTitle=scope.querySelector('#pfReaderTitle');
     var readerText=scope.querySelector('#pfReaderText');
     var readerClose=scope.querySelector('#pfReaderClose');
-    if(articleCard){
-      articleCard.addEventListener('click',function(){
-        textCards.hidden=true;
-        reader.hidden=false;
-        if(readerText.dataset.loaded) return;
-        fetch(encodeURI('pruducts/txts/【一阳】尾戒.txt')).then(function(r){ return r.text(); }).then(function(t){
-          readerText.textContent=t;
-          readerText.dataset.loaded='1';
-        }).catch(function(){ readerText.textContent='读取失败（本地直接双击打开时受浏览器限制，部署到网站后正常）。'; });
+    var gate=scope.querySelector('#pfGate');
+    var gateInput=scope.querySelector('#pfGateInput');
+    var gateSubmit=scope.querySelector('#pfGateSubmit');
+    var gateMsg=scope.querySelector('#pfGateMsg');
+
+    function loadArticleText(article){
+      readerText.hidden=false;
+      readerText.textContent='准备上菜……';
+      fetch(encodeURI('pruducts/txts/'+article.file)).then(function(r){ return r.text(); }).then(function(t){
+        readerText.textContent=t;
+      }).catch(function(){ readerText.textContent='数据已???完好，请刷新。'; });
+    }
+    function openArticle(article){
+      currentArticle=article;
+      articleList.hidden=true;
+      reader.hidden=false;
+      readerTitle.textContent=article.full;
+      if(article.locked && !unlockedFiles[article.file]){
+        readerText.hidden=true; readerText.textContent='';
+        gate.hidden=false; gateMsg.textContent=''; gateInput.value='';
+      } else {
+        gate.hidden=true;
+        loadArticleText(article);
+      }
+    }
+    function tryUnlock(){
+      if(!currentArticle) return;
+      if(gateInput.value===GATE_PASSWORD){
+        unlockedFiles[currentArticle.file]=true;
+        gateMsg.textContent='您已通过身份核验。';
+        setTimeout(function(){ gate.hidden=true; loadArticleText(currentArticle); },500);
+      } else {
+        gateMsg.textContent='您无权访问该资料。';
+      }
+    }
+    if(articleList){
+      articleList.querySelectorAll('.pf-article-row').forEach(function(row,i){
+        row.addEventListener('click',function(){ openArticle(ARTICLES[i]); });
       });
     }
+    if(gateSubmit) gateSubmit.addEventListener('click',tryUnlock);
+    if(gateInput) gateInput.addEventListener('keydown',function(e){ if(e.key==='Enter') tryUnlock(); });
     if(readerClose){
       readerClose.addEventListener('click',function(){
         reader.hidden=true;
-        textCards.hidden=false;
+        articleList.hidden=false;
       });
     }
   }

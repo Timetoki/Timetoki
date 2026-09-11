@@ -1122,7 +1122,6 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .pf-lightbox.open{ display:flex; }
 .pf-lightbox img{ max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 12px 40px rgba(0,0,0,.4); }
 
-.pf-cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
 .pf-card{ display:block; background:#fff; border:1px solid #d8d4cc; border-radius:10px;
   padding:16px; text-decoration:none; color:var(--ink); cursor:pointer;
   transition:transform .15s ease, box-shadow .15s ease; }
@@ -1135,11 +1134,28 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .pf-card-hero .pf-card-desc{ font-size:15px; line-height:1.7; }
 .pf-card-cta{ margin-top:16px; font-family:var(--mono); font-size:12px; color:var(--ink); }
 
+.pf-article-list{ display:flex; flex-direction:column; gap:8px; }
+.pf-article-row{ display:flex; align-items:center; justify-content:space-between;
+  width:100%; background:#fff; border:1px solid #d8d4cc; border-radius:8px;
+  padding:11px 16px; cursor:pointer; transition:background .15s ease; }
+.pf-article-row:hover{ background:#f8f7f4; }
+.pf-article-title{ font-weight:700; font-size:14px; color:var(--ink); }
+.pf-lock{ font-size:14px; }
+
 .pf-reader{ background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:18px 20px; margin-top:6px; }
 .pf-reader-close{ font-family:var(--body); font-weight:700; cursor:pointer; border:1px solid #d8d4cc;
   border-radius:8px; background:#f8f7f4; color:var(--ink); padding:6px 14px; margin-bottom:12px; }
-.pf-reader-title{ font-weight:700; font-size:18px; margin-bottom:10px; }
+.pf-reader-title{ font-weight:700; font-size:24px; text-align:left; margin-bottom:14px; }
 .pf-reader-text{ font-family:var(--body); font-size:14px; line-height:1.9; color:var(--ink);
   white-space:pre-wrap; word-break:break-word; max-height:70vh; overflow:auto; margin:0; }
+
+.pf-gate{ padding:6px 0 4px; }
+.pf-gate-row{ display:flex; gap:8px; }
+.pf-gate-row input{ flex:1; font-family:var(--body); font-size:14px; border:1px solid #d8d4cc;
+  border-radius:8px; padding:8px 10px; background:#f8f7f4; color:var(--ink); }
+.pf-gate-row button{ font-family:var(--body); font-weight:700; cursor:pointer;
+  border:1px solid #d8d4cc; border-radius:8px; background:#fff; color:var(--ink); padding:8px 16px; }
+.pf-gate-row button:hover{ background:#f8f7f4; }
+.pf-gate-msg{ font-family:var(--mono); font-size:12px; color:#8a8577; margin-top:10px; }
 
 .pf-empty{ font-family:var(--mono); font-size:13px; color:#8a8577; text-align:center; padding:40px 0; }
