@@ -50,16 +50,10 @@
 
   <section class="pf-panel" data-panel="painting">
     <h2 class="sec">板绘</h2>
-    <div class="pf-coverflow">
-      <button class="pf-cf-arrow prev" id="pfPrev" aria-label="上一张">‹</button>
-      <div class="pf-cf-track" id="pfCfTrack">
-        <div class="pf-cf-item pf-cf-clone" data-clone-of="2" aria-hidden="true"><img src="pruducts/paintings/3.jpg" alt=""></div>
-        <div class="pf-cf-item"><img src="pruducts/paintings/1.jpg" alt="板绘作品 1"></div>
-        <div class="pf-cf-item"><img src="pruducts/paintings/2.png" alt="板绘作品 2"></div>
-        <div class="pf-cf-item"><img src="pruducts/paintings/3.jpg" alt="板绘作品 3"></div>
-        <div class="pf-cf-item pf-cf-clone" data-clone-of="0" aria-hidden="true"><img src="pruducts/paintings/1.jpg" alt=""></div>
-      </div>
-      <button class="pf-cf-arrow next" id="pfNext" aria-label="下一张">›</button>
+    <div class="pf-carousel">
+      <button class="pf-car-btn" id="pfPrev" aria-label="上一张">‹</button>
+      <div class="pf-car-stage" id="pfCarStage"><img id="pfCarImg" src="pruducts/paintings/1.jpg" alt="板绘作品"></div>
+      <button class="pf-car-btn" id="pfNext" aria-label="下一张">›</button>
     </div>
   </section>
 
@@ -146,100 +140,52 @@
       panels.forEach(function(p){ obs.observe(p); });
     }
 
-    /* 板绘：横向滚动 + coverflow（居中清晰，两侧虚化退后）。首尾各挂一张克隆图，
-       下一张/上一张永远只是"继续往同一个方向走"，走到克隆图之后瞬间无声切回真图，
-       所以视觉上是一直往前播、自动成圈，不会有"跳回去"的既视感。 */
-    var track = scope.querySelector('#pfCfTrack');
-    var allNodes = scope.querySelectorAll('.pf-cf-item');           // 含首尾克隆，共 5 个
-    var items = scope.querySelectorAll('.pf-cf-item:not(.pf-cf-clone)'); // 只算真实的 3 张，供点击/灯箱用
+    /* 板绘：单图轮播，按序号线性循环（1 的上一张就是 3，3 的下一张就是 1），点图放大 */
+    var PAINTINGS = ['pruducts/paintings/1.jpg','pruducts/paintings/2.png','pruducts/paintings/3.jpg'];
+    var pIdx = 0;
+    var carImg = scope.querySelector('#pfCarImg');
+    var carStage = scope.querySelector('#pfCarStage');
     var prevBtn = scope.querySelector('#pfPrev');
     var nextBtn = scope.querySelector('#pfNext');
     var lightbox = scope.querySelector('#pfLightbox');
     var lightboxImg = scope.querySelector('#pfLightboxImg');
 
-    function centerOf(it){ return it.offsetLeft + it.offsetWidth/2; }
-
-    function markActive(){
-      if(!track) return;
-      var mid = track.scrollLeft + track.clientWidth/2;
-      var best = null, bestDist = Infinity;
-      allNodes.forEach(function(it){
-        var dist = Math.abs(centerOf(it) - mid);
-        if(dist < bestDist){ bestDist = dist; best = it; }
-      });
-      allNodes.forEach(function(it){ it.classList.toggle('active', it===best); });
+    function render(){
+      if(!carImg) return;
+      carImg.style.opacity = '0';
+      setTimeout(function(){
+        carImg.src = PAINTINGS[pIdx];
+        carImg.style.opacity = '1';
+      }, 150);
     }
-    function snapInstant(it){
-      if(!it || !track) return;
-      track.classList.add('no-anim');
-      track.scrollLeft = centerOf(it) - track.clientWidth/2;
-      markActive();
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ track.classList.remove('no-anim'); });
-      });
-    }
-    function goTo(it){
-      if(!it || !track) return;
-      var target = centerOf(it) - track.clientWidth/2;
-      if(track.scrollTo){ track.scrollTo({left:target, behavior:'smooth'}); }
-      else{ track.scrollLeft = target; }
-    }
-    function step(dir){
-      var mid = track.scrollLeft + track.clientWidth/2;
-      var list = Array.prototype.slice.call(allNodes);
-      if(dir<0) list.reverse();
-      var target = null;
-      for(var i=0;i<list.length;i++){
-        var it = list[i], itMid = centerOf(it);
-        if((dir>0 && itMid > mid+4) || (dir<0 && itMid < mid-4)){ target = it; break; }
-      }
-      if(!target) return;
-      goTo(target);
-      if(target.classList.contains('pf-cf-clone')){
-        clearTimeout(track._loopTimer);
-        track._loopTimer = setTimeout(function(){
-          snapInstant(items[+target.getAttribute('data-clone-of')]);
-        }, 420);
-      }
-    }
+    function prev(){ pIdx = (pIdx - 1 + PAINTINGS.length) % PAINTINGS.length; render(); }
+    function next(){ pIdx = (pIdx + 1) % PAINTINGS.length; render(); }
 
     var autoplayTimer = null;
     function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; } }
     function startAutoplay(){
       stopAutoplay();
-      if(!track || items.length < 2) return;
-      autoplayTimer = setInterval(function(){ step(1); }, 4000);
+      if(PAINTINGS.length < 2) return;
+      autoplayTimer = setInterval(next, 4000);
     }
     function kickAutoplay(){ startAutoplay(); }
 
-    if(track){
-      track.addEventListener('scroll', function(){
-        clearTimeout(track._t);
-        track._t = setTimeout(markActive, 60);
-      });
-      snapInstant(items[0]);
-      startAutoplay();
-    }
-    if(prevBtn) prevBtn.addEventListener('click', function(){ step(-1); kickAutoplay(); });
-    if(nextBtn) nextBtn.addEventListener('click', function(){ step(1); kickAutoplay(); });
-    items.forEach(function(it){
-      it.addEventListener('click', function(){
-        if(it.classList.contains('active')){
-          var img = it.querySelector('img');
-          if(img && lightbox && lightboxImg){
-            lightboxImg.src = img.src;
-            lightbox.classList.add('open');
-            stopAutoplay();
-          }
-        } else {
-          goTo(it);
-          kickAutoplay();
+    if(prevBtn) prevBtn.addEventListener('click', function(){ prev(); kickAutoplay(); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ next(); kickAutoplay(); });
+    if(carStage){
+      carStage.addEventListener('click', function(){
+        if(carImg && lightbox && lightboxImg){
+          lightboxImg.src = carImg.src;
+          lightbox.classList.add('open');
+          stopAutoplay();
         }
       });
-    });
+    }
     if(lightbox){
       lightbox.addEventListener('click', function(){ lightbox.classList.remove('open'); startAutoplay(); });
     }
+    render();
+    startAutoplay();
 
     /* 文字：一行一篇，锁住的要先核验密码才能懒加载 txt 文件 */
     var ARTICLES = [

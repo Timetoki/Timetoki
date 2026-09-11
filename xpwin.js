@@ -113,94 +113,51 @@
       panels.forEach(function(p){ obs.observe(p); });
     }
 
-    var track=scope.querySelector('#pfCfTrack');
-    var allNodes=scope.querySelectorAll('.pf-cf-item');
-    var items=scope.querySelectorAll('.pf-cf-item:not(.pf-cf-clone)');
+    var PAINTINGS=['pruducts/paintings/1.jpg','pruducts/paintings/2.png','pruducts/paintings/3.jpg'];
+    var pIdx=0;
+    var carImg=scope.querySelector('#pfCarImg');
+    var carStage=scope.querySelector('#pfCarStage');
     var prevBtn=scope.querySelector('#pfPrev');
     var nextBtn=scope.querySelector('#pfNext');
     var lightbox=scope.querySelector('#pfLightbox');
     var lightboxImg=scope.querySelector('#pfLightboxImg');
 
-    function centerOf(it){ return it.offsetLeft + it.offsetWidth/2; }
-
-    function markActive(){
-      if(!track) return;
-      var mid=track.scrollLeft + track.clientWidth/2;
-      var best=null, bestDist=Infinity;
-      allNodes.forEach(function(it){
-        var dist=Math.abs(centerOf(it)-mid);
-        if(dist<bestDist){ bestDist=dist; best=it; }
-      });
-      allNodes.forEach(function(it){ it.classList.toggle('active', it===best); });
+    function render(){
+      if(!carImg) return;
+      carImg.style.opacity='0';
+      setTimeout(function(){
+        carImg.src=PAINTINGS[pIdx];
+        carImg.style.opacity='1';
+      },150);
     }
-    function snapInstant(it){
-      if(!it || !track) return;
-      track.classList.add('no-anim');
-      track.scrollLeft=centerOf(it)-track.clientWidth/2;
-      markActive();
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ track.classList.remove('no-anim'); });
-      });
-    }
-    function goTo(it){
-      if(!it || !track) return;
-      var target=centerOf(it)-track.clientWidth/2;
-      if(track.scrollTo){ track.scrollTo({left:target, behavior:'smooth'}); }
-      else{ track.scrollLeft=target; }
-    }
-    function step(dir){
-      var mid=track.scrollLeft + track.clientWidth/2;
-      var list=Array.prototype.slice.call(allNodes);
-      if(dir<0) list.reverse();
-      var target=null;
-      for(var i=0;i<list.length;i++){
-        var it=list[i], itMid=centerOf(it);
-        if((dir>0 && itMid>mid+4) || (dir<0 && itMid<mid-4)){ target=it; break; }
-      }
-      if(!target) return;
-      goTo(target);
-      if(target.classList.contains('pf-cf-clone')){
-        clearTimeout(track._loopTimer);
-        track._loopTimer=setTimeout(function(){
-          snapInstant(items[+target.getAttribute('data-clone-of')]);
-        },420);
-      }
-    }
+    function prev(){ pIdx=(pIdx-1+PAINTINGS.length)%PAINTINGS.length; render(); }
+    function next(){ pIdx=(pIdx+1)%PAINTINGS.length; render(); }
 
     var autoplayTimer=null;
     function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer=null; } }
     function startAutoplay(){
       stopAutoplay();
-      if(!track || items.length<2) return;
-      autoplayTimer=setInterval(function(){ step(1); },4000);
+      if(PAINTINGS.length<2) return;
+      autoplayTimer=setInterval(next,4000);
     }
     function kickAutoplay(){ startAutoplay(); }
 
-    if(track){
-      track.addEventListener('scroll',function(){
-        clearTimeout(track._t);
-        track._t=setTimeout(markActive,60);
+    if(prevBtn) prevBtn.addEventListener('click',function(){ prev(); kickAutoplay(); });
+    if(nextBtn) nextBtn.addEventListener('click',function(){ next(); kickAutoplay(); });
+    if(carStage){
+      carStage.addEventListener('click',function(){
+        if(carImg && lightbox && lightboxImg){
+          lightboxImg.src=carImg.src;
+          lightbox.classList.add('open');
+          stopAutoplay();
+        }
       });
-      snapInstant(items[0]);
-      startAutoplay();
     }
-    if(prevBtn) prevBtn.addEventListener('click',function(){ step(-1); kickAutoplay(); });
-    if(nextBtn) nextBtn.addEventListener('click',function(){ step(1); kickAutoplay(); });
-    items.forEach(function(it){
-      it.addEventListener('click',function(){
-        if(it.classList.contains('active')){
-          var img=it.querySelector('img');
-          if(img && lightbox && lightboxImg){
-            lightboxImg.src=img.src;
-            lightbox.classList.add('open');
-            stopAutoplay();
-          }
-        } else { goTo(it); kickAutoplay(); }
-      });
-    });
     if(lightbox){
       lightbox.addEventListener('click',function(){ lightbox.classList.remove('open'); startAutoplay(); });
     }
+    render();
+    startAutoplay();
 
     var ARTICLES=[
       { file:'【一阳】尾戒.txt', full:'【一阳】尾戒', locked:false },

@@ -1098,26 +1098,15 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   font-family:var(--mono); font-size:11px; color:#8a8577; text-align:center; padding:6px; }
 @media (max-width:640px){ .photo-grid{ grid-template-columns:repeat(2,1fr); } }
 
-/* 板绘：横向滚动 coverflow，居中清晰、两侧虚化退后 */
-.pf-coverflow{ position:relative; }
-.pf-cf-track{ display:flex; align-items:center; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
-  padding:20px 30vw; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-.pf-cf-track::-webkit-scrollbar{ display:none; }
-.pf-cf-item{ flex:none; width:min(420px,58vw); scroll-snap-align:center; cursor:pointer;
-  opacity:.4; filter:blur(1.5px); transform:scale(.82);
-  transition:opacity .35s ease, transform .35s ease, filter .35s ease; }
-.pf-cf-item.active{ opacity:1; filter:none; transform:scale(1); cursor:zoom-in; }
-.pf-cf-track.no-anim .pf-cf-item{ transition:none !important; }
-.pf-cf-clone{ pointer-events:none; }
-.pf-cf-item img{ width:100%; height:auto; display:block; border-radius:10px;
-  box-shadow:0 8px 24px rgba(44,37,48,.18); }
-.pf-cf-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:5;
-  font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
+/* 板绘：单图轮播，按序号线性循环 */
+.pf-carousel{ display:flex; align-items:center; justify-content:center; gap:16px; padding:10px 0; }
+.pf-car-stage{ max-width:min(480px,78vw); cursor:zoom-in; }
+.pf-car-stage img{ width:100%; height:auto; display:block; border-radius:10px;
+  box-shadow:0 8px 24px rgba(44,37,48,.18); transition:opacity .15s ease; }
+.pf-car-btn{ flex:none; font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
   width:40px; height:40px; border:1px solid #d8d4cc; border-radius:50%;
   background:#fff; color:var(--ink); }
-.pf-cf-arrow:hover{ background:#f8f7f4; }
-.pf-cf-arrow.prev{ left:2px; } .pf-cf-arrow.next{ right:2px; }
-@media (max-width:640px){ .pf-cf-track{ padding:20px 12vw; } }
+.pf-car-btn:hover{ background:#f8f7f4; }
 
 .pf-lightbox{ display:none; position:fixed; inset:0; z-index:200; background:rgba(20,17,20,.86);
   align-items:center; justify-content:center; padding:5vh 5vw; cursor:zoom-out; }
