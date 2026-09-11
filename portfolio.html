@@ -51,13 +51,17 @@
   <section class="pf-panel" data-panel="painting">
     <h2 class="sec">板绘</h2>
     <div class="pf-coverflow">
-      <button class="pf-cf-arrow prev" id="pfPrev" aria-label="上一张">‹</button>
-      <div class="pf-cf-row" id="pfCfRow">
-        <div class="pf-cf-slot pf-cf-side" id="pfSlotL"><img id="pfImgL" src="" alt=""></div>
-        <div class="pf-cf-slot pf-cf-center" id="pfSlotC"><img id="pfImgC" src="" alt="板绘作品"></div>
-        <div class="pf-cf-slot pf-cf-side" id="pfSlotR"><img id="pfImgR" src="" alt=""></div>
+      <button class="pf-cf-arrow prev" data-cf="painting" aria-label="上一张">‹</button>
+      <div class="pf-cf-viewport">
+        <div class="pf-cf-track" id="pfCfPainting">
+          <div class="pf-cf-item pf-cf-clone" data-clone-of="2"><img src="pruducts/paintings/3.jpg" alt=""></div>
+          <div class="pf-cf-item"><img src="pruducts/paintings/1.jpg" alt="板绘作品 1"></div>
+          <div class="pf-cf-item"><img src="pruducts/paintings/2.png" alt="板绘作品 2"></div>
+          <div class="pf-cf-item"><img src="pruducts/paintings/3.jpg" alt="板绘作品 3"></div>
+          <div class="pf-cf-item pf-cf-clone" data-clone-of="0"><img src="pruducts/paintings/1.jpg" alt=""></div>
+        </div>
       </div>
-      <button class="pf-cf-arrow next" id="pfNext" aria-label="下一张">›</button>
+      <button class="pf-cf-arrow next" data-cf="painting" aria-label="下一张">›</button>
     </div>
   </section>
 
@@ -74,7 +78,19 @@
 
   <section class="pf-panel" data-panel="handwrite">
     <h2 class="sec">板写</h2>
-    <p class="pf-empty">敬请期待。</p>
+    <div class="pf-coverflow">
+      <button class="pf-cf-arrow prev" data-cf="words" aria-label="上一张">‹</button>
+      <div class="pf-cf-viewport">
+        <div class="pf-cf-track" id="pfCfWords">
+          <div class="pf-cf-item pf-cf-clone" data-clone-of="2"><img src="pruducts/words/3.jpg" alt=""></div>
+          <div class="pf-cf-item"><img src="pruducts/words/1.jpg" alt="板写作品 1"></div>
+          <div class="pf-cf-item"><img src="pruducts/words/2.jpg" alt="板写作品 2"></div>
+          <div class="pf-cf-item"><img src="pruducts/words/3.jpg" alt="板写作品 3"></div>
+          <div class="pf-cf-item pf-cf-clone" data-clone-of="0"><img src="pruducts/words/1.jpg" alt=""></div>
+        </div>
+      </div>
+      <button class="pf-cf-arrow next" data-cf="words" aria-label="下一张">›</button>
+    </div>
   </section>
 
   <section class="pf-panel" data-panel="photo">
@@ -132,69 +148,108 @@
       panels.forEach(function(p){ obs.observe(p); });
     }
 
-    /* 板绘：固定三格（左右邻图虚化退后，中间清楚），1/2/3 循环，每张图的左右邻居永远固定，
-       靠 CSS transform 做滑动过渡，不依赖任何滚动容器，没有克隆、没有滚动位置判断 */
-    var PAINTINGS = ['pruducts/paintings/1.jpg','pruducts/paintings/2.png','pruducts/paintings/3.jpg'];
-    var centerIdx = 0;
-    var row = scope.querySelector('#pfCfRow');
-    var imgL = scope.querySelector('#pfImgL');
-    var imgC = scope.querySelector('#pfImgC');
-    var imgR = scope.querySelector('#pfImgR');
-    var slotL = scope.querySelector('#pfSlotL');
-    var slotC = scope.querySelector('#pfSlotC');
-    var slotR = scope.querySelector('#pfSlotR');
-    var prevBtn = scope.querySelector('#pfPrev');
-    var nextBtn = scope.querySelector('#pfNext');
+    /* 板绘 / 板写：首尾克隆图 + transform 整条平移做真滑动，邻居关系固定（物理相邻，不用算），
+       走到克隆图后用 transitionend 精确判定动画结束，再瞬间无声切回真图，接着往同个方向循环 */
     var lightbox = scope.querySelector('#pfLightbox');
     var lightboxImg = scope.querySelector('#pfLightboxImg');
+    var coverflows = [];
 
-    function render(){
-      var n = PAINTINGS.length;
-      var l = (centerIdx - 1 + n) % n;
-      var r = (centerIdx + 1) % n;
-      if(imgL) imgL.src = PAINTINGS[l];
-      if(imgC) imgC.src = PAINTINGS[centerIdx];
-      if(imgR) imgR.src = PAINTINGS[r];
-    }
-    function step(dir){
-      if(!row) return;
-      row.classList.add(dir>0 ? 'shift-next' : 'shift-prev');
-      setTimeout(function(){
-        centerIdx = (centerIdx + dir + PAINTINGS.length) % PAINTINGS.length;
-        render();
-        row.classList.remove('shift-next','shift-prev');
-      }, 220);
-    }
-    function next(){ step(1); }
-    function prev(){ step(-1); }
+    function initCoverflow(trackId){
+      var track = scope.querySelector('#'+trackId);
+      if(!track) return null;
+      var viewport = track.parentElement;
+      var allNodes = track.querySelectorAll('.pf-cf-item');
+      var items = track.querySelectorAll('.pf-cf-item:not(.pf-cf-clone)');
+      var current = items[0];
 
-    var autoplayTimer = null;
-    function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; } }
-    function startAutoplay(){
-      stopAutoplay();
-      if(PAINTINGS.length < 2) return;
-      autoplayTimer = setInterval(next, 4000);
-    }
-    function kickAutoplay(){ startAutoplay(); }
-
-    if(prevBtn) prevBtn.addEventListener('click', function(){ prev(); kickAutoplay(); });
-    if(nextBtn) nextBtn.addEventListener('click', function(){ next(); kickAutoplay(); });
-    if(slotL) slotL.addEventListener('click', function(){ prev(); kickAutoplay(); });
-    if(slotR) slotR.addEventListener('click', function(){ next(); kickAutoplay(); });
-    if(slotC){
-      slotC.addEventListener('click', function(){
-        if(imgC && lightbox && lightboxImg){
-          lightboxImg.src = imgC.src;
-          lightbox.classList.add('open');
-          stopAutoplay();
+      function centerOf(it){ return it.offsetLeft + it.offsetWidth/2; }
+      function setActive(it){ allNodes.forEach(function(n){ n.classList.toggle('active', n===it); }); }
+      function moveTo(it, animate){
+        if(!it) return;
+        var px = -(centerOf(it) - viewport.clientWidth/2);
+        if(!animate){
+          track.classList.add('no-anim');
+          track.style.transform = 'translateX('+px+'px)';
+          setActive(it);
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){ track.classList.remove('no-anim'); });
+          });
+        } else {
+          track.style.transform = 'translateX('+px+'px)';
+          setActive(it);
         }
+      }
+      function findNext(dir){
+        var mid = centerOf(current);
+        var list = Array.prototype.slice.call(allNodes);
+        if(dir<0) list.reverse();
+        for(var i=0;i<list.length;i++){
+          var it=list[i], itMid=centerOf(it);
+          if((dir>0 && itMid>mid+4) || (dir<0 && itMid<mid-4)) return it;
+        }
+        return null;
+      }
+      function goTo(target){
+        if(!target) return;
+        current = target;
+        moveTo(target, true);
+        if(target.classList.contains('pf-cf-clone')){
+          var done = false;
+          function land(){
+            if(done) return; done = true;
+            track.removeEventListener('transitionend', onEnd);
+            var real = items[+target.getAttribute('data-clone-of')];
+            current = real; moveTo(real, false);
+          }
+          function onEnd(e){ if(e.target===track && e.propertyName==='transform') land(); }
+          track.addEventListener('transitionend', onEnd);
+          setTimeout(land, 600);
+        }
+      }
+      function step(dir){ goTo(findNext(dir)); }
+
+      var timer = null;
+      function stopAutoplay(){ if(timer){ clearInterval(timer); timer=null; } }
+      function startAutoplay(){ stopAutoplay(); if(items.length<2) return; timer=setInterval(function(){ step(1); },4000); }
+      function kick(){ startAutoplay(); }
+
+      items.forEach(function(it){
+        it.addEventListener('click', function(){
+          if(it===current){
+            var img = it.querySelector('img');
+            if(img && lightbox && lightboxImg){
+              lightboxImg.src = img.src;
+              lightbox.classList.add('open');
+              stopAutoplay();
+            }
+          } else {
+            goTo(it); kick();
+          }
+        });
+      });
+
+      moveTo(items[0], false);
+      startAutoplay();
+      return { step:step, kick:kick, stopAutoplay:stopAutoplay, startAutoplay:startAutoplay };
+    }
+
+    coverflows.push(['painting', initCoverflow('pfCfPainting')]);
+    coverflows.push(['words', initCoverflow('pfCfWords')]);
+
+    scope.querySelectorAll('.pf-cf-arrow').forEach(function(btn){
+      var key = btn.getAttribute('data-cf');
+      var cf = null;
+      coverflows.forEach(function(pair){ if(pair[0]===key) cf=pair[1]; });
+      if(!cf) return;
+      var dir = btn.classList.contains('next') ? 1 : -1;
+      btn.addEventListener('click', function(){ cf.step(dir); cf.kick(); });
+    });
+    if(lightbox){
+      lightbox.addEventListener('click', function(){
+        lightbox.classList.remove('open');
+        coverflows.forEach(function(pair){ if(pair[1]) pair[1].startAutoplay(); });
       });
     }
-    if(lightbox){
-      lightbox.addEventListener('click', function(){ lightbox.classList.remove('open'); startAutoplay(); });
-    }
-    render();
-    startAutoplay();
 
     /* 文字：一行一篇，锁住的要先核验密码才能懒加载 txt 文件 */
     var ARTICLES = [

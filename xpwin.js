@@ -113,67 +113,106 @@
       panels.forEach(function(p){ obs.observe(p); });
     }
 
-    var PAINTINGS=['pruducts/paintings/1.jpg','pruducts/paintings/2.png','pruducts/paintings/3.jpg'];
-    var centerIdx=0;
-    var row=scope.querySelector('#pfCfRow');
-    var imgL=scope.querySelector('#pfImgL');
-    var imgC=scope.querySelector('#pfImgC');
-    var imgR=scope.querySelector('#pfImgR');
-    var slotL=scope.querySelector('#pfSlotL');
-    var slotC=scope.querySelector('#pfSlotC');
-    var slotR=scope.querySelector('#pfSlotR');
-    var prevBtn=scope.querySelector('#pfPrev');
-    var nextBtn=scope.querySelector('#pfNext');
     var lightbox=scope.querySelector('#pfLightbox');
     var lightboxImg=scope.querySelector('#pfLightboxImg');
+    var coverflows=[];
 
-    function render(){
-      var n=PAINTINGS.length;
-      var l=(centerIdx-1+n)%n;
-      var r=(centerIdx+1)%n;
-      if(imgL) imgL.src=PAINTINGS[l];
-      if(imgC) imgC.src=PAINTINGS[centerIdx];
-      if(imgR) imgR.src=PAINTINGS[r];
-    }
-    function step(dir){
-      if(!row) return;
-      row.classList.add(dir>0 ? 'shift-next' : 'shift-prev');
-      setTimeout(function(){
-        centerIdx=(centerIdx+dir+PAINTINGS.length)%PAINTINGS.length;
-        render();
-        row.classList.remove('shift-next','shift-prev');
-      },220);
-    }
-    function next(){ step(1); }
-    function prev(){ step(-1); }
+    function initCoverflow(trackId){
+      var track=scope.querySelector('#'+trackId);
+      if(!track) return null;
+      var viewport=track.parentElement;
+      var allNodes=track.querySelectorAll('.pf-cf-item');
+      var items=track.querySelectorAll('.pf-cf-item:not(.pf-cf-clone)');
+      var current=items[0];
 
-    var autoplayTimer=null;
-    function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer=null; } }
-    function startAutoplay(){
-      stopAutoplay();
-      if(PAINTINGS.length<2) return;
-      autoplayTimer=setInterval(next,4000);
-    }
-    function kickAutoplay(){ startAutoplay(); }
-
-    if(prevBtn) prevBtn.addEventListener('click',function(){ prev(); kickAutoplay(); });
-    if(nextBtn) nextBtn.addEventListener('click',function(){ next(); kickAutoplay(); });
-    if(slotL) slotL.addEventListener('click',function(){ prev(); kickAutoplay(); });
-    if(slotR) slotR.addEventListener('click',function(){ next(); kickAutoplay(); });
-    if(slotC){
-      slotC.addEventListener('click',function(){
-        if(imgC && lightbox && lightboxImg){
-          lightboxImg.src=imgC.src;
-          lightbox.classList.add('open');
-          stopAutoplay();
+      function centerOf(it){ return it.offsetLeft + it.offsetWidth/2; }
+      function setActive(it){ allNodes.forEach(function(n){ n.classList.toggle('active', n===it); }); }
+      function moveTo(it, animate){
+        if(!it) return;
+        var px=-(centerOf(it) - viewport.clientWidth/2);
+        if(!animate){
+          track.classList.add('no-anim');
+          track.style.transform='translateX('+px+'px)';
+          setActive(it);
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){ track.classList.remove('no-anim'); });
+          });
+        } else {
+          track.style.transform='translateX('+px+'px)';
+          setActive(it);
         }
+      }
+      function findNext(dir){
+        var mid=centerOf(current);
+        var list=Array.prototype.slice.call(allNodes);
+        if(dir<0) list.reverse();
+        for(var i=0;i<list.length;i++){
+          var it=list[i], itMid=centerOf(it);
+          if((dir>0 && itMid>mid+4) || (dir<0 && itMid<mid-4)) return it;
+        }
+        return null;
+      }
+      function goTo(target){
+        if(!target) return;
+        current=target;
+        moveTo(target, true);
+        if(target.classList.contains('pf-cf-clone')){
+          var done=false;
+          function land(){
+            if(done) return; done=true;
+            track.removeEventListener('transitionend', onEnd);
+            var real=items[+target.getAttribute('data-clone-of')];
+            current=real; moveTo(real, false);
+          }
+          function onEnd(e){ if(e.target===track && e.propertyName==='transform') land(); }
+          track.addEventListener('transitionend', onEnd);
+          setTimeout(land, 600);
+        }
+      }
+      function step(dir){ goTo(findNext(dir)); }
+
+      var timer=null;
+      function stopAutoplay(){ if(timer){ clearInterval(timer); timer=null; } }
+      function startAutoplay(){ stopAutoplay(); if(items.length<2) return; timer=setInterval(function(){ step(1); },4000); }
+      function kick(){ startAutoplay(); }
+
+      items.forEach(function(it){
+        it.addEventListener('click', function(){
+          if(it===current){
+            var img=it.querySelector('img');
+            if(img && lightbox && lightboxImg){
+              lightboxImg.src=img.src;
+              lightbox.classList.add('open');
+              stopAutoplay();
+            }
+          } else {
+            goTo(it); kick();
+          }
+        });
+      });
+
+      moveTo(items[0], false);
+      startAutoplay();
+      return { step:step, kick:kick, stopAutoplay:stopAutoplay, startAutoplay:startAutoplay };
+    }
+
+    coverflows.push(['painting', initCoverflow('pfCfPainting')]);
+    coverflows.push(['words', initCoverflow('pfCfWords')]);
+
+    scope.querySelectorAll('.pf-cf-arrow').forEach(function(btn){
+      var key=btn.getAttribute('data-cf');
+      var cf=null;
+      coverflows.forEach(function(pair){ if(pair[0]===key) cf=pair[1]; });
+      if(!cf) return;
+      var dir=btn.classList.contains('next') ? 1 : -1;
+      btn.addEventListener('click', function(){ cf.step(dir); cf.kick(); });
+    });
+    if(lightbox){
+      lightbox.addEventListener('click', function(){
+        lightbox.classList.remove('open');
+        coverflows.forEach(function(pair){ if(pair[1]) pair[1].startAutoplay(); });
       });
     }
-    if(lightbox){
-      lightbox.addEventListener('click',function(){ lightbox.classList.remove('open'); startAutoplay(); });
-    }
-    render();
-    startAutoplay();
 
     var ARTICLES=[
       { file:'【一阳】尾戒.txt', full:'【一阳】尾戒', locked:false },
