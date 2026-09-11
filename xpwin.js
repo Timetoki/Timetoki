@@ -114,24 +114,38 @@
     }
 
     var PAINTINGS=['pruducts/paintings/1.jpg','pruducts/paintings/2.png','pruducts/paintings/3.jpg'];
-    var pIdx=0;
-    var carImg=scope.querySelector('#pfCarImg');
-    var carStage=scope.querySelector('#pfCarStage');
+    var centerIdx=0;
+    var row=scope.querySelector('#pfCfRow');
+    var imgL=scope.querySelector('#pfImgL');
+    var imgC=scope.querySelector('#pfImgC');
+    var imgR=scope.querySelector('#pfImgR');
+    var slotL=scope.querySelector('#pfSlotL');
+    var slotC=scope.querySelector('#pfSlotC');
+    var slotR=scope.querySelector('#pfSlotR');
     var prevBtn=scope.querySelector('#pfPrev');
     var nextBtn=scope.querySelector('#pfNext');
     var lightbox=scope.querySelector('#pfLightbox');
     var lightboxImg=scope.querySelector('#pfLightboxImg');
 
     function render(){
-      if(!carImg) return;
-      carImg.style.opacity='0';
-      setTimeout(function(){
-        carImg.src=PAINTINGS[pIdx];
-        carImg.style.opacity='1';
-      },150);
+      var n=PAINTINGS.length;
+      var l=(centerIdx-1+n)%n;
+      var r=(centerIdx+1)%n;
+      if(imgL) imgL.src=PAINTINGS[l];
+      if(imgC) imgC.src=PAINTINGS[centerIdx];
+      if(imgR) imgR.src=PAINTINGS[r];
     }
-    function prev(){ pIdx=(pIdx-1+PAINTINGS.length)%PAINTINGS.length; render(); }
-    function next(){ pIdx=(pIdx+1)%PAINTINGS.length; render(); }
+    function step(dir){
+      if(!row) return;
+      row.classList.add(dir>0 ? 'shift-next' : 'shift-prev');
+      setTimeout(function(){
+        centerIdx=(centerIdx+dir+PAINTINGS.length)%PAINTINGS.length;
+        render();
+        row.classList.remove('shift-next','shift-prev');
+      },220);
+    }
+    function next(){ step(1); }
+    function prev(){ step(-1); }
 
     var autoplayTimer=null;
     function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer=null; } }
@@ -144,10 +158,12 @@
 
     if(prevBtn) prevBtn.addEventListener('click',function(){ prev(); kickAutoplay(); });
     if(nextBtn) nextBtn.addEventListener('click',function(){ next(); kickAutoplay(); });
-    if(carStage){
-      carStage.addEventListener('click',function(){
-        if(carImg && lightbox && lightboxImg){
-          lightboxImg.src=carImg.src;
+    if(slotL) slotL.addEventListener('click',function(){ prev(); kickAutoplay(); });
+    if(slotR) slotR.addEventListener('click',function(){ next(); kickAutoplay(); });
+    if(slotC){
+      slotC.addEventListener('click',function(){
+        if(imgC && lightbox && lightboxImg){
+          lightboxImg.src=imgC.src;
           lightbox.classList.add('open');
           stopAutoplay();
         }
@@ -168,59 +184,62 @@
     ];
     var GATE_PASSWORD='1010';
     var unlockedFiles={};
-    var currentArticle=null;
+    var openRow=null, openPanel=null;
 
     var articleList=scope.querySelector('#pfArticleList');
-    var reader=scope.querySelector('#pfReader');
-    var readerTitle=scope.querySelector('#pfReaderTitle');
-    var readerText=scope.querySelector('#pfReaderText');
-    var readerClose=scope.querySelector('#pfReaderClose');
-    var gate=scope.querySelector('#pfGate');
-    var gateInput=scope.querySelector('#pfGateInput');
-    var gateSubmit=scope.querySelector('#pfGateSubmit');
-    var gateMsg=scope.querySelector('#pfGateMsg');
 
-    function loadArticleText(article){
-      readerText.hidden=false;
-      readerText.textContent='准备上菜……';
+    function closeOpen(){
+      if(openPanel){ openPanel.remove(); openPanel=null; }
+      if(openRow){ openRow.classList.remove('open'); openRow=null; }
+    }
+    function showText(panel, article){
+      panel.innerHTML=
+        '<div class="pf-reader-title">'+article.full+'</div>'+
+        '<pre class="pf-reader-text">准备上菜……</pre>';
+      var pre=panel.querySelector('.pf-reader-text');
       fetch(encodeURI('pruducts/txts/'+article.file)).then(function(r){ return r.text(); }).then(function(t){
-        readerText.textContent=t;
-      }).catch(function(){ readerText.textContent='数据已???完好，请刷新。'; });
+        pre.textContent=t;
+      }).catch(function(){ pre.textContent='数据已???完好，请刷新。'; });
     }
-    function openArticle(article){
-      currentArticle=article;
-      articleList.hidden=true;
-      reader.hidden=false;
-      readerTitle.textContent=article.full;
-      if(article.locked && !unlockedFiles[article.file]){
-        readerText.hidden=true; readerText.textContent='';
-        gate.hidden=false; gateMsg.textContent=''; gateInput.value='';
-      } else {
-        gate.hidden=true;
-        loadArticleText(article);
+    function showGate(panel, article){
+      panel.innerHTML=
+        '<div class="pf-reader-title">'+article.full+'</div>'+
+        '<div class="pf-gate">'+
+          '<div class="pf-gate-row">'+
+            '<input type="password" class="pf-gate-input" placeholder="请输入密码" autocomplete="off">'+
+            '<button class="pf-gate-submit">核验</button>'+
+          '</div>'+
+          '<p class="pf-gate-msg"></p>'+
+        '</div>';
+      var input=panel.querySelector('.pf-gate-input');
+      var submit=panel.querySelector('.pf-gate-submit');
+      var msg=panel.querySelector('.pf-gate-msg');
+      function tryUnlock(){
+        if(input.value===GATE_PASSWORD){
+          unlockedFiles[article.file]=true;
+          msg.textContent='您已通过身份核验。';
+          setTimeout(function(){ showText(panel, article); },500);
+        } else {
+          msg.textContent='您无权访问该资料。';
+        }
       }
-    }
-    function tryUnlock(){
-      if(!currentArticle) return;
-      if(gateInput.value===GATE_PASSWORD){
-        unlockedFiles[currentArticle.file]=true;
-        gateMsg.textContent='您已通过身份核验。';
-        setTimeout(function(){ gate.hidden=true; loadArticleText(currentArticle); },500);
-      } else {
-        gateMsg.textContent='您无权访问该资料。';
-      }
+      submit.addEventListener('click',tryUnlock);
+      input.addEventListener('keydown',function(e){ if(e.key==='Enter') tryUnlock(); });
     }
     if(articleList){
-      articleList.querySelectorAll('.pf-article-row').forEach(function(row,i){
-        row.addEventListener('click',function(){ openArticle(ARTICLES[i]); });
-      });
-    }
-    if(gateSubmit) gateSubmit.addEventListener('click',tryUnlock);
-    if(gateInput) gateInput.addEventListener('keydown',function(e){ if(e.key==='Enter') tryUnlock(); });
-    if(readerClose){
-      readerClose.addEventListener('click',function(){
-        reader.hidden=true;
-        articleList.hidden=false;
+      articleList.querySelectorAll('.pf-article-row').forEach(function(rowEl,i){
+        rowEl.addEventListener('click',function(){
+          var article=ARTICLES[i];
+          if(openRow===rowEl){ closeOpen(); return; }
+          closeOpen();
+          var panel=document.createElement('div');
+          panel.className='pf-article-reader';
+          rowEl.insertAdjacentElement('afterend', panel);
+          if(article.locked && !unlockedFiles[article.file]){ showGate(panel, article); }
+          else{ showText(panel, article); }
+          rowEl.classList.add('open');
+          openRow=rowEl; openPanel=panel;
+        });
       });
     }
   }

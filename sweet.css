@@ -673,6 +673,7 @@ body.desktop .p-gallery > .xp-b, body.desktop .p-social > .xp-b{
 }
 body.desktop .p-gallery{ overflow:visible !important; }
 body.desktop .p-gallery > .xp-b{ height:170px; padding:0; overflow:visible; }
+body.desktop .p-gallery > .xp-t{ border-radius:10px 10px 0 0; }
 
 .album-stage{ position:relative; height:100%; display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; }
 .album-main{ overflow:hidden; }
@@ -1093,20 +1094,27 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
 .photo-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
 .pg-cell{ position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:8px;
   border:1px solid #d8d4cc; background:#f8f7f4; }
-.pg-cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+.pg-cell img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:8px; }
 .pg-ph{ position:absolute; inset:0; display:none; align-items:center; justify-content:center;
   font-family:var(--mono); font-size:11px; color:#8a8577; text-align:center; padding:6px; }
 @media (max-width:640px){ .photo-grid{ grid-template-columns:repeat(2,1fr); } }
 
-/* 板绘：单图轮播，按序号线性循环 */
-.pf-carousel{ display:flex; align-items:center; justify-content:center; gap:16px; padding:10px 0; }
-.pf-car-stage{ max-width:min(480px,78vw); cursor:zoom-in; }
-.pf-car-stage img{ width:100%; height:auto; display:block; border-radius:10px;
-  box-shadow:0 8px 24px rgba(44,37,48,.18); transition:opacity .15s ease; }
-.pf-car-btn{ flex:none; font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
+/* 板绘：固定三格 coverflow，中间清楚两边虚化，1/2/3 循环、邻居固定，纯 transform 过渡不用滚动容器 */
+.pf-coverflow{ display:flex; align-items:center; justify-content:center; gap:10px; padding:14px 0; }
+.pf-cf-row{ display:flex; align-items:center; justify-content:center; gap:14px;
+  transition:transform .22s ease, opacity .22s ease; }
+.pf-cf-row.shift-next{ transform:translateX(-22px); opacity:.4; }
+.pf-cf-row.shift-prev{ transform:translateX(22px); opacity:.4; }
+.pf-cf-slot{ flex:none; cursor:pointer; transition:opacity .22s ease, transform .22s ease, filter .22s ease; }
+.pf-cf-slot img{ display:block; width:100%; height:auto; border-radius:10px;
+  box-shadow:0 8px 24px rgba(44,37,48,.18); }
+.pf-cf-side{ width:min(150px,24vw); opacity:.45; filter:blur(1.5px); transform:scale(.92); }
+.pf-cf-center{ width:min(380px,56vw); cursor:zoom-in; }
+.pf-cf-arrow{ flex:none; font-family:var(--body); font-size:22px; font-weight:700; cursor:pointer;
   width:40px; height:40px; border:1px solid #d8d4cc; border-radius:50%;
   background:#fff; color:var(--ink); }
-.pf-car-btn:hover{ background:#f8f7f4; }
+.pf-cf-arrow:hover{ background:#f8f7f4; }
+@media (max-width:640px){ .pf-cf-side{ width:min(80px,18vw); } .pf-cf-center{ width:min(220px,50vw); } }
 
 .pf-lightbox{ display:none; position:fixed; inset:0; z-index:200; background:rgba(20,17,20,.86);
   align-items:center; justify-content:center; padding:5vh 5vw; cursor:zoom-out; }
@@ -1130,16 +1138,17 @@ a.specimen-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(44
   width:100%; background:#fff; border:1px solid #d8d4cc; border-radius:8px;
   padding:12px 16px; cursor:pointer; transition:background .15s ease; }
 .pf-article-row:hover{ background:#f8f7f4; }
+.pf-article-row.open{ border-color:var(--ink); }
 .pf-article-main{ display:flex; flex-direction:column; gap:3px; min-width:0; }
 .pf-article-title{ font-weight:700; font-size:14px; color:var(--ink); }
 .pf-article-note{ font-family:var(--mono); font-size:11px; color:#8a8577;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .pf-lock{ flex:none; font-size:14px; }
 
-.pf-reader{ background:#fff; border:1px solid #d8d4cc; border-radius:10px; padding:18px 20px; margin-top:6px; }
-.pf-reader-close{ font-family:var(--body); font-weight:700; cursor:pointer; border:1px solid #d8d4cc;
-  border-radius:8px; background:#f8f7f4; color:var(--ink); padding:6px 14px; margin-bottom:12px; }
-.pf-reader-title{ font-weight:700; font-size:24px; text-align:left; margin-bottom:14px; }
+/* 点哪篇，全文就直接铺在那一行下面，不用跑到列表最底下 */
+.pf-article-reader{ background:#fff; border:1px solid #d8d4cc; border-radius:8px;
+  padding:16px 18px; margin:-2px 0 8px; }
+.pf-reader-title{ font-weight:700; font-size:20px; text-align:left; margin-bottom:12px; }
 .pf-reader-text{ font-family:var(--body); font-size:14px; line-height:1.9; color:var(--ink);
   white-space:pre-wrap; word-break:break-word; max-height:70vh; overflow:auto; margin:0; }
 
